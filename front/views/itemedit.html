@@ -1,21 +1,42 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Courses</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a onclick="navigate('index')">Accueil</a></li>
+            <li><a onclick="navigate('archive')">Historique</a></li>
+        </ul>
+    </div>
+</nav>
 
-<div id="formEditIngredient" >
+<ul class="sidenav" id="mobile-demo">
+    <li><a onclick="navigate('index')">Accueil</a></li>
+    <li><a onclick="navigate('archive')">Historique</a></li>
+</ul>
+<div class="container">
+    <h3 id="editTitle">Modifier</h3>
+
+
+    <div id="formEditIngredient">
         <div class="row">
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s6">
                         <input id="fieldItemQte" type="number" class="validate">
-                        <label for="fieldItemQte" >Quantité</label>
+                        <label for="fieldItemQte" class="active">Quantité</label>
                     </div>
                     <div class="input-field col s6">
                         <input id="fieldItemName" type="text" class="validate">
-                        <label for="fieldItemName" >Article</label>
+                        <label for="fieldItemName" class="active">Article</label>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="modal-footer">
-            <a href="#!" onclick="itemeditController.save()"
-               class="modal-close waves-effect waves-green btn-flat">Save</a>
+
+        <div class="row">
+            <button class="waves-effect waves-light btn" onclick="itemeditController.save()">Enregistrer</button>
         </div>
+
+
+</div>
 </div>

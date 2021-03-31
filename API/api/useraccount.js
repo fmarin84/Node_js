@@ -18,4 +18,9 @@ module.exports = (app, svc, jwt) => {
                 res.status(500).end()
             })
     })
+
+    app.get("/useraccount/search/:login", jwt.validateJWT, async (req, res) => {
+        res.json(await svc.dao.getTestByLogin(req.params.login))
+    })
+
 }

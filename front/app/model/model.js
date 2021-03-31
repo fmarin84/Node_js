@@ -81,4 +81,28 @@ class ModelItem {
 
 }
 
+class ModelUser {
+    constructor() {
+        this.api = new UserAccountAPI()
+    }
 
+    async getByLogin(login) {
+
+        let users = []
+
+        for (let user of await this.api.getByLogin(login)) {
+            users.push(Object.assign(new User(), user))
+        }
+        return users
+    }
+
+    delete(id) {
+        return this.api.delete(id).then(res => res.status)
+    }
+    insert(user) {
+        return this.api.insert(user).then(res => res.status)
+    }
+    update(user) {
+        return this.api.update(user).then(res => res.status)
+    }
+}

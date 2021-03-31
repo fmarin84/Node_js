@@ -5,6 +5,7 @@ class BaseController {
         this.setBackButtonView('index')
         this.model = new Model()
         this.modelItem = new ModelItem()
+        this.modelUser = new ModelUser()
     }
     checkAuthentication() {
         if (localStorage.getItem("token") === null) {

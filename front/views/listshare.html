@@ -1,0 +1,56 @@
+
+<nav>
+    <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Courses</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a onclick="navigate('index')">Accueil</a></li>
+            <li><a onclick="navigate('archive')">Historique</a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a onclick="navigate('index')">Accueil</a></li>
+    <li><a onclick="navigate('archive')">Historique</a></li>
+</ul>
+
+<div class="container">
+    <h3 id="editTitle">Chercher un utilisateur</h3>
+    <div id="formSearch">
+        <div class="row">
+            <!-- <form class="col s12"> -->
+                 <div class="row">
+                     <div class="input-field col s6">
+                         <input id="fieldLogin" type="text" class="validate">
+                         <label for="fieldLogin" >Login</label>
+                     </div>
+
+                     <div class="col s6">
+                         <button class="waves-effect waves-light btn" onclick="listshareController.search()">Chercher</button>
+                     </div>
+                 </div>
+             <!--</form>-->
+         </div>
+
+     </div>
+ </div>
+
+
+
+ <table>
+     <thead>
+     <tr>
+         <th>Nom</th>
+         <th>Login</th>
+         <th>Action</th>
+     </tr>
+     </thead>
+     <tbody id="usersTable">
+     </tbody>
+ </table>
+
+
+
+
+

@@ -20,6 +20,7 @@ class IndexController extends BaseController {
                     <td class="icon">
                     <button class="btn" onclick="indexController.edit(${list.id})"><i class="material-icons">edit</i></button>
                     <button class="btn" onclick="indexController.archive(${list.id})"><i class="material-icons">archive</i></button>
+                    <button class="btn" onclick="indexController.share(${list.id})"><i class="material-icons">share</i></button>
                     <button class="btn" onclick="indexController.displayConfirmDelete(${list.id})"><i class="material-icons">delete</i></button>
                     </td></tr>`
             }
@@ -30,6 +31,26 @@ class IndexController extends BaseController {
             console.log(err)
             this.displayServiceError()
         }
+    }
+
+    async share(id) {
+        try {
+            const object = await this.model.getList(id)
+            if (object === undefined) {
+                this.displayServiceError()
+                return
+            }
+            if (object === null) {
+                this.displayNotFoundError()
+                return
+            }
+            this.selectedList = object
+            navigate('listshare')
+        } catch (err) {
+            console.log(err)
+            this.displayServiceError()
+        }
+
     }
 
     async edit(id) {
@@ -72,7 +93,9 @@ class IndexController extends BaseController {
     }
 
     undoDelete() {
+
         if (this.deletedList) {
+
             this.model.insert(this.deletedList).then(status => {
                 if (status == 200) {
                     this.deletedList = null
@@ -80,13 +103,45 @@ class IndexController extends BaseController {
                     this.displayAllLists()
                 }
             }).catch(_ => this.displayServiceError())
+
+           // console.log(this.deletedItems)
+
+            /*
+            if (this.deletedItems) {
+                for (const item of this.deletedItems) {
+                    // item.idList = item.fk_id_list
+                    item.idList = 72
+                    this.modelItem.insert(item).then(status => {
+                        if (status == 200) {
+                            console.log(item)
+
+                            //this.deletedItems = null
+                            this.displayUndoDone()
+                        }
+                    }).catch(_ => this.displayServiceError())
+
+                }
+                //this.deletedItems = null
+                ///console.log(this.deletedItems)
+
+            }
+
+
+             */
         }
     }
 
     async displayConfirmDelete(id) {
+        this.deletedItems = []
         try {
             const list = await this.model.getList(id)
             super.displayConfirmDelete(list, async () => {
+                if(await this.modelItem.getListItems(id)){
+                    for (const item of await this.modelItem.getListItems(id)) {
+                        this.deletedItems.push(item)
+                        await this.modelItem.delete(item.id)
+                    }
+                }
                 switch (await this.model.delete(id)) {
                     case 200:
                         this.deletedList = list
