@@ -1,29 +1,41 @@
-const serviceBaseUrl = "http://localhost:3333/list"
+//const serviceBaseUrl = "http://localhost:3333/list"
 
-class ListAPI {
+class ListAPI extends BaseAPIService{
+    constructor() {
+        super("list")
+    }
+
     getAchived() {
-        return fetchJSON(`${serviceBaseUrl}/archive`)
+        //return fetchJSON(`${serviceBaseUrl}/archive`)
+        return fetchJSON(`${this.url}/archive`, this.token)
+
     }
     getAll() {
-        return fetchJSON(serviceBaseUrl)
+        //return fetchJSON(serviceBaseUrl)
+        return fetchJSON(this.url, this.token)
     }
     get(id) {
-        return fetchJSON(`${serviceBaseUrl}/${id}`)
+        //return fetchJSON(`${serviceBaseUrl}/${id}`)
+        return fetchJSON(`${this.url}/${id}`, this.token)
     }
     delete(id) {
-        return fetch(`${serviceBaseUrl}/${id}`, { method: 'DELETE' })
+        this.headers.delete('Content-Type')
+        //return fetch(`${serviceBaseUrl}/${id}`, { method: 'DELETE' })
+        return fetch(`${this.url}/${id}`, { method: 'DELETE', headers: this.headers })
     }
     insert(list) {
-        return fetch(serviceBaseUrl, {
+        this.headers.set( 'Content-Type', 'application/json' )
+        return fetch(this.url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: this.headers,
             body: JSON.stringify(list)
         })
     }
     update(list) {
-        return fetch(serviceBaseUrl, {
+        this.headers.set( 'Content-Type', 'application/json' )
+        return fetch(this.url, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: this.headers,
             body: JSON.stringify(list)
         })
     }

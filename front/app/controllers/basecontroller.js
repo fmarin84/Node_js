@@ -1,9 +1,15 @@
 class BaseController {
-    constructor() {
+    constructor(secured) {
+        if (secured) { this.checkAuthentication() }
         M.AutoInit();
         this.setBackButtonView('index')
         this.model = new Model()
         this.modelItem = new ModelItem()
+    }
+    checkAuthentication() {
+        if (localStorage.getItem("token") === null) {
+            window.location.replace("login.html")
+        }
     }
     displayConfirmDelete(object, onclick) {
         if (object === undefined) {
