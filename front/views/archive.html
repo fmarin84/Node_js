@@ -1,0 +1,53 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">Courses</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a onclick="navigate('index')">Accueil</a></li>
+
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a onclick="navigate('index')">Accueil</a></li>
+</ul>
+
+
+
+<div class="row">
+    <div class="col s2"></div>
+    <div class="col s8">
+        <h3>Liste des courses</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col s2"></div>
+    <div class="col s8">
+        <table id="tableAllLists" class="striped responsive-table" style="display: block;">
+            <thead>
+            <tr>
+                <th scope="col">Magasin</th>
+                <th scope="col">Date</th>
+                <th scope="col">Plus</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="tableBodyAllLists">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<div id="formViewIngredient" class="modal">
+    <div class="modal-content">
+        <div class="row">
+           <table id="containIngredient"></table>
+        </div>
+        <div class="modal-footer">
+            <a onclick="$('#formViewIngredient').M_Modal.close()" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+        </div>
+    </div>
+</div>

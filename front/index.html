@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Exemples JS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="res/css/index.css"/>
+</head>
+<body>
+    <div id="content"></div>
+
+    <div id="modalConfirmDelete" class="modal">
+        <div class="modal-content">
+            <h4>Supprimer</h4>
+            <p>Etes vous sûr de vouloir supprimer <span id="spanDeleteObject"></span> ?</p>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-close waves-effect waves-green btn-flat" id="btnDelete">Oui</button>
+        </div>
+    </div>
+
+    <script type="application/ecmascript" src="app/tools.js"></script>
+    <script type="application/ecmascript" src="app/model/classes.js"></script>
+    <script type="application/ecmascript" src="app/model/model.js"></script>
+    <script type="application/ecmascript" src="app/controllers/basecontroller.js"></script>
+    <script type="application/ecmascript" src="app/services/listapi.js"></script>
+    <script type="application/ecmascript" src="app/services/itemapi.js"></script>
+    <script type="application/ecmascript" src="app/controllers/baseformcontroller.js"></script>
+
+
+    <script>navigate("index")</script>
+</body>
+</html>
+
+
+
+<style>
+    nav{    background-color: #006c00;}
+</style>
