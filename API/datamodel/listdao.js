@@ -34,4 +34,13 @@ module.exports = class listdao extends BaseDAO {
             [list.id, list.shop, list.date, list.archived])
     }
 
+    deleteItems(listId){
+        this.db.query(`DELETE FROM item WHERE fk_id_list=$1`, [listId])
+    }
+
+    delete(id) {
+        this.deleteItems(id)
+        return this.db.query(`DELETE FROM list WHERE id=$1`, [id])
+    }
+
 }

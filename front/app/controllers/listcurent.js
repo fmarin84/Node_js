@@ -64,7 +64,6 @@ class ListCurentController extends BaseController {
         }
     }
 
-
     undoDelete() {
         if (this.deletedItem) {
             this.deletedItem.idList = this.deletedItem.fk_id_list
@@ -100,9 +99,6 @@ class ListCurentController extends BaseController {
             this.displayServiceError()
         }
     }
-
-
-
 }
 
 window.listcurentController = new ListCurentController()

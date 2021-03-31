@@ -64,7 +64,8 @@ class IndexController extends BaseController {
             }
             object.archived = true
             this.model.update(object)
-            } catch (err) {
+            navigate('index')
+        } catch (err) {
             console.log(err)
             this.displayServiceError()
         }

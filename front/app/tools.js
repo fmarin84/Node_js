@@ -41,6 +41,11 @@ function navigate(view) {
     include('content',  `views/${view}.html`, `app/controllers/${view}.js`)
 }
 
+function logout() {
+    localStorage.removeItem("token")
+    window.location.replace("login.html")
+}
+
 function navigateParams(view,id) {
     include('content',  `views/${view}.html?${id}`, `app/controllers/${view}.js`)
     window.idCurrentList = id

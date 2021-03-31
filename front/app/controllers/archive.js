@@ -3,12 +3,12 @@ class ArchiveController extends BaseController {
         super()
         this.tableAllLists = $('#tableAllLists')
         this.tableBodyAllLists = $('#tableBodyAllLists')
-        this.displayAllLists()
+        this.displayAllListsArchive()
     }
 
-    async displayAllLists() {
+    async displayAllListsArchive() {
         let content = ''
-        // this.tableAllLists.style.display = "none"
+        this.tableAllLists.style.display = "none"
         try {
             for (const list of await this.model.getAchived()) {
                 const date = list.date.toLocaleDateString()
@@ -19,7 +19,7 @@ class ArchiveController extends BaseController {
                     <td>${date}</td>
                     <td class="icon">
                     <button class="btn" onclick="indexController.edit(${list.id})"><i class="material-icons">edit</i></button>
-                    <button class="btn" onclick="indexController.displayConfirmDelete(${list.id})"><i class="material-icons">delete</i></button>                   
+                    <button class="btn" onclick="archiveController.displayConfirmDelete(${list.id})"><i class="material-icons">delete</i></button>                   
                     </td></tr>`
             }
 
@@ -63,6 +63,7 @@ class ArchiveController extends BaseController {
             }
             object.archived = true
             this.model.update(object)
+            navigate('index')
         } catch (err) {
             console.log(err)
             this.displayServiceError()
@@ -75,7 +76,7 @@ class ArchiveController extends BaseController {
                 if (status == 200) {
                     this.deletedList = null
                     this.displayUndoDone()
-                    this.displayAllLists()
+                    this.displayAllListsArchive()
                 }
             }).catch(_ => this.displayServiceError())
         }
@@ -88,7 +89,7 @@ class ArchiveController extends BaseController {
                 switch (await this.model.delete(id)) {
                     case 200:
                         this.deletedList = list
-                        this.displayDeletedMessage("indexController.undoDelete()");
+                        this.displayDeletedMessage("archiveController.undoDelete()");
                         break
                     case 404:
                         this.displayNotFoundError();
@@ -96,7 +97,7 @@ class ArchiveController extends BaseController {
                     default:
                         this.displayServiceError()
                 }
-                this.displayAllLists()
+                this.displayAllListsArchive()
             })
         } catch (err) {
             console.log(err)
