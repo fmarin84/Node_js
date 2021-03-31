@@ -34,11 +34,8 @@ class ListEditController extends BaseFormController {
                 } else {
                     if (await this.model.insert(new List(shop, date, false)) === 200) {
                         this.toast("La liste a bien été inséré")
-                        if(self.list.archived === false){
-                            navigate('index')
-                        } else {
-                            navigate('archive')
-                        }                    } else {
+                        navigate('index')
+                    } else {
                         this.displayServiceError()
                     }
                 }
