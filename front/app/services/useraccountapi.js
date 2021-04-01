@@ -22,4 +22,9 @@ class UserAccountAPI extends BaseAPIService {
         return fetchJSON(`${this.url}/search/${login}`, this.token)
     }
 
+    get(id) {
+        //return fetchJSON(`${serviceBaseUrl}/${id}`)
+        return fetchJSON(`${this.url}/${id}`, this.token)
+    }
+
 }

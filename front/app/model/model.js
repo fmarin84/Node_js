@@ -23,6 +23,17 @@ class Model {
         }
         return lists
     }
+
+    async getListsShareByUser() {
+        let lists = []
+        for (let list of await this.api.getListsShareByUser()) {
+            list.date = new Date(list.date)
+            lists.push(Object.assign(new List(), list))
+
+        }
+        return lists
+    }
+
     async getList(id) {
         try {
             const list = Object.assign(new List(), await this.api.get(id))
@@ -86,6 +97,16 @@ class ModelUser {
         this.api = new UserAccountAPI()
     }
 
+    async getUser(id) {
+        try {
+            const user = Object.assign(new User(), await this.api.get(id))
+            return user
+        } catch (e) {
+            if (e === 404) return null
+            return undefined
+        }
+    }
+
     async getByLogin(login) {
 
         let users = []
@@ -123,6 +144,7 @@ class ModelShare {
         return users
     }
 */
+
 
     delete(listId, userId) {
         return this.api.delete(listId, userId).then(res => res.status)

@@ -24,6 +24,15 @@ module.exports = class listdao extends BaseDAO {
                 .catch(e => reject(e)))
     }
 */
+
+
+    getListsShareByUser(user) {
+        return new Promise((resolve, reject) =>
+            this.db.query("SELECT list.* FROM list, share WHERE list.id=share.fk_id_list and share.useraccount_id=$1 and archived=false ORDER BY shop", [user.id])
+                .then(res => resolve(res.rows))
+                .catch(e => reject(e)))
+    }
+
     getAll(user) {
         return new Promise((resolve, reject) =>
             this.db.query("SELECT * FROM list WHERE useraccount_id=$1 and archived=false ORDER BY shop", [user.id])

@@ -3,7 +3,40 @@ class IndexController extends BaseController {
         super()
         this.tableAllLists = $('#tableAllLists')
         this.tableBodyAllLists = $('#tableBodyAllLists')
+        this.tableListsShare = $('#tableListsShare')
+        this.tableBodyListsShare = $('#tableBodyListsShare')
         this.displayAllLists()
+        this.displayListsShare()
+    }
+
+    async displayListsShare() {
+        let content = ''
+        // this.tableListsShare.style.display = "none"
+        try {
+
+            for (const list of await this.model.getListsShareByUser()) {
+                const date = list.date.toLocaleDateString()
+                const userShare = Object.assign(new User(), await this.modelUser.getUser(list.useraccount_id))
+
+                content += `<tr><td>
+                    <a  onclick="navigateParams('listcurent',${list.id})">${list.shop}</a>
+                    </td>
+                    <td>${date}</td>
+                    <td>${userShare.displayname}</td>
+                    <td class="icon">
+                    <button class="btn" onclick="indexController.edit(${list.id})"><i class="material-icons">edit</i></button>
+                    </td></tr>`
+            }
+
+            this.tableBodyListsShare.innerHTML = content
+            this.tableListsShare.style.display = "block"
+        } catch (err) {
+            console.log(err)
+            if(err == 401){
+                logout()
+            }
+            this.displayServiceError()
+        }
     }
 
     async displayAllLists() {
