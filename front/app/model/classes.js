@@ -1,9 +1,9 @@
 class List {
-    constructor(shop, date, archived, useraacount_id) {
+    constructor(shop, date, archived, useraccount_id) {
         this.shop = shop
         this.date = date
         this.archived = archived
-        this.useraacount_id = useraacount_id
+        this.useraccount_id = useraccount_id
     }
     toString() {
         return `Liste du ${this.date}`
@@ -31,5 +31,18 @@ class User {
     }
     toString() {
         return `${this.displayname} ${this.login}`
+    }
+}
+
+
+class Share {
+    constructor(listId, userId, state) {
+        this.list_id = listId
+        this.useraccount_id = userId
+        this.state = state
+
+    }
+    toString() {
+        return `${this.list_id} ${this.useraccount_id} ${this.state}`
     }
 }

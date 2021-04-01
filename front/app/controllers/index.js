@@ -29,6 +29,9 @@ class IndexController extends BaseController {
             this.tableAllLists.style.display = "block"
         } catch (err) {
             console.log(err)
+            if(err == 401){
+                logout()
+            }
             this.displayServiceError()
         }
     }

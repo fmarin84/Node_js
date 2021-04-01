@@ -106,3 +106,31 @@ class ModelUser {
         return this.api.update(user).then(res => res.status)
     }
 }
+
+
+class ModelShare {
+    constructor() {
+        this.api = new ShareAPI()
+    }
+/*
+    async getByLogin(login) {
+
+        let users = []
+
+        for (let user of await this.api.getByLogin(login)) {
+            users.push(Object.assign(new User(), user))
+        }
+        return users
+    }
+*/
+
+    delete(listId, userId) {
+        return this.api.delete(listId, userId).then(res => res.status)
+    }
+    insert(listId, userId,state) {
+        return this.api.insert(listId, userId,state).then(res => res.status)
+    }
+    update(listId, userId,state) {
+        return this.api.update(listId, userId,state).then(res => res.status)
+    }
+}

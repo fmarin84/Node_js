@@ -5,9 +5,9 @@ module.exports = class ShareDAO extends BaseDAO {
         super(db, "share")
     }
 
-    insert(list, useraccount, state) {
-        return this.db.query("INSERT INTO share(list_id,useraccount_id,state) VALUES ($1,$2,$3)",
-            [list.id, useraccount.id, state])
+    insert(share) {
+        return this.db.query("INSERT INTO share(fk_id_list,useraccount_id,state) VALUES ($1,$2,$3)",
+            [share.list_id, share.useraccount_id,share.state ])
     }
 
     getByUser(user) {

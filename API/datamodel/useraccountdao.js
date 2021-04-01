@@ -17,12 +17,9 @@ module.exports = class UserAccountDAO extends BaseDAO {
 
     getTestByLogin(login) {
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT displayname,login FROM useraccount WHERE login = $1 ", [ login ])
+            this.db.query("SELECT id,displayname,login FROM useraccount WHERE login = $1 ", [ login ])
                 .then(res => resolve(res.rows) )
                 .catch(e => reject(e)))
     }
-
-
-
 
 }

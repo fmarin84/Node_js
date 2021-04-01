@@ -6,8 +6,13 @@ class ListShareController extends BaseFormController {
     }
 
     async displayUsers() {
-        let content = ''
+        const list =indexController.selectedList
 
+        const title = `${list.shop}`
+
+        $('#titlesharelist').append(title)
+
+        let content = ''
         if(this.users){
             let users = this.users
             try {
@@ -16,7 +21,7 @@ class ListShareController extends BaseFormController {
                 <td>${user.displayname}</td>
                 <td>${user.login}</td>
                
-                <td><button class="btn" onclick=''><i class="material-icons">send</i></button></td>`
+                <td><button class="btn" onclick='listshareController.share("${list.id}", "${user.id}")'><i class="material-icons">send</i></button></td>`
 
                 }
 
@@ -28,7 +33,18 @@ class ListShareController extends BaseFormController {
             }
         }
 
+    }
 
+    async share(listid, userid) {
+
+        try {
+            await this.modelShare.insert(listid, userid, 0)
+
+            navigate('listshare')
+        } catch (err) {
+            console.log(err)
+            this.displayServiceError()
+        }
 
     }
 
