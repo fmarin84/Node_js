@@ -17,25 +17,43 @@ module.exports = (app, serviceList, jwt) => {
             if (list === undefined) {
                 return res.status(404).end()
             }
+            /*
             if (list.useraccount_id !== req.user.id) {
                 return res.status(403).end()
             }
+             */
             return res.json(list)
         } catch (e) { res.status(400).end() }
     })
 
-    app.post("/list", jwt.validateJWT, (req, res) => {
+    app.post("/list", jwt.validateJWT, async (req, res) => {
         const list = req.body
         if (!serviceList.isValid(list))  {
             return res.status(400).end()
         }
         list.useraccount_id = req.user.id
-        serviceList.dao.insert(list)
+        const lidtId = await serviceList.dao.insert(list)
             .then(res.status(200).end())
             .catch(e => {
                 console.log(e)
                 res.status(500).end()
             })
+
+        console.log(lidtId)
+
+
+/*
+        if (list.id)
+        {
+            const list_item = await itemService.dao.getAllItem(list.id)
+            for (let item of list_item)
+            {
+                item.id_list = id_list
+                itemService.dao.updateItem(item)
+            }
+        }
+ */
+
     })
     app.delete("/list/:id", jwt.validateJWT, async (req, res) => {
         const list = await serviceList.dao.getById(req.params.id)

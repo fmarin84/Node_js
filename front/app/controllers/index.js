@@ -140,30 +140,19 @@ class IndexController extends BaseController {
                 }
             }).catch(_ => this.displayServiceError())
 
-           // console.log(this.deletedItems)
-
-            /*
             if (this.deletedItems) {
                 for (const item of this.deletedItems) {
-                    // item.idList = item.fk_id_list
-                    item.idList = 72
+                    item.idList = this.deletedList.id + 1
                     this.modelItem.insert(item).then(status => {
                         if (status == 200) {
-                            console.log(item)
-
-                            //this.deletedItems = null
                             this.displayUndoDone()
                         }
                     }).catch(_ => this.displayServiceError())
 
                 }
-                //this.deletedItems = null
-                ///console.log(this.deletedItems)
-
+                this.deletedItems = null
             }
 
-
-             */
         }
     }
 
