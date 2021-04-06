@@ -11,6 +11,15 @@ module.exports = (app, serviceList, jwt) => {
         res.json(await serviceList.dao.getListsShareByUser(req.user))
     })
 
+    app.get("/list/share/users/:listId", jwt.validateJWT, async (req, res) => {
+        try {
+            const list = await serviceList.dao.getUsersList(req.params.listId)
+            if (list === undefined) {
+                return res.status(404).end()
+            }
+            return res.json(list)
+        } catch (e) { res.status(400).end() }    })
+
     app.get("/list/:id", jwt.validateJWT, async (req, res) => {
         try {
             const list = await serviceList.dao.getById(req.params.id)
@@ -39,7 +48,6 @@ module.exports = (app, serviceList, jwt) => {
                 res.status(500).end()
             })
 
-        console.log(lidtId)
 
 
 /*

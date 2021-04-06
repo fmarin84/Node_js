@@ -16,6 +16,9 @@ class ListAPI extends BaseAPIService{
         return fetchJSON(`${this.url}/share`, this.token)
     }
 
+    getUsersList(listId){
+        return fetchJSON(`${this.url}/share/users/${listId}`, this.token)
+    }
     getAll() {
         //return fetchJSON(serviceBaseUrl)
         return fetchJSON(this.url, this.token)

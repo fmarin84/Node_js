@@ -46,9 +46,10 @@ function logout() {
     window.location.replace("login.html")
 }
 
-function navigateParams(view,id) {
+function navigateParams(view,id,isShare = false) {
     include('content',  `views/${view}.html?${id}`, `app/controllers/${view}.js`)
     window.idCurrentList = id
+    window.isShare = isShare
 }
 
 const dateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;

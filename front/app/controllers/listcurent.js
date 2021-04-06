@@ -2,28 +2,99 @@ class ListCurentController extends BaseController {
     constructor() {
         super()
         this.idList = window.idCurrentList
+        this.isShare = window.isShare
         this.displayList()
     }
+
+    async displayListsShare() {
+        let content = ''
+        // this.tableListsShare.style.display = "none"
+        try {
+
+            for (const list of await this.model.getListsShareByUser()) {
+                const date = list.date.toLocaleDateString()
+                const userShare = Object.assign(new User(), await this.modelUser.getUser(list.useraccount_id))
+
+                content += `<tr><td>
+                    <a  onclick="navigateParams('listcurent',${list.id})">${list.shop}</a>
+                    </td>
+                    <td>${date}</td>
+                    <td>${userShare.displayname}</td>
+                    <td class="icon">
+                    <button class="btn" onclick="indexController.edit(${list.id})"><i class="material-icons">edit</i></button>
+                    </td></tr>`
+            }
+
+            this.tableBodyListsShare.innerHTML = content
+            this.tableListsShare.style.display = "block"
+        } catch (err) {
+            console.log(err)
+            if(err == 401){
+                logout()
+            }
+            this.displayServiceError()
+        }
+    }
+
+
 
     async displayList() {
         let content = ''
         try {
 
+            let items = null
+
             const list = await this.model.getList(this.idList)
-            const items = await this.modelItem.getListItems(list.id)
+
+            if(this.isShare){
+                items = await this.modelItem.getListItemsShare(list.id)
+            }
+            else {
+                items = await this.modelItem.getListItems(list.id)
+            }
 
             for(let item of items) {
-                if(item.checked === false){
-                    content += `<tr><td><p><label><input type="checkbox" onclick='listcurentController.Check(${item.id})' /><span></span></label></p></td>`
+
+                if((this.isShare) && (item.state === 1)){
+
+                    if(item.checked === false){
+                        content += `<tr><td><p><label><input type="checkbox"  onclick='listcurentController.Check(${item.id})'/><span></span></label></p></td>`
+                    } else {
+                        content += `<tr><td><p><label><input type="checkbox" checked="checked"  onclick='listcurentController.Check(${item.id})'/><span></span></label></p></td>`
+                    }
+
+                    content += `
+                    <td>${item.quantity}</td>
+                    <td>${item.label}</td>
+                    <td><button class="btn" onclick="listcurentController.edititem(${item.id})"><i class="material-icons">edit</i></button></td>
+                    <td><button class="btn" onclick='listcurentController.displayConfirmDelete(${item.id})'><i class="material-icons">delete</i></button></td>`
+                } else if((this.isShare) && (item.state === 0)){
+                    $('#addItem').remove()
+
+                    if(item.checked === false){
+                        content += `<tr><td><p><label><input type="checkbox"  disabled/><span></span></label></p></td>`
+                    } else {
+                        content += `<tr><td><p><label><input type="checkbox" checked="checked"  disabled/><span></span></label></p></td>`
+                    }
+
+                    content += `
+                    <td>${item.quantity}</td>
+                    <td>${item.label}</td>`
                 } else {
-                    content += `<tr><td><p><label><input type="checkbox" onclick='listcurentController.Check(${item.id})' checked="checked" /><span></span></label></p></td>`
+
+                    if(item.checked === false){
+                        content += `<tr><td><p><label><input type="checkbox"  onclick='listcurentController.Check(${item.id})'/><span></span></label></p></td>`
+                    } else {
+                        content += `<tr><td><p><label><input type="checkbox" checked="checked"  onclick='listcurentController.Check(${item.id})'/><span></span></label></p></td>`
+                    }
+
+                    content += `
+                    <td>${item.quantity}</td>
+                    <td>${item.label}</td>
+                    <td><button class="btn" onclick="listcurentController.edititem(${item.id})"><i class="material-icons">edit</i></button></td>
+                    <td><button class="btn" onclick='listcurentController.displayConfirmDelete(${item.id})'><i class="material-icons">delete</i></button></td>`
                 }
 
-                content += `
-                <td>${item.quantity}</td>
-                <td>${item.label}</td>
-                <td><button class="btn" onclick="listcurentController.edititem(${item.id})"><i class="material-icons">edit</i></button></td>
-                <td><button class="btn" onclick='listcurentController.displayConfirmDelete(${item.id})'><i class="material-icons">delete</i></button></td>`
             }
             $('#itemsTable').innerHTML = content
 

@@ -11,6 +11,11 @@ class ItemAPI extends BaseAPIService{
         return fetchJSON(this.url, this.token)
     }
 
+    getShare(listId) {
+        //return fetchJSON(serviceBaseUrlItem)
+        return fetchJSON(`${this.url}/share/${listId}`, this.token)
+    }
+
     getAll() {
         //return fetchJSON(serviceBaseUrlItem)
         return fetchJSON(this.url, this.token)

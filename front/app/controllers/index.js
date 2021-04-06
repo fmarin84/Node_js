@@ -18,14 +18,25 @@ class IndexController extends BaseController {
                 const date = list.date.toLocaleDateString()
                 const userShare = Object.assign(new User(), await this.modelUser.getUser(list.useraccount_id))
 
-                content += `<tr><td>
-                    <a  onclick="navigateParams('listcurent',${list.id})">${list.shop}</a>
+                if(list.state === 1){
+                    content += `<tr><td>
+                    <a  onclick="navigateParams('listcurent',${list.id}, true)">${list.shop}</a>
                     </td>
                     <td>${date}</td>
                     <td>${userShare.displayname}</td>
                     <td class="icon">
                     <button class="btn" onclick="indexController.edit(${list.id})"><i class="material-icons">edit</i></button>
                     </td></tr>`
+                } else {
+                    content += `<tr><td>
+                    <a  onclick="navigateParams('listcurent',${list.id}, true)">${list.shop}</a>
+                    </td>
+                    <td>${date}</td>
+                    <td>${userShare.displayname}</td>
+                    <td class="icon">
+                    </td></tr>`
+                }
+
             }
 
             this.tableBodyListsShare.innerHTML = content
@@ -49,7 +60,18 @@ class IndexController extends BaseController {
                     <td>
                     <a  onclick="navigateParams('listcurent',${list.id})">${list.shop}</a>
                     </td>
-                    <td>${date}</td>
+                    <td>${date}</td>`
+
+                    //const users = await this.model.getUsersList(list.id)
+                content +=`<td>`
+                for (let user of await this.model.getUsersList(list.id)) {
+                    content +=
+                        `- ${user.displayname}<br>`
+                }
+                content +=`</td>`
+
+                content +=
+                    `
                     <td class="icon">
                     <button class="btn" onclick="indexController.edit(${list.id})"><i class="material-icons">edit</i></button>
                     <button class="btn" onclick="indexController.archive(${list.id})"><i class="material-icons">archive</i></button>

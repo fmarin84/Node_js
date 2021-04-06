@@ -13,6 +13,18 @@ class Model {
         return lists
     }
 
+
+    async getUsersList(listId) {
+        let users = []
+        for (let user of await this.api.getUsersList(listId)) {
+            users.push(Object.assign(new User(), user))
+           // users.push(login)
+
+        }
+        return users
+    }
+
+
     async getAllLists() {
         //return await this.api.getAll()
         let lists = []
@@ -26,6 +38,7 @@ class Model {
 
     async getListsShareByUser() {
         let lists = []
+
         for (let list of await this.api.getListsShareByUser()) {
             list.date = new Date(list.date)
             lists.push(Object.assign(new List(), list))
@@ -58,6 +71,16 @@ class Model {
 class ModelItem {
     constructor() {
         this.api = new ItemAPI()
+    }
+
+    async getListItemsShare(idList) {
+        let Items = []
+        for (let item of await this.api.getShare(idList)) {
+            if(item.fk_id_list === idList){
+                Items.push(Object.assign(new Item(), item))
+            }
+        }
+        return Items
     }
 
     async getListItems(idList) {

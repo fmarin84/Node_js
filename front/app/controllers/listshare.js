@@ -11,7 +11,7 @@ class ListShareController extends BaseFormController {
         const title = `${list.shop}`
 
         $('#titlesharelist').append(title)
-
+// <td><button class="btn" onclick='listshareController.contenuModal("${list.id}", "${user.id}")'><i class="material-icons">send</i></button></td>
         let content = ''
         if(this.users){
             let users = this.users
@@ -21,7 +21,7 @@ class ListShareController extends BaseFormController {
                 <td>${user.displayname}</td>
                 <td>${user.login}</td>
                
-                <td><button class="btn" onclick='listshareController.share("${list.id}", "${user.id}")'><i class="material-icons">send</i></button></td>`
+               <td><a class="waves-effect waves-light btn modal-trigger" href="#modal1" onclick='listshareController.contenuModal("${list.id}", "${user.id}")'><i class="material-icons">send</i></a></td>`
 
                 }
 
@@ -35,10 +35,20 @@ class ListShareController extends BaseFormController {
 
     }
 
-    async share(listid, userid) {
+
+    async contenuModal(listid, userid) {
+
+        let content = ''
+        content += `<a href="#!" class="modal-close waves-effect waves-red btn-flat" onclick='listshareController.share("${listid}", "${userid}",0)'>Non</a>
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat" onclick='listshareController.share("${listid}", "${userid}", 1)'>Oui</a>`
+
+        $('#footerAcces').innerHTML = content
+    }
+
+    async share(listid, userid, state) {
 
         try {
-            await this.modelShare.insert(listid, userid, 0)
+            await this.modelShare.insert(listid, userid, state)
 
             navigate('listshare')
         } catch (err) {
