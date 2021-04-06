@@ -24,8 +24,9 @@ class IndexController extends BaseController {
                     </td>
                     <td>${date}</td>
                     <td>${userShare.displayname}</td>
-                    <td class="icon">
-                    <button class="btn" onclick="indexController.edit(${list.id})"><i class="material-icons">edit</i></button>
+                    <td class="icon"> <button class="btn" onclick="indexController.edit(${list.id})"><i class="material-icons">edit</i></button>
+                    <button class="btn" onclick="indexController.displayConfirmDeleteShare(${list.id}, ${list.useraccount_id}, ${list.state})"><i class="material-icons">delete</i></button></td>
+
                     </td></tr>`
                 } else {
                     content += `<tr><td>
@@ -33,8 +34,8 @@ class IndexController extends BaseController {
                     </td>
                     <td>${date}</td>
                     <td>${userShare.displayname}</td>
-                    <td class="icon">
-                    </td></tr>`
+                    <td><button class="btn" onclick="indexController.displayConfirmDeleteShare(${list.id}, ${list.useraccount_id}, ${list.state})"><i class="material-icons">delete</i></button></td>
+                    </tr>`
                 }
 
             }
@@ -151,7 +152,6 @@ class IndexController extends BaseController {
     }
 
     undoDelete() {
-
         if (this.deletedList) {
 
             this.model.insert(this.deletedList).then(status => {
@@ -175,6 +175,21 @@ class IndexController extends BaseController {
                 this.deletedItems = null
             }
 
+        }
+    }
+
+    undoDeleteShare() {
+        if (this.deletedListId && this.deletedUserId ) {
+
+            this.modelShare.insert(this.deletedListId, this.deletedUserId, this.deleteState).then(status => {
+                if (status == 200) {
+                    this.deletedListId = null
+                    this.deletedUserId = null
+                    this.deleteState = null
+                    this.displayUndoDone()
+                    this.displayListsShare()
+                }
+            }).catch(_ => this.displayServiceError())
         }
     }
 
@@ -202,6 +217,29 @@ class IndexController extends BaseController {
                 }
                 this.displayAllLists()
             })
+        } catch (err) {
+            console.log(err)
+            this.displayServiceError()
+        }
+    }
+
+    async displayConfirmDeleteShare(listId, userId, state) {
+        this.deletedItems = []
+        try {
+            switch (await this.modelShare.delete(listId, userId)) {
+                case 200:
+                    this.deletedListId = listId
+                    this.deletedUserId = userId
+                    this.deleteState= state
+                    this.displayDeletedMessage("indexController.undoDeleteShare()");
+                    break
+                case 404:
+                    this.displayNotFoundError();
+                    break
+                default:
+                    this.displayServiceError()
+            }
+            this.displayListsShare()
         } catch (err) {
             console.log(err)
             this.displayServiceError()

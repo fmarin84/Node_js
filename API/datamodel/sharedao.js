@@ -17,4 +17,8 @@ module.exports = class ShareDAO extends BaseDAO {
                 .catch(e => reject(e)))
     }
 
+    delete(listId, userId) {
+        return this.db.query(`DELETE FROM share WHERE fk_id_list=$1 and useraccount_id=$2`, [listId, userId])
+    }
+
 }

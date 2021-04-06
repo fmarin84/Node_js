@@ -28,22 +28,12 @@ module.exports = (app, svc, jwt) => {
             })
     })
 
-    app.delete("/share/delete/:listId&:userId", jwt.validateJWT, async (req, res) => {
-        /*
-        const share = await svc.dao.getById(req.params.listId, req.params.userId)
-        if (list === undefined) {
-            return res.status(404).end()
-        }
-        if (list.useraccount_id !== req.user.id) {
-            return res.status(403).end()
-        }
-        serviceList.dao.delete(req.params.id)
+    app.delete("/share/delete/:listId/:userId", jwt.validateJWT, async (req, res) => {
+        svc.dao.delete(req.params.listId, req.params.userId)
             .then(res.status(200).end())
             .catch(e => {
                 console.log(e)
                 res.status(500).end()
             })
-
-         */
     })
 }
