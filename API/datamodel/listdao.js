@@ -43,7 +43,7 @@ module.exports = class listdao extends BaseDAO {
 
     getUsersList(listId) {
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT useraccount.* FROM useraccount, share where share.fk_id_list = $1 and useraccount.id = share.useraccount_id ORDER BY useraccount.displayname"
+            this.db.query("SELECT useraccount.*, share.state FROM useraccount, share where share.fk_id_list = $1 and useraccount.id = share.useraccount_id ORDER BY useraccount.displayname"
                 , [listId])
 
                 .then(res => resolve(res.rows))

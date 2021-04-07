@@ -9,6 +9,12 @@ class ShareAPI extends BaseAPIService {
 
     }
 
+    deleteShareList(listId) {
+        this.headers.delete('Content-Type')
+        return fetch(`${this.url}/delete/${listId}`, { method: 'DELETE', headers: this.headers })
+
+    }
+
     insert(listId, userId,state) {
         this.headers.set( 'Content-Type', 'application/json' )
         return fetch(`${this.url}/${listId}/${userId}/${state}`, { method: 'POST', headers: this.headers })

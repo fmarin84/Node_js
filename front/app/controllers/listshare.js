@@ -49,8 +49,6 @@ class ListShareController extends BaseFormController {
 
         try {
             await this.modelShare.insert(listid, userid, state)
-
-            navigate('listshare')
         } catch (err) {
             console.log(err)
             this.displayServiceError()

@@ -169,6 +169,9 @@ class ModelShare {
 */
 
 
+    deleteShareList(listId) {
+        return this.api.deleteShareList(listId).then(res => res.status)
+    }
     delete(listId, userId) {
         return this.api.delete(listId, userId).then(res => res.status)
     }

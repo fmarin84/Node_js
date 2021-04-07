@@ -36,4 +36,15 @@ module.exports = (app, svc, jwt) => {
                 res.status(500).end()
             })
     })
+
+    app.delete("/share/delete/:listId", jwt.validateJWT, async (req, res) => {
+        svc.dao.deleteShareList(req.params.listId)
+            .then(res.status(200).end())
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+    })
+
+
 }

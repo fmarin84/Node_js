@@ -18,7 +18,8 @@ module.exports = (app, serviceList, jwt) => {
                 return res.status(404).end()
             }
             return res.json(list)
-        } catch (e) { res.status(400).end() }    })
+        } catch (e) { res.status(400).end() }
+    })
 
     app.get("/list/:id", jwt.validateJWT, async (req, res) => {
         try {

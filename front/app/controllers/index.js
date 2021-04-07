@@ -63,11 +63,13 @@ class IndexController extends BaseController {
                     </td>
                     <td>${date}</td>`
 
-                    //const users = await this.model.getUsersList(list.id)
                 content +=`<td>`
                 for (let user of await this.model.getUsersList(list.id)) {
                     content +=
-                        `- ${user.displayname}<br>`
+                        `- ${user.displayname}
+                    <button class="btn" onclick="indexController.displayConfirmDeleteShare(${list.id}, ${list.useraccount_id}, ${user.state})"><i class="material-icons">delete</i></button>
+                    
+                    <br>`
                 }
                 content +=`</td>`
 
@@ -188,6 +190,8 @@ class IndexController extends BaseController {
                     this.deleteState = null
                     this.displayUndoDone()
                     this.displayListsShare()
+                    this.displayAllLists()
+
                 }
             }).catch(_ => this.displayServiceError())
         }
@@ -204,6 +208,7 @@ class IndexController extends BaseController {
                         await this.modelItem.delete(item.id)
                     }
                 }
+                await this.modelShare.deleteShareList(id)
                 switch (await this.model.delete(id)) {
                     case 200:
                         this.deletedList = list
@@ -216,6 +221,7 @@ class IndexController extends BaseController {
                         this.displayServiceError()
                 }
                 this.displayAllLists()
+                this.displayListsShare()
             })
         } catch (err) {
             console.log(err)
@@ -240,6 +246,8 @@ class IndexController extends BaseController {
                     this.displayServiceError()
             }
             this.displayListsShare()
+            this.displayAllLists()
+
         } catch (err) {
             console.log(err)
             this.displayServiceError()
