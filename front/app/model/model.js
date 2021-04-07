@@ -13,20 +13,23 @@ class Model {
         return lists
     }
 
+    async getUserShare(listId) {
+
+        const user = await this.api.getUserShare(listId)
+        return Object.assign(new User(), user[0])
+    }
 
     async getUsersList(listId) {
         let users = []
         for (let user of await this.api.getUsersList(listId)) {
             users.push(Object.assign(new User(), user))
            // users.push(login)
-
         }
         return users
     }
 
 
     async getAllLists() {
-        //return await this.api.getAll()
         let lists = []
         for (let list of await this.api.getAll()) {
             list.date = new Date(list.date)
