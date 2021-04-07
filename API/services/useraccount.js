@@ -9,6 +9,14 @@ module.exports = class UserAccountService {
     insert(displayname, login, password) {
         return this.dao.insert(new UserAccount(displayname, login, this.hashPassword(password)))
     }
+    async validateLogin(login) {
+        const user = await this.dao.getByLogin(login.trim())
+
+        if(user === undefined){
+            return false
+        }
+        return true
+    }
     async validatePassword(login, password) {
         const user = await this.dao.getByLogin(login.trim())
         return this.comparePassword(password, user.challenge)

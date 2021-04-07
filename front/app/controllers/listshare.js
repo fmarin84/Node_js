@@ -8,21 +8,19 @@ class ListShareController extends BaseFormController {
     async displayUsers() {
         const list =indexController.selectedList
 
-        const title = `${list.shop}`
+        const title = `<h3> Partage de la liste : ${list.shop} </h3>`
 
-        $('#titlesharelist').append(title)
-// <td><button class="btn" onclick='listshareController.contenuModal("${list.id}", "${user.id}")'><i class="material-icons">send</i></button></td>
+        $('#titlesharelist').innerHTML = title
+
         let content = ''
         if(this.users){
             let users = this.users
             try {
                 for(let user of users) {
-                    content += `
+                content += `
                 <td>${user.displayname}</td>
                 <td>${user.login}</td>
-               
                <td><a class="waves-effect waves-light btn modal-trigger" href="#modal1" onclick='listshareController.contenuModal("${list.id}", "${user.id}")'><i class="material-icons">send</i></a></td>`
-
                 }
 
                 $('#usersTable').innerHTML = content
@@ -32,9 +30,7 @@ class ListShareController extends BaseFormController {
                 this.displayServiceError()
             }
         }
-
     }
-
 
     async contenuModal(listid, userid) {
 
@@ -53,7 +49,6 @@ class ListShareController extends BaseFormController {
             console.log(err)
             this.displayServiceError()
         }
-
     }
 
     async search() {
@@ -69,6 +64,9 @@ class ListShareController extends BaseFormController {
                 return
             }
             this.users = object
+            if(this.users.length === 0){
+                this.toast("Login incorrect")
+            }
             this.displayUsers()
         } catch (err) {
             console.log(err)
