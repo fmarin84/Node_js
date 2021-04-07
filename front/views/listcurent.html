@@ -4,9 +4,11 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a onclick="navigate('index')">Accueil</a></li>
-<!--            <li><a href="#formEditIngredient" class="modal-trigger">Ajout ingrédient</a></li>-->
-            <li><a onclick="navigate('itemedit')" id="addItem">Ajout ingrédient</a></li>
+<!--            <li><a href="#formEditIngredient" class="modal-trigger">Ajout ingrédient</a></li>
+            <li><a onclick="navigate('itemedit')" id="addItem">Ajout ingrédient</a></li>-->
             <li><a onclick="navigate('archive')">Historique</a></li>
+            <li><a onclick="logout()">Déconnexion</a></li>
+
         </ul>
     </div>
 </nav>
@@ -14,7 +16,11 @@
 <ul class="sidenav" id="mobile-demo">
     <li><a onclick="navigate('itemedit')">Ajout ingrédient</a></li>
     <li><a onClick="navigate('archive')">Historique</a></li>
+    <li><a onclick="logout()">Déconnexion</a></li>
+
 </ul>
+
+
 
 <table>
     <thead>
@@ -22,12 +28,15 @@
         <th>Valider</th>
         <th>Quantiter</th>
         <th>Article</th>
-        <th>Action</th>
+        <th>Plus</th>
     </tr>
     </thead>
     <tbody id="itemsTable">
+
     </tbody>
+
 </table>
+<a class="waves-effect waves-light btn" style="float: right; margin: 2%;" onclick="navigate('itemedit')"><i class="material-icons right">add</i>Ajout ingrédient </a>
 
 
 <!--<div id="formEditIngredient" class="modal">-->

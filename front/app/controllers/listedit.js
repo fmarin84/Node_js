@@ -2,13 +2,17 @@ class ListEditController extends BaseFormController {
 
     constructor() {
         super()
+        let title = `<h3> Ajout d'une liste </h3>`
+
         if (indexController.selectedList) {
             self.list = indexController.selectedList
             indexController.selectedList = null
             $("#fieldListMagasin").value = self.list.shop
             $("#fielListDate").value = self.list.date.toISOString().substr(0, 10)
+            title = `<h3> Modification d'une liste </h3>`
         }
-        
+
+        $('#editTitleList').innerHTML = title
     }
 
     async save() {

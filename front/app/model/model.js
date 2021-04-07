@@ -120,6 +120,16 @@ class ModelUser {
         this.api = new UserAccountAPI()
     }
 
+    async getThisUser() {
+        try {
+            const user = Object.assign(new User(), await this.api.getThisUser())
+            return user
+        } catch (e) {
+            if (e === 404) return null
+            return undefined
+        }
+    }
+
     async getUser(id) {
         try {
             const user = Object.assign(new User(), await this.api.get(id))

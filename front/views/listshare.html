@@ -6,6 +6,8 @@
         <ul class="right hide-on-med-and-down">
             <li><a onclick="navigate('index')">Accueil</a></li>
             <li><a onclick="navigate('archive')">Historique</a></li>
+            <li><a onclick="logout()">Déconnexion</a></li>
+
         </ul>
     </div>
 </nav>
@@ -13,6 +15,8 @@
 <ul class="sidenav" id="mobile-demo">
     <li><a onclick="navigate('index')">Accueil</a></li>
     <li><a onclick="navigate('archive')">Historique</a></li>
+    <li><a onclick="logout()">Déconnexion</a></li>
+
 </ul>
 
 <div class="container">
@@ -47,7 +51,7 @@
      <tr>
          <th>Nom</th>
          <th>Login</th>
-         <th>Action</th>
+         <th>Plus</th>
      </tr>
      </thead>
      <tbody id="usersTable">

@@ -64,8 +64,11 @@ class ListShareController extends BaseFormController {
                 return
             }
             this.users = object
-            if(this.users.length === 0){
-                this.toast("Login incorrect")
+            const user = await this.modelUser.getThisUser()
+            if(login === user.login){
+                this.toast("Impossible de partager une liste à vous-même")
+            } else if(this.users.length === 0){
+                this.toast("Login incorrect ")
             }
             this.displayUsers()
         } catch (err) {

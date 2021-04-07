@@ -1,23 +1,39 @@
-class ItemEditController extends BaseFormController {
+class CompteController extends BaseFormController {
 
     constructor() {
         super()
+        this.edit()
+    }
 
-        let title = `<h3> Ajout ingredients </h3>`
 
-        if (listcurentController.selectedItem) {
-            self.item = listcurentController.selectedItem
-            listcurentController.selectedItem = null
-            $("#fieldItemQte").value = self.item.quantity
-            $("#fieldItemName").value = self.item.label
-            self.item.idList = self.item.fk_id_list
-            title = `<h3> Modification ingredient </h3>`
+    async edit() {
+        try {
+            const object = await this.modelUser.getThisUser()
+            console.log(object.id)
+
+            if (object === undefined) {
+                this.displayServiceError()
+                return
+            }
+            if (object === null) {
+                this.displayNotFoundError()
+                return
+            }
+            this.selectedUser = object
+
+            $("#editTitleCompte").innerHTML = `<h3> Bonjour ${object.displayname}</h3>`
+            $("#fieldNom").value = object.displayname
+            $("#fieldAdresse").value = object.login
+
+            //navigate('listedit')
+        } catch (err) {
+            console.log(err)
+            this.displayServiceError()
         }
-        $('#editTitleItem').innerHTML = title
-
     }
 
     async save() {
+        /*
         let qte = this.validateRequiredField('#fieldItemQte', 'Qte')
         let label = this.validateRequiredField("#fieldItemName", 'Name')
         if ((qte != null) &&  (qte > 0) && (label != null)) {
@@ -46,9 +62,11 @@ class ItemEditController extends BaseFormController {
                 this.displayServiceError()
             }
         }
+
+         */
     }
 
 
 }
 
-window.itemeditController = new ItemEditController()
+window.compteController = new CompteController()
