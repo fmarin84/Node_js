@@ -123,9 +123,7 @@ class IndexController extends BaseController {
                 this.displayNotFoundError()
                 return
             }
-            console.log(object)
             this.selectedList = object
-            console.log(this.selectedList)
             navigate('listedit')
         } catch (err) {
             console.log(err)

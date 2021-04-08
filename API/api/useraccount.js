@@ -84,7 +84,7 @@ module.exports = (app, svc, jwt, transporter) => {
                     if(err){
                         console.log('Error Occurs')
                     } else {
-                        console.log('Emmail sent !!')
+                        console.log('Email sent !!')
                     }
                 });
             }
@@ -120,7 +120,7 @@ module.exports = (app, svc, jwt, transporter) => {
                 if(err){
                     console.log('Error Occurs')
                 } else {
-                    console.log('Emmail sent !!')
+                    console.log('Email sent !!')
                 }
             });
         }
@@ -159,7 +159,7 @@ module.exports = (app, svc, jwt, transporter) => {
                 } else {
                     console.log(login)
                     console.log(link)
-                    console.log('Emmail sent !!')
+                    console.log('Email sent !!')
                 }
             });
         }
