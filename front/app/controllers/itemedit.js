@@ -3,7 +3,7 @@ class ItemEditController extends BaseFormController {
     constructor() {
         super()
 
-        let title = `<h3> Ajout ingredients </h3>`
+        let title = `<h3> Ajout article </h3>`
 
         if (listcurentController.selectedItem) {
             self.item = listcurentController.selectedItem
@@ -11,7 +11,7 @@ class ItemEditController extends BaseFormController {
             $("#fieldItemQte").value = self.item.quantity
             $("#fieldItemName").value = self.item.label
             self.item.idList = self.item.fk_id_list
-            title = `<h3> Modification ingredient </h3>`
+            title = `<h3> Modification article </h3>`
         }
         $('#editTitleItem').innerHTML = title
 

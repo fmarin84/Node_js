@@ -8,9 +8,7 @@ class ListCurentController extends BaseController {
 
     async displayListsShare() {
         let content = ''
-        // this.tableListsShare.style.display = "none"
         try {
-
             for (const list of await this.model.getListsShareByUser()) {
                 const date = list.date.toLocaleDateString()
                 const userShare = Object.assign(new User(), await this.modelUser.getUser(list.useraccount_id))
@@ -51,11 +49,14 @@ class ListCurentController extends BaseController {
             }
             else {
                 items = await this.modelItem.getListItems(list.id)
+                $('#addItem').style.display = "block";
+
             }
 
             for(let item of items) {
 
                 if((this.isShare) && (item.state === 1)){
+                    $('#addItem').style.display = "block";
 
                     if(item.checked === false){
                         content += `<tr><td><p><label><input type="checkbox"  onclick='listcurentController.Check(${item.id})'/><span></span></label></p></td>`
@@ -69,7 +70,6 @@ class ListCurentController extends BaseController {
                     <td><button class="btn" onclick="listcurentController.edititem(${item.id})"><i class="material-icons">edit</i></button></td>
                     <td><button class="btn" onclick='listcurentController.displayConfirmDelete(${item.id})'><i class="material-icons">delete</i></button></td>`
                 } else if((this.isShare) && (item.state === 0)){
-                    $('#addItem').remove()
 
                     if(item.checked === false){
                         content += `<tr><td><p><label><input type="checkbox"  disabled/><span></span></label></p></td>`
@@ -81,6 +81,7 @@ class ListCurentController extends BaseController {
                     <td>${item.quantity}</td>
                     <td>${item.label}</td>`
                 } else {
+                    $('#addItem').style.display = "block";
 
                     if(item.checked === false){
                         content += `<tr><td><p><label><input type="checkbox"  onclick='listcurentController.Check(${item.id})'/><span></span></label></p></td>`

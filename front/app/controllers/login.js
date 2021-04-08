@@ -64,17 +64,7 @@ class LoginController extends BaseFormController {
                 this.toast("Les mots de passe ne sont pas identiques")
                 return false
             }
-/*
-            const user = await this.modelUser.getByLogin(login)
-            if (user === undefined) {
-                this.displayServiceError()
-                return
-            }
-            if (user === null) {
-                this.displayNotFoundError()
-                return
-            }
- */
+
             this.svc.sendLink(login)
                 .then(res => {
                     //window.location.replace("index.html")

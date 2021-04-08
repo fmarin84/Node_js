@@ -16,8 +16,6 @@ class IndexController extends BaseController {
             for (const list of await this.model.getListsShareByUser()) {
                 const date = list.date.toLocaleDateString()
                 const userShare = Object.assign(new User(), await this.model.getUserShare(list.id))
-                console.log(list.useraccount_id)
-                console.log(userShare)
 
                 if(list.state === 1){
                     content += `<tr><td>

@@ -37,11 +37,7 @@ module.exports = (app, serviceList, jwt) => {
             if (list === undefined) {
                 return res.status(404).end()
             }
-            /*
-            if (list.useraccount_id !== req.user.id) {
-                return res.status(403).end()
-            }
-             */
+
             return res.json(list)
         } catch (e) { res.status(400).end() }
     })
@@ -58,20 +54,6 @@ module.exports = (app, serviceList, jwt) => {
                 console.log(e)
                 res.status(500).end()
             })
-
-
-
-/*
-        if (list.id)
-        {
-            const list_item = await itemService.dao.getAllItem(list.id)
-            for (let item of list_item)
-            {
-                item.id_list = id_list
-                itemService.dao.updateItem(item)
-            }
-        }
- */
 
     })
     app.delete("/list/:id", jwt.validateJWT, async (req, res) => {

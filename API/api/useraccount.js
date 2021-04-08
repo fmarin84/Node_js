@@ -77,7 +77,7 @@ module.exports = (app, svc, jwt, transporter) => {
                     from: 'fabien.esimed@gmail.com',
                     to: login,
                     subject: 'Validation de compte',
-                    text:'Cliquer sur ce lien pour valider votre compte : ' + link
+                    text:'Cliquez sur ce lien pour valider votre compte : ' + link
                 };
 
                 transporter.sendMail(mailOptions, function(err, data) {
@@ -113,7 +113,7 @@ module.exports = (app, svc, jwt, transporter) => {
                 from: 'fabien.esimed@gmail.com',
                 to: login,
                 subject: 'Validation de compte',
-                text:'Cliquer sur ce lien pour valider votre compte : ' + link
+                text:'Cliquez sur ce lien pour valider votre compte : ' + link
             };
 
             transporter.sendMail(mailOptions, function(err, data) {
@@ -149,7 +149,7 @@ module.exports = (app, svc, jwt, transporter) => {
                 from: 'fabien.esimed@gmail.com',
                 to: login,
                 subject: 'Validation de compte',
-                text:'Cliquer sur ce lien pour réinitialisation votre mot de passe : ' + link
+                text:'Cliquez sur ce lien pour réinitialisation votre mot de passe : ' + link
             };
 
 

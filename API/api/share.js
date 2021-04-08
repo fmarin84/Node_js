@@ -2,11 +2,6 @@ const Share = require('../datamodel/share')
 
 
 module.exports = (app, svc, jwt) => {
-    /*
-    app.get("/share", jwt.validateJWT, async (req, res) => {
-        res.json(await serviceShare.dao.getByUser(req.user))
-    })
-*/
 
     app.post("/share/:listId/:userId/:state", jwt.validateJWT, (req, res) => {
 

@@ -171,18 +171,6 @@ class ModelShare {
     constructor() {
         this.api = new ShareAPI()
     }
-/*
-    async getByLogin(login) {
-
-        let users = []
-
-        for (let user of await this.api.getByLogin(login)) {
-            users.push(Object.assign(new User(), user))
-        }
-        return users
-    }
-*/
-
 
     deleteShareList(listId) {
         return this.api.deleteShareList(listId).then(res => res.status)

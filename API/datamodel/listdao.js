@@ -5,22 +5,6 @@ module.exports = class listdao extends BaseDAO {
         super(db,"list")
     }
 
-
-    /*
-    insert(list) {
-
-       return new Promise(((resolve, reject) => {
-               this.db.query("INSERT INTO list(shop,date,archived, useraccount_id) VALUES ($1,$2,$3,$4)",
-                   [list.shop, list.date, list.archived, list.useraccount_id])
-                   .then(res => resolve(res.rows[0].id))
-                   .catch(err => reject(err))
-           }))
-
-        return this.db.query("INSERT INTO list(shop,date,archived, useraccount_id) VALUES ($1,$2,$3,$4)",
-           [list.shop, list.date, list.archived, list.useraccount_id])
-    }
-    */
-
     insert(list) {
         return new Promise((resolve, reject) => {
             return this.db.query("INSERT INTO list(shop,date,archived,useraccount_id) VALUES ($1,$2,$3,$4) RETURNING id",
@@ -29,16 +13,6 @@ module.exports = class listdao extends BaseDAO {
                 .catch(err => reject(err))
         })
     }
-
-/*
-    getAll() {
-        return new Promise((resolve, reject) =>
-            this.db.query("SELECT * FROM list WHERE archived=false ORDER BY shop")
-                .then(res => resolve(res.rows))
-                .catch(e => reject(e)))
-    }
-*/
-
 
     getUserShare(listId) {
         return new Promise((resolve, reject) =>

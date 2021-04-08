@@ -18,14 +18,6 @@ class ShareAPI extends BaseAPIService {
     insert(listId, userId,state) {
         this.headers.set( 'Content-Type', 'application/json' )
         return fetch(`${this.url}/${listId}/${userId}/${state}`, { method: 'POST', headers: this.headers })
-
-        /*
-        return fetch(this.url, {
-            method: 'POST',
-            headers: this.headers,
-            body: JSON.stringify(listId, userId,state)
-        })
-         */
     }
     update(listId, userId,state) {
         this.headers.set( 'Content-Type', 'application/json' )
