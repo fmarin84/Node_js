@@ -40,4 +40,9 @@ module.exports = class UserAccountDAO extends BaseDAO {
             [userId])
     }
 
+    update(useraccount) {
+        return this.db.query("UPDATE useraccount SET displayname=$2, login=$3 WHERE id=$1",
+            [useraccount.id, useraccount.displayname, useraccount.login])
+    }
+
 }

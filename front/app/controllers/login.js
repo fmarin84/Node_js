@@ -30,8 +30,6 @@ class LoginController extends BaseFormController {
         let password = this.validateRequiredField('#fieldPassword', 'Mot de passe')
         let confpassword = this.validateRequiredField('#fieldConfPassword', 'Conf mot de passe')
 
-        console.log(password)
-        console.log(confpassword)
         if ((name != null) && (login != null) && (password != null) &&  (confpassword != null)) {
             if(password !== confpassword){
                 this.toast("Les mots de passe ne sont pas identiques")
@@ -51,6 +49,46 @@ class LoginController extends BaseFormController {
                     }
                 })
         }
+
+    }
+
+    async sendLink(){
+
+        let name = this.validateRequiredField('#fieldName', 'Nom')
+        let login = this.validateRequiredField('#fieldLogin', 'Adresse e-mail')
+        let password = this.validateRequiredField('#fieldPassword', 'Mot de passe')
+        let confpassword = this.validateRequiredField('#fieldConfPassword', 'Conf mot de passe')
+
+        if ((name != null) && (login != null) && (password != null) &&  (confpassword != null)) {
+            if(password !== confpassword){
+                this.toast("Les mots de passe ne sont pas identiques")
+                return false
+            }
+/*
+            const user = await this.modelUser.getByLogin(login)
+            if (user === undefined) {
+                this.displayServiceError()
+                return
+            }
+            if (user === null) {
+                this.displayNotFoundError()
+                return
+            }
+ */
+            this.svc.sendLink(login)
+                .then(res => {
+                    //window.location.replace("index.html")
+                })
+                .catch(err => {
+                    console.log(err)
+                    if (err == 401) {
+                        this.toast("Adresse email invalide")
+                    } else {
+                        this.displayServiceError()
+                    }
+                })
+        }
+
 
     }
 }

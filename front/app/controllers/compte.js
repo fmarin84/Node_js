@@ -9,8 +9,6 @@ class CompteController extends BaseFormController {
     async edit() {
         try {
             const object = await this.modelUser.getThisUser()
-            console.log(object.id)
-
             if (object === undefined) {
                 this.displayServiceError()
                 return
@@ -33,26 +31,24 @@ class CompteController extends BaseFormController {
     }
 
     async save() {
-        /*
-        let qte = this.validateRequiredField('#fieldItemQte', 'Qte')
-        let label = this.validateRequiredField("#fieldItemName", 'Name')
-        if ((qte != null) &&  (qte > 0) && (label != null)) {
-            try {
-                if (self.item) {
-                    self.item.quantity = qte
-                    self.item.label = label
-                    if (await this.modelItem.update(self.item) === 200) {
-                        this.toast("La marchandise a bien été modifé")
-                        self.item = null
-                        navigate('listcurent')
 
-                    } else {
-                        this.displayServiceError()
-                    }
-                } else {
-                    if (await this.modelItem.insert(new Item(label, qte, false, window.idCurrentList)) === 200) {
-                        this.toast("La marchandise a bien été inséré")
-                        navigate('listcurent')
+        let nom = this.validateRequiredField('#fieldNom', 'Name')
+        let login = this.validateRequiredField("#fieldAdresse", 'Address')
+        if ((nom != null) && (login != null)) {
+            try {
+                if (this.selectedUser) {
+                    const loginOld = this.selectedUser.login
+                    this.selectedUser.displayname = nom
+                    this.selectedUser.login = login
+                    if (await this.modelUser.update(this.selectedUser) === 200) {
+                        this.toast("Votre compte a bien été modifé")
+                        this.selectedUser = null
+                        if(loginOld !== login){
+                            logout()
+                        }else {
+                            this.edit()
+                        }
+                        //navigate('compte')
                     } else {
                         this.displayServiceError()
                     }
@@ -63,7 +59,6 @@ class CompteController extends BaseFormController {
             }
         }
 
-         */
     }
 
 

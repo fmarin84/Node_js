@@ -91,6 +91,42 @@ module.exports = (app, svc, jwt, transporter) => {
         }
     })
 
+    app.post('/useraccount/sendLink', async (req, res) => {
+        const login = req.body.login
+
+        const user = await svc.dao.getByLogin(login)
+            .then()
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+
+        if(user !== undefined){
+            const date = new Date()
+            let dateTime = date.getTime()
+            const date24 = new Date()
+            date24.setDate(date.getDate()+1)
+            let dateTime24 = date24.getTime()
+
+            const link = `http://localhost:3333/useraccount/authentication/${dateTime24}/${user.id}`
+            let mailOptions = {
+                from: 'fabien.esimed@gmail.com',
+                to: login,
+                subject: 'Validation de compte',
+                text:'Cliquer sur ce lien pour valider votre compte : ' + link
+            };
+
+            transporter.sendMail(mailOptions, function(err, data) {
+                if(err){
+                    console.log('Error Occurs')
+                } else {
+                    console.log('Emmail sent !!')
+                }
+            });
+        }
+
+    })
+
     app.get('/useraccount/authentication/:date/:idUser', (req, res) => {
 
         if ((req.params.date === "") || (req.params.idUser === "")) {
@@ -124,7 +160,7 @@ module.exports = (app, svc, jwt, transporter) => {
         res.json(await svc.dao.getUserByLogin(req.params.login, req.user.id))
     })
 
-    app.get("/useraccount/", jwt.validateJWT, async (req, res) => {
+    app.get("/useraccount", jwt.validateJWT, async (req, res) => {
         res.json(await svc.dao.getById(req.user.id))
     })
 
@@ -141,6 +177,28 @@ module.exports = (app, svc, jwt, transporter) => {
 
             return res.json(user)
         } catch (e) { res.status(400).end() }
+    })
+
+    app.put("/useraccount", jwt.validateJWT, async (req, res) => {
+        const user = req.body
+        //|| (!user.isValid(user))
+        if ((user.id === undefined) || (user.id == null) ) {
+            return res.status(400).end()
+        }
+        const prevUser = await svc.dao.getById(user.id)
+
+        if (prevUser  === undefined) {
+            return res.status(404).end()
+        }
+        if (prevUser.id !== req.user.id) {
+            return res.status(403).end()
+        }
+        svc.dao.update(user)
+            .then(res.status(200).end())
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
     })
 
 }
