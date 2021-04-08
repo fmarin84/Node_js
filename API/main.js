@@ -36,38 +36,6 @@ let mailOptions = {
     subject: 'Testing and testing',
     text:'It works'
 };
-/*
-transporter.sendMail(mailOptions, function(err, data) {
-    if(err){
-        console.log('Error Occurs')
-        console.log(err)
-    } else {
-        console.log('Emmail sent !!')
-    }
-});
-
-
-const date = new Date()
-
-let dateTime = date.getTime()
-
-console.log("--------------------")
-console.log(date)
-console.log(dateTime)
-console.log(date.getDate())
-
-const date24 = new Date()
-date24.setDate(date.getDate()+1)
-
-console.log("--------------------")
-console.log(date24)
-console.log(date24.getTime())
-console.log(date24.getDate())
-
- */
-
-
-
 
 const connectionString = "postgres://user:root@localhost/base"
 const db = new pg.Pool({ connectionString: connectionString })
@@ -80,7 +48,7 @@ require('./api/list')(app, listService, jwt)
 require('./api/item')(app, itemService, jwt)
 require('./api/useraccount')(app, userAccountService, jwt, transporter)
 require('./api/share')(app, shareService, jwt)
-require('./datamodel/seeder')(userAccountService,listService,shareService)
+require('./datamodel/seeder')(userAccountService,listService,itemService,shareService)
     .then(app.listen(3333))
 
 

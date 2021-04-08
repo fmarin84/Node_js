@@ -7,7 +7,6 @@ module.exports = class Shareservice {
 
     isValid(share) {
 
-
         if (share.list_id === 0) return false
         if (share.useraccount_id === 0) return false
         if (share.state === "") return false
