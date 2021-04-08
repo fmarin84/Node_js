@@ -41,7 +41,6 @@ class IndexController extends BaseController {
             }
 
             this.tableBodyListsShare.innerHTML = content
-            this.tableListsShare.style.display = "block"
         } catch (err) {
             console.log(err)
             if(err == 401){
@@ -67,7 +66,7 @@ class IndexController extends BaseController {
                 for (let user of await this.model.getUsersList(list.id)) {
                     content +=
                         `- ${user.displayname}
-                    <button class="btn" onclick="indexController.displayConfirmDeleteShare(${list.id}, ${list.useraccount_id}, ${user.state})"><i class="material-icons">delete</i></button>
+                    <a onclick="indexController.displayConfirmDeleteShare(${list.id}, ${user.id}, ${user.state})">annuler</i></a>
                     
                     <br>`
                 }
@@ -84,7 +83,6 @@ class IndexController extends BaseController {
             }
 
             this.tableBodyAllLists.innerHTML = content
-            this.tableAllLists.style.display = "block"
         } catch (err) {
             console.log(err)
             if(err == 401){

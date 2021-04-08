@@ -26,7 +26,7 @@ class ListCurentController extends BaseController {
             }
 
             this.tableBodyListsShare.innerHTML = content
-            this.tableListsShare.style.display = "block"
+
         } catch (err) {
             console.log(err)
             if(err == 401){

@@ -8,7 +8,6 @@ class ArchiveController extends BaseController {
 
     async displayAllListsArchive() {
         let content = ''
-        this.tableAllLists.style.display = "none"
         try {
             for (const list of await this.model.getAchived()) {
                 const date = list.date.toLocaleDateString()
@@ -24,7 +23,6 @@ class ArchiveController extends BaseController {
             }
 
             this.tableBodyAllLists.innerHTML = content
-            this.tableAllLists.style.display = "block"
         } catch (err) {
             console.log(err)
             this.displayServiceError()
