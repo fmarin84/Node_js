@@ -9,6 +9,13 @@ module.exports = class UserAccountService {
     insert(displayname, login, password) {
         return this.dao.insert(new UserAccount(displayname, login, this.hashPassword(password)))
     }
+
+    updatePwd(user) {
+        console.log(user)
+        user.challenge = this.hashPassword(user.challenge)
+        return this.dao.updatePwd(user)
+    }
+
     async validateLogin(login) {
         const user = await this.dao.getByLogin(login.trim())
 

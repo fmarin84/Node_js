@@ -37,11 +37,5 @@ class ShareAPI extends BaseAPIService {
     }
 
 
-   /*
-    getByLogin(login) {
-        //return fetchJSON(`${serviceBaseUrl}/${id}`)
-        return fetchJSON(`${this.url}/search/${login}`, this.token)
-    }
-    */
 
 }

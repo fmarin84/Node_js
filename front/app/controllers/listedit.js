@@ -8,7 +8,9 @@ class ListEditController extends BaseFormController {
             self.list = indexController.selectedList
             indexController.selectedList = null
             $("#fieldListMagasin").value = self.list.shop
-            $("#fielListDate").value = self.list.date.toISOString().substr(0, 10)
+            const date = new Date(self.list.date)
+            date.setDate(date.getDate()+1)
+            $("#fielListDate").value = date.toISOString().substr(0, 10)
             title = `<h3> Modification d'une liste </h3>`
         }
 

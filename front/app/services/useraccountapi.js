@@ -47,6 +47,21 @@ class UserAccountAPI extends BaseAPIService {
         }).catch(err => reject(err)))
     }
 
+    sendEmailForgetPwd(login){
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        return new Promise((resolve, reject) => fetch(`${this.url}/sendEmailForgetPwd`, {
+            method: "POST",
+            headers: this.headers,
+            body: `login=${login}`
+        }).then(res => {
+            if (res.status === 200) {
+                resolve(res.json())
+            } else {
+                reject(res.status)
+            }
+        }).catch(err => reject(err)))
+    }
+
     getByLogin(login) {
         return fetchJSON(`${this.url}/search/${login}`, this.token)
     }
@@ -61,6 +76,24 @@ class UserAccountAPI extends BaseAPIService {
     update(user) {
         this.headers.set( 'Content-Type', 'application/json' )
         return fetch(this.url, {
+            method: 'PUT',
+            headers: this.headers,
+            body: JSON.stringify(user)
+        })
+    }
+
+    updateforgetPwd(user) {
+        this.headers.set( 'Content-Type', 'application/json' )
+        return fetch(`${this.url}/forget`, {
+            method: 'PUT',
+            headers: this.headers,
+            body: JSON.stringify(user)
+        })
+    }
+
+    updatePwd(user) {
+        this.headers.set( 'Content-Type', 'application/json' )
+        return fetch(`${this.url}/password`, {
             method: 'PUT',
             headers: this.headers,
             body: JSON.stringify(user)

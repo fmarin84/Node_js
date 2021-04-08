@@ -11,12 +11,13 @@ class IndexController extends BaseController {
 
     async displayListsShare() {
         let content = ''
-        // this.tableListsShare.style.display = "none"
         try {
 
             for (const list of await this.model.getListsShareByUser()) {
                 const date = list.date.toLocaleDateString()
-                const userShare = Object.assign(new User(), await this.model.getUserShare(list.useraccount_id))
+                const userShare = Object.assign(new User(), await this.model.getUserShare(list.id))
+                console.log(list.useraccount_id)
+                console.log(userShare)
 
                 if(list.state === 1){
                     content += `<tr><td>
@@ -52,7 +53,6 @@ class IndexController extends BaseController {
 
     async displayAllLists() {
         let content = ''
-        // this.tableAllLists.style.display = "none"
         try {
             for (const list of await this.model.getAllLists()) {
                 const date = list.date.toLocaleDateString()
@@ -123,7 +123,9 @@ class IndexController extends BaseController {
                 this.displayNotFoundError()
                 return
             }
+            console.log(object)
             this.selectedList = object
+            console.log(this.selectedList)
             navigate('listedit')
         } catch (err) {
             console.log(err)

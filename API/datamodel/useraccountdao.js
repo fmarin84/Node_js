@@ -45,4 +45,9 @@ module.exports = class UserAccountDAO extends BaseDAO {
             [useraccount.id, useraccount.displayname, useraccount.login])
     }
 
+    updatePwd(useraccount) {
+        return this.db.query("UPDATE useraccount SET challenge=$2 WHERE id=$1 and login=$3",
+            [useraccount.id, useraccount.challenge, useraccount.login])
+    }
+
 }

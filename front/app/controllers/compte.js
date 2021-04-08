@@ -3,11 +3,14 @@ class CompteController extends BaseFormController {
     constructor() {
         super()
         this.edit()
+        this.svc = new UserAccountAPI()
+
     }
 
 
     async edit() {
         try {
+            this.selectedUser = null
             const object = await this.modelUser.getThisUser()
             if (object === undefined) {
                 this.displayServiceError()
@@ -19,11 +22,12 @@ class CompteController extends BaseFormController {
             }
             this.selectedUser = object
 
-            $("#editTitleCompte").innerHTML = `<h3> Bonjour ${object.displayname}</h3>`
-            $("#fieldNom").value = object.displayname
-            $("#fieldAdresse").value = object.login
+            if($("#editTitleCompte")){
+                $("#editTitleCompte").innerHTML = `<h3> Bonjour ${object.displayname}</h3>`
+                $("#fieldNom").value = object.displayname
+                $("#fieldAdresse").value = object.login
+            }
 
-            //navigate('listedit')
         } catch (err) {
             console.log(err)
             this.displayServiceError()
@@ -48,7 +52,6 @@ class CompteController extends BaseFormController {
                         }else {
                             this.edit()
                         }
-                        //navigate('compte')
                     } else {
                         this.displayServiceError()
                     }
@@ -59,6 +62,42 @@ class CompteController extends BaseFormController {
             }
         }
 
+    }
+
+
+    async resetPwd() {
+
+        let oldPassword = this.validateRequiredField('#fieldOldMdp', 'old')
+        let password = this.validateRequiredField('#fieldMdp', 'Mot de passe')
+        let confpassword = this.validateRequiredField('#fieldconfMdp', 'Conf mot de passe')
+
+        if ((oldPassword != null) && (password != null) &&  (confpassword != null)) {
+
+            if(password !== confpassword){
+                this.toast("Les mots de passe ne sont pas identiques")
+                return false
+            }
+
+            try {
+                if (this.selectedUser) {
+                    this.selectedUser.challenge = password
+                    this.selectedUser.old = oldPassword
+                    if ( await this.modelUser.updatePwd(this.selectedUser) === 200) {
+                        this.toast("Votre mot de passe a bien été modifé")
+                    } else {
+                        if (await this.modelUser.updatePwd(this.selectedUser) === 401) {
+                            this.toast("Mot de passe incorrect")
+
+                        } else {
+                            this.displayServiceError()
+                        }
+                    }
+                }
+            } catch (err) {
+                console.log(err)
+            }
+
+        }
     }
 
 

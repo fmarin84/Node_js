@@ -23,7 +23,6 @@ class Model {
         let users = []
         for (let user of await this.api.getUsersList(listId)) {
             users.push(Object.assign(new User(), user))
-           // users.push(login)
         }
         return users
     }
@@ -161,6 +160,9 @@ class ModelUser {
     }
     update(user) {
         return this.api.update(user).then(res => res.status)
+    }
+    updatePwd(user) {
+        return this.api.updatePwd(user).then(res => res.status)
     }
 }
 

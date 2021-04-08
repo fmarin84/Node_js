@@ -88,9 +88,29 @@ class LoginController extends BaseFormController {
                     }
                 })
         }
-
-
     }
+
+    async forgetSendEmail(){
+        let login = this.validateRequiredField('#fieldLogin', 'Adresse e-mail')
+
+        if ((login != null)) {
+
+            this.svc.sendEmailForgetPwd(login)
+                .then(res => {
+                    //window.location.replace("index.html")
+                    this.toast("Un email vous a était envoyer")
+                })
+                .catch(err => {
+                    console.log(err)
+                    if (err == 401) {
+                        this.toast("Adresse email invalide")
+                    } else {
+                        this.displayServiceError()
+                    }
+                })
+        }
+    }
+
 }
 
 window.loginController = new LoginController()
