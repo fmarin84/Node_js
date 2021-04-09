@@ -228,7 +228,6 @@ module.exports = (app, svc, jwt, transporter) => {
         try{
             if(req.user!== undefined){
                 req.user.isactived=true
-                console.log(req.user)
                 if(await svc.dao.update(req.user)){
                     if(await svc.isValide(req.user.login)){
 

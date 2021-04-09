@@ -25,67 +25,6 @@ class LoginController extends BaseFormController {
         }
     }
 
-
-/*
-    async register() {
-
-        let name = this.validateRequiredField('#fieldName', 'Nom')
-        let login = this.validateRequiredField('#fieldLogin', 'Adresse e-mail')
-        let password = this.validateRequiredField('#fieldPassword', 'Mot de passe')
-        let confpassword = this.validateRequiredField('#fieldConfPassword', 'Conf mot de passe')
-
-        if ((name != null) && (login != null) && (password != null) &&  (confpassword != null)) {
-            if(password !== confpassword){
-                this.toast("Les mots de passe ne sont pas identiques")
-                return false
-            }
-
-            this.svc.register(name, login, password)
-                .then(res => {
-                    //window.location.replace("index.html")
-                })
-                .catch(err => {
-                    console.log(err)
-                    if (err == 401) {
-                        this.toast("Adresse email déjà utilisé ")
-                    } else {
-                        this.displayServiceError()
-                    }
-                })
-        }
-
-    }
-
-    async sendLink(){
-
-        let name = this.validateRequiredField('#fieldName', 'Nom')
-        let login = this.validateRequiredField('#fieldLogin', 'Adresse e-mail')
-        let password = this.validateRequiredField('#fieldPassword', 'Mot de passe')
-        let confpassword = this.validateRequiredField('#fieldConfPassword', 'Conf mot de passe')
-
-        if ((name != null) && (login != null) && (password != null) &&  (confpassword != null)) {
-            if(password !== confpassword){
-                this.toast("Les mots de passe ne sont pas identiques")
-                return false
-            }
-
-            this.svc.sendLink(login)
-                .then(res => {
-                    //window.location.replace("index.html")
-                })
-                .catch(err => {
-                    console.log(err)
-                    if (err == 401) {
-                        this.toast("Adresse email invalide")
-                    } else {
-                        this.displayServiceError()
-                    }
-                })
-        }
-    }
-
- */
-
     async forgetSendEmail(){
         let login = this.validateRequiredField('#fieldLogin', 'Adresse e-mail')
 

@@ -44,8 +44,6 @@ class ListCurentController extends BaseController {
 
             const list = await this.model.getList(this.idList)
 
-
-
             if(this.isShare){
                 items = await this.modelItem.getListItemsShare(list.id)
             }
