@@ -17,7 +17,6 @@ class ArchiveController extends BaseController {
                     </td>
                     <td>${date}</td>
                     <td class="icon">
-                    <button class="btn" onclick="indexController.edit(${list.id})"><i class="material-icons">edit</i></button>
                     <button class="btn" onclick="archiveController.displayConfirmDelete(${list.id})"><i class="material-icons">delete</i></button>                   
                     </td></tr>`
             }

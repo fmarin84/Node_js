@@ -22,6 +22,7 @@ class BaseController {
             this.displayNotFoundError()
             return
         }
+
         $('#spanDeleteObject').innerText = object.toString()
         $('#btnDelete').onclick = onclick
         this.getModal('#modalConfirmDelete').open()

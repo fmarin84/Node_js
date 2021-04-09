@@ -6,7 +6,7 @@ class List {
         this.useraccount_id = useraccount_id
     }
     toString() {
-        return `Liste du ${this.date}`
+        return `Liste du ${this.date.toLocaleDateString()}`
     }
 }
 

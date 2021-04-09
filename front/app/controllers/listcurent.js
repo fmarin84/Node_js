@@ -44,18 +44,32 @@ class ListCurentController extends BaseController {
 
             const list = await this.model.getList(this.idList)
 
+
+
             if(this.isShare){
                 items = await this.modelItem.getListItemsShare(list.id)
             }
             else {
                 items = await this.modelItem.getListItems(list.id)
-                $('#addItem').style.display = "block";
-
+                if(!list.archived){
+                    $('#addItem').style.display = "block";
+                }
             }
 
             for(let item of items) {
 
-                if((this.isShare) && (item.state === 1)){
+                if(list.archived){
+
+                    if(item.checked === false){
+                        content += `<tr><td><p><label><input type="checkbox"  disabled/><span></span></label></p></td>`
+                    } else {
+                        content += `<tr><td><p><label><input type="checkbox" checked="checked"  disabled/><span></span></label></p></td>`
+                    }
+
+                    content += `
+                    <td>${item.quantity}</td>
+                    <td>${item.label}</td>`
+                } else if((this.isShare) && (item.state === 1)){
                     $('#addItem').style.display = "block";
 
                     if(item.checked === false){
