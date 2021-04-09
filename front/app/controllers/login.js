@@ -16,6 +16,8 @@ class LoginController extends BaseFormController {
                     console.log(err)
                     if (err == 401) {
                         this.toast("Adresse e-mail ou mot de passe incorrect")
+                    } if (err == 400) {
+                        this.toast("Votre compte n'est pas activé")
                     } else {
                         this.displayServiceError()
                     }
@@ -23,6 +25,8 @@ class LoginController extends BaseFormController {
         }
     }
 
+
+/*
     async register() {
 
         let name = this.validateRequiredField('#fieldName', 'Nom')
@@ -79,6 +83,8 @@ class LoginController extends BaseFormController {
                 })
         }
     }
+
+ */
 
     async forgetSendEmail(){
         let login = this.validateRequiredField('#fieldLogin', 'Adresse e-mail')

@@ -29,6 +29,7 @@ class User {
         this.login = login
 
     }
+
     toString() {
         return `${this.displayname} ${this.login}`
     }

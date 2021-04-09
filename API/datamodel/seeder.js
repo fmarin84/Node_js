@@ -19,7 +19,7 @@ module.exports = (userAccountService, listService, itemService, shareService) =>
             return
         }
 
-        userAccountService.insert("User1", "user1@example.com", "azerty")
+        userAccountService.insert("User1", "user1@example.com", "azerty", true)
             .then(_ => userAccountService.dao.getByLogin("user1@example.com"))
             .then(async user1 => {
                 await listService.dao.insert(new List("Carrefour", new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)), false, user1.id))
@@ -36,7 +36,7 @@ module.exports = (userAccountService, listService, itemService, shareService) =>
 
             })
 
-        userAccountService.insert("User2", "user2@example.com", "azerty")
+        userAccountService.insert("User2", "user2@example.com", "azerty", true)
             .then(_ => userAccountService.dao.getByLogin("user2@example.com"))
             .then(async user2 => {
                     await listService.dao.insert(new List("Auchan", new Date(+(new Date()) - Math.floor(Math.random() * 10000000000)), false, user2.id))

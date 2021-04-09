@@ -19,16 +19,31 @@ class UserAccountAPI extends BaseAPIService {
 
     register(name, login, password){
         this.headers.set('Content-Type', 'application/x-www-form-urlencoded')
-        return new Promise((resolve, reject) => fetch(`${this.url}/register`, {
+        return new Promise((resolve, reject) => fetch(`${this.url}/inscription`, {
             method: "POST",
             headers: this.headers,
-            body: `name=${name}&login=${login}&password=${password}`
+            body: `login=${login}&password=${password}&pseudo=${name}`
         }).then(res => {
-            if (res.status === 200) {
-                resolve(res.json())
-            } else {
-                reject(res.status)
-            }
+            resolve(res.status)
+        }).catch(err => reject(err)))
+    }
+
+    getValidation(token){
+        return fetchJSON(`${this.url}/token/${token}`)
+    }
+
+    reSendMailValidation(login){
+        return fetchJSON(`${this.url}/sendMail/${login}`)
+    }
+
+    getValidationChangePassword(token,password){
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        return new Promise((resolve, reject) => fetch(`${this.url}/forget`, {
+            method: "POST",
+            headers: this.headers,
+            body: `token=${token}&password=${password}`
+        }).then(res => {
+            resolve(res.status)
         }).catch(err => reject(err)))
     }
 
@@ -76,15 +91,6 @@ class UserAccountAPI extends BaseAPIService {
     update(user) {
         this.headers.set( 'Content-Type', 'application/json' )
         return fetch(this.url, {
-            method: 'PUT',
-            headers: this.headers,
-            body: JSON.stringify(user)
-        })
-    }
-
-    updateforgetPwd(user) {
-        this.headers.set( 'Content-Type', 'application/json' )
-        return fetch(`${this.url}/forget`, {
             method: 'PUT',
             headers: this.headers,
             body: JSON.stringify(user)

@@ -6,9 +6,8 @@ module.exports = class UserAccountDAO extends BaseDAO {
     }
 
     insert(useraccount) {
-        return this.db.query("INSERT INTO useraccount(displayname,login,challenge) VALUES ($1,$2,$3)",
-            [useraccount.displayName, useraccount.login, useraccount.challenge])
-
+        return this.db.query("INSERT INTO useraccount(displayname,login,challenge,isactived) VALUES ($1,$2,$3,$4)",
+            [useraccount.displayName, useraccount.login, useraccount.challenge,useraccount.isactived])
     }
 
     getByLogin(login) {
@@ -25,14 +24,9 @@ module.exports = class UserAccountDAO extends BaseDAO {
                 .catch(e => reject(e)))
     }
 
-    setIsActived(userId){
-        return this.db.query("UPDATE useraccount SET isactived=true WHERE id=$1",
-            [userId])
-    }
-
-    update(useraccount) {
-        return this.db.query("UPDATE useraccount SET displayname=$2, login=$3 WHERE id=$1",
-            [useraccount.id, useraccount.displayname, useraccount.login])
+    update(useraccount){
+        return this.db.query("UPDATE useraccount SET displayname=$1,login=$2,challenge=$3,isactived=$4 where id=$5",
+            [useraccount.displayname, useraccount.login, useraccount.challenge,useraccount.isactived,useraccount.id])
     }
 
     updatePwd(useraccount) {
