@@ -5,11 +5,23 @@ class IndexController extends BaseController {
         this.tableBodyAllLists = $('#tableBodyAllLists')
         this.tableListsShare = $('#tableListsShare')
         this.tableBodyListsShare = $('#tableBodyListsShare')
+        this.navigAdmin = $('#navigAdmin')
         this.displayAllLists()
         this.displayListsShare()
+        this.displayAdmin()
     }
 
-    async displayListsShare() {
+    async displayAdmin() {
+        const currentUser = await this.modelUser.getThisUser()
+
+        const isAdmin = await this.modelUser.getThisUserIsAdmin(currentUser.id)
+
+        if(isAdmin){
+            this.navigAdmin.innerHTML = "<a onClick=\"navigate('admin')\">Administration</a>"
+        }
+    }
+
+        async displayListsShare() {
         let content = ''
         try {
 

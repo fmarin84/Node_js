@@ -76,6 +76,10 @@ module.exports = (app, svc, jwt, transporter) => {
         res.json(await svc.dao.getById(req.user.id))
     })
 
+    app.get("/useraccount/roleuser/:userId", jwt.validateJWT, async (req, res) => {
+        res.json(await svc.dao.getRoleByUser(req.params.userId))
+    })
+
     app.get("/useraccount/:id", jwt.validateJWT, async (req, res) => {
         try {
             const user = await svc.dao.getById(req.params.id)

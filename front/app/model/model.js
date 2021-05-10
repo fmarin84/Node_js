@@ -122,6 +122,32 @@ class ModelUser {
         this.api = new UserAccountAPI()
     }
 
+    async getThisUserIsAdmin(userId) {
+        try {
+            for (let role of await this.api.getRoleToUser(userId)) {
+                if(role.level === 100){
+                    return true
+                }
+            }
+
+            return false
+        } catch (e) {
+            if (e === 404) return null
+            return undefined
+        }
+    }
+
+
+    async getThisUser() {
+        try {
+            const user = Object.assign(new User(), await this.api.getThisUser())
+            return user
+        } catch (e) {
+            if (e === 404) return null
+            return undefined
+        }
+    }
+
     async getThisUser() {
         try {
             const user = Object.assign(new User(), await this.api.getThisUser())

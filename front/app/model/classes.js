@@ -47,3 +47,13 @@ class Share {
         return `${this.list_id} ${this.useraccount_id} ${this.state}`
     }
 }
+
+class Role {
+    constructor(label, level) {
+        this.label = label
+        this.level = level
+    }
+    toString() {
+        return `${this.label} ${this.level} `
+    }
+}
