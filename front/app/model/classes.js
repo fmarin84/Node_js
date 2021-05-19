@@ -24,9 +24,10 @@ class Item {
 
 
 class User {
-    constructor(displayname, login) {
+    constructor(displayname, login, isactived) {
         this.displayname = displayname
         this.login = login
+        this.isactived = isactived
 
     }
 

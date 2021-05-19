@@ -1,7 +1,7 @@
 class ListShareController extends BaseFormController {
     constructor() {
         super()
-        this.idList = window.idCurrentList
+        this.idList = window.idEntity
         this.displayUsers()
     }
 

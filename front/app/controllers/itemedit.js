@@ -34,7 +34,7 @@ class ItemEditController extends BaseFormController {
                         this.displayServiceError()
                     }
                 } else {
-                    if (await this.modelItem.insert(new Item(label, qte, false, window.idCurrentList)) === 200) {
+                    if (await this.modelItem.insert(new Item(label, qte, false, window.idEntity)) === 200) {
                         this.toast("La marchandise a bien été inséré")
                         navigate('listcurent')
                     } else {

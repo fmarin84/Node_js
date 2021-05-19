@@ -1,6 +1,7 @@
 class IndexController extends BaseController {
     constructor() {
         super()
+        this.displayAdmin()
         this.tableAllLists = $('#tableAllLists')
         this.tableBodyAllLists = $('#tableBodyAllLists')
         this.tableListsShare = $('#tableListsShare')
@@ -8,7 +9,6 @@ class IndexController extends BaseController {
         this.navigAdmin = $('#navigAdmin')
         this.displayAllLists()
         this.displayListsShare()
-        this.displayAdmin()
     }
 
     async displayAdmin() {

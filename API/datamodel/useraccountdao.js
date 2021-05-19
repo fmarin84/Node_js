@@ -12,10 +12,25 @@ module.exports = class UserAccountDAO extends BaseDAO {
 
     getRoleByUser(userId) {
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT role.label, role.level FROM user_role, role WHERE user_role.fk_user_id=$1 and fk_role_id=role.id", [ userId ])
+            this.db.query("SELECT role.id, role.label, role.level FROM user_role, role WHERE user_role.fk_user_id=$1 and fk_role_id=role.id", [ userId ])
                 .then(res => resolve(res.rows) )
                 .catch(e => reject(e)))
     }
+
+    getNotRoleByUser(userId) {
+        return new Promise((resolve, reject) =>
+            this.db.query("select * FROM role WHERE role.id not in (select fk_role_id from user_role where user_role.fk_user_id = $1)", [ userId ])
+                .then(res => resolve(res.rows) )
+                .catch(e => reject(e)))
+    }
+
+    isAdmin(userId) {
+        return new Promise((resolve, reject) =>
+            this.db.query("SELECT role.label, role.level FROM user_role, role WHERE user_role.fk_user_id=$1 and fk_role_id=role.id and role.level=100", [ userId ])
+                .then(res => resolve(res.rows) )
+                .catch(e => reject(e)))
+    }
+
     getByLogin(login) {
         return new Promise((resolve, reject) =>
             this.db.query("SELECT * FROM useraccount WHERE login=$1", [ login ])
@@ -25,7 +40,7 @@ module.exports = class UserAccountDAO extends BaseDAO {
 
     getUserByLogin(login, userId) {
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT id,displayname,login FROM useraccount WHERE login = $1 and id != $2", [ login, userId])
+            this.db.query("SELECT id,displayname,login FROM useraccount WHERE login LIKE $1 and id != $2", [ '%'+login+ '%', userId])
                 .then(res => resolve(res.rows) )
                 .catch(e => reject(e)))
     }
@@ -38,6 +53,21 @@ module.exports = class UserAccountDAO extends BaseDAO {
     updatePwd(useraccount) {
         return this.db.query("UPDATE useraccount SET challenge=$2 WHERE id=$1 and login=$3",
             [useraccount.id, useraccount.challenge, useraccount.login])
+    }
+
+    getAll() {
+        return new Promise((resolve, reject) =>
+            this.db.query("SELECT * FROM useraccount ORDER BY login")
+                .then(res => resolve(res.rows))
+                .catch(e => reject(e)))
+    }
+
+    deleteRoleUser(userId, roleId) {
+        return this.db.query(`DELETE FROM user_role WHERE fk_user_id=$1 and fk_role_id=$2`, [userId, roleId])
+    }
+
+    addRoleUser(userId, roleId) {
+        return this.db.query("INSERT INTO user_role(fk_user_id,fk_role_id) VALUES ($1,$2)",[userId, roleId])
     }
 
 }

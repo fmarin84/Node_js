@@ -48,7 +48,7 @@ function logout() {
 
 function navigateParams(view,id,isShare = false) {
     include('content',  `views/${view}.html?${id}`, `app/controllers/${view}.js`)
-    window.idCurrentList = id
+    window.idEntity = id
     window.isShare = isShare
 }
 

@@ -122,6 +122,36 @@ class ModelUser {
         this.api = new UserAccountAPI()
     }
 
+
+    deleteRoleUser(id, roleId) {
+        return this.api.deleteRoleUser(id, roleId).then(res => res.status)
+    }
+
+    addRoleUser(id, roleId) {
+        return this.api.addRoleUser(id, roleId).then(res => res.status)
+    }
+
+
+    async getRolesNotToUser(userId) {
+        let roles = []
+
+        for (let role of await this.api.getRolesNotToUser(userId)) {
+            roles.push(Object.assign(new Role(), role))
+        }
+
+        return roles
+    }
+
+    async getRolesToUser(userId) {
+        let roles = []
+
+        for (let role of await this.api.getRoleToUser(userId)) {
+            roles.push(Object.assign(new Role(), role))
+        }
+
+        return roles
+    }
+
     async getThisUserIsAdmin(userId) {
         try {
             for (let role of await this.api.getRoleToUser(userId)) {
@@ -148,9 +178,19 @@ class ModelUser {
         }
     }
 
-    async getThisUser() {
+    async getAllUsers() {
+        let users = []
+
+        for (let user of await this.api.getAllUsers()) {
+            users.push(Object.assign(new User(), user))
+        }
+
+        return users
+    }
+
+    async getUserToAdmin(id) {
         try {
-            const user = Object.assign(new User(), await this.api.getThisUser())
+            const user = Object.assign(new User(), await this.api.get(id))
             return user
         } catch (e) {
             if (e === 404) return null

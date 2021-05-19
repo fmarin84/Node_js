@@ -1,7 +1,7 @@
 class ListCurentController extends BaseController {
     constructor() {
         super()
-        this.idList = window.idCurrentList
+        this.idList = window.idEntity
         this.isShare = window.isShare
         this.displayList()
     }

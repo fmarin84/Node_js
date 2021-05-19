@@ -18,70 +18,47 @@
 
 
 <div class="container">
-    <h3 id="editTitleCompte">User1</h3>
 
 
-    <div id="formEditCompteAdresse">
+    <h5 id="editTitle">Chercher un utilisateur</h5>
+    <div id="formSearch">
         <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="fieldNom" type="text" class="validate">
-                        <label for="fieldNom" class="active">Nom</label>
-                    </div>
+            <!-- <form class="col s12"> -->
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="fieldLogin" type="text" class="validate">
+                    <label for="fieldLogin" >Login</label>
                 </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="fieldAdresse" type="text" class="validate">
-                        <label for="fieldAdresse" class="active">Adresse mail</label>
-                    </div>
+
+                <div class="input-field  col s6">
+                    <button class="waves-effect waves-light btn" onclick="adminController.search()">Chercher</button>
                 </div>
-            </form>
+            </div>
+            <!--</form>-->
         </div>
 
-        <div class="row">
-            <button class="waves-effect waves-light btn" onclick="compteController.save()">Modifier</button>
-        </div>
     </div>
 
-    <br>
-    <hr>
-    <br>
-    <h4>Modifier votre mot de passe</h4>
 
-    <div id="formEditCompteMdp">
-        <div class="row">
-            <form class="col s12">
+    <div class="row">
+        <div class="col s12">
+            <table id="tableAllUsers" class="striped responsive-table" >
+                <thead>
+                <tr>
+                    <th scope="col">Login</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Active</th>
+                    <th scope="col">Plus</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="tableBodyAllUsers">
+                </tbody>
+            </table>
 
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="fieldOldMdp" type="password" class="validate">
-                        <label for="fieldOldMdp" class="active">Ancien mot de passe</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="fieldMdp" type="password" class="validate">
-                        <label for="fieldMdp" class="active">Nouveau mot de passe</label>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s6">
-                        <input id="fieldconfMdp" type="password" class="validate">
-                        <label for="fieldconfMdp" class="active">Confirmer votre nouveau mot de passe</label>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <div class="row">
-            <button class="waves-effect waves-light btn" onclick="compteController.resetPwd()">Modifier</button>
         </div>
     </div>
 
 </div>
-
-
 

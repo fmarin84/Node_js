@@ -1,0 +1,76 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">Courses</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a onclick="navigate('index')">Accueil</a></li>
+            <li><a onclick="logout()">Déconnexion</a></li>
+
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a onclick="navigate('index')">Accueil</a></li>
+    <li><a onclick="logout()">Déconnexion</a></li>
+
+</ul>
+
+
+<div class="container">
+    <h3 id="editTitleCompte">User1</h3>
+
+
+    <div id="formEditCompteAdresse">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="fieldAdresse" type="text" class="validate">
+                        <label for="fieldAdresse" class="active">Adresse mail</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <button class="waves-effect waves-light btn" onclick="userEditController.save()">Modifier</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col s12">
+            <h5>Rôles</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s2"></div>
+        <div class="col s8">
+            <table id="tableAllRoles" class="striped responsive-table" >
+                <thead>
+                <tr>
+                    <th scope="col">Rôles</th>
+                    <th scope="col">Action</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="tableBodyAllRoles">
+                </tbody>
+            </table>
+            <!-- <a class="waves-effect waves-light btn" style="float: right; margin: 3%;" onclick="navigate('listedit')"><i class="material-icons right">add</i>Ajouter</a> -->
+
+        </div>
+    </div>
+
+
+
+    <h5>Envoyer mail reset mot de passe</h5>
+    <div class="row">
+        <button class="waves-effect waves-light btn" onclick="userEditController.resetPwd()">Reset password</button>
+    </div>
+
+</div>
+
+
+

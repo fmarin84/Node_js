@@ -76,8 +76,16 @@ module.exports = (app, svc, jwt, transporter) => {
         res.json(await svc.dao.getById(req.user.id))
     })
 
+    app.get("/useraccount/users", jwt.validateJWT, async (req, res) => {
+        res.json(await svc.dao.getAll())
+    })
+
     app.get("/useraccount/roleuser/:userId", jwt.validateJWT, async (req, res) => {
         res.json(await svc.dao.getRoleByUser(req.params.userId))
+    })
+
+    app.get("/useraccount/rolenotuser/:userId", jwt.validateJWT, async (req, res) => {
+        res.json(await svc.dao.getNotRoleByUser(req.params.userId))
     })
 
     app.get("/useraccount/:id", jwt.validateJWT, async (req, res) => {
@@ -85,6 +93,10 @@ module.exports = (app, svc, jwt, transporter) => {
             const user = await svc.dao.getById(req.params.id)
             if (user === undefined) {
                 return res.status(404).end()
+            }
+
+            if(await svc.dao.isAdmin(req.user.id) !== []){
+                return res.json(user)
             }
 
             if (user.id !== req.user.id) {
@@ -106,7 +118,8 @@ module.exports = (app, svc, jwt, transporter) => {
         if (prevUser  === undefined) {
             return res.status(404).end()
         }
-        if (prevUser.id !== req.user.id) {
+
+        if ( (await svc.dao.isAdmin(req.user.id) === [] ) && (prevUser.id !== req.user.id) ) {
             return res.status(403).end()
         }
         svc.dao.update(user)
@@ -255,6 +268,26 @@ module.exports = (app, svc, jwt, transporter) => {
             res.status(500).end()
         }
 
+    })
+
+
+
+    app.delete("/useraccount/delete/role_user/:userId/:roleId", jwt.validateJWT, async (req, res) => {
+        svc.dao.deleteRoleUser(req.params.userId, req.params.roleId)
+            .then(res.status(200).end())
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+    })
+
+    app.post("/useraccount/add/role_user/:userId/:roleId", jwt.validateJWT, async (req, res) => {
+        svc.dao.addRoleUser(req.params.userId, req.params.roleId)
+            .then(res.status(200).end())
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
     })
 
 }

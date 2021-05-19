@@ -7,12 +7,27 @@ const jwtExpiry30m = 1800
 module.exports = (userAccountService) => {
     return {
         validateJWT(req, res, next) {
+
+
             if (req.headers.authorization === undefined) {
                 res.status(401).end()
                 return
             }
             const token = req.headers.authorization.split(" ")[1];
             jwt.verify(token, jwtKey, {algorithm: "HS256"},  async (err, user) => {
+
+                userAccountService.isValide(user.login)
+                    .then(valid => {
+                        if (!valid) {
+                            res.status(400).end()
+                            return
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e)
+                        res.status(500).end()
+                    })
+
                 if (err) {
                     res.status(401).end()
                     return

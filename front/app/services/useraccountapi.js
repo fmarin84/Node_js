@@ -85,6 +85,10 @@ class UserAccountAPI extends BaseAPIService {
         return fetchJSON(`${this.url}/roleuser/${userId}`, this.token)
     }
 
+    getRolesNotToUser(userId) {
+        return fetchJSON(`${this.url}/rolenotuser/${userId}`, this.token)
+    }
+
     getThisUser() {
         return fetchJSON(`${this.url}/`, this.token)
     }
@@ -107,6 +111,23 @@ class UserAccountAPI extends BaseAPIService {
             method: 'PUT',
             headers: this.headers,
             body: JSON.stringify(user)
+        })
+    }
+
+    getAllUsers() {
+        return fetchJSON(`${this.url}/users`, this.token)
+    }
+
+    deleteRoleUser(id, roleId){
+        this.headers.delete('Content-Type')
+        return fetch(`${this.url}/delete/role_user/${id}/${roleId}`, { method: 'DELETE', headers: this.headers })
+    }
+
+    addRoleUser(id, roleId){
+        this.headers.set( 'Content-Type', 'application/json' )
+        return fetch(`${this.url}/add/role_user/${id}/${roleId}`, {
+            method: 'POST',
+            headers: this.headers
         })
     }
 
