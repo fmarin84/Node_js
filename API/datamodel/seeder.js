@@ -3,7 +3,7 @@ const Item = require('./item')
 const Share = require('./share')
 const Role = require('./role')
 
-module.exports = (userAccountService, listService, itemService, shareService, roleService) => {
+module.exports = (userAccountService, listService, itemService, shareService, roleService, notificationService) => {
     return new Promise(async (resolve, reject) => {
         try {
             await userAccountService.dao.db.query("CREATE TABLE useraccount(id SERIAL PRIMARY KEY, displayname TEXT NOT NULL, login TEXT NOT NULL, challenge TEXT NOT NULL, isactived BOOLEAN DEFAULT false)")
@@ -12,6 +12,8 @@ module.exports = (userAccountService, listService, itemService, shareService, ro
             await shareService.dao.db.query("CREATE TABLE share(fk_id_list INTEGER, useraccount_id INTEGER, state INTEGER, PRIMARY KEY (fk_id_list, useraccount_id, state), FOREIGN KEY (fk_id_list) REFERENCES list(id), FOREIGN KEY (useraccount_id) REFERENCES useraccount(id))")
             await roleService.dao.db.query("CREATE TABLE role(id SERIAL PRIMARY KEY, label TEXT NOT NULL, level INTEGER)")
             await roleService.dao.db.query("CREATE TABLE user_role(fk_user_id INTEGER, fk_role_id INTEGER, PRIMARY KEY (fk_user_id, fk_role_id), FOREIGN KEY (fk_user_id) REFERENCES useraccount(id), FOREIGN KEY (fk_role_id) REFERENCES role(id) )")
+            await notificationService.dao.db.query("CREATE TABLE notification(id SERIAL PRIMARY KEY, titre TEXT NOT NULL, text TEXT NOT NULL, islue BOOLEAN DEFAULT false, fk_useraccount_id INTEGER, FOREIGN KEY (fk_useraccount_id) REFERENCES useraccount(id))")
+
             // INSERTs
         } catch (e) {
             if (e.code === "42P07") { // TABLE ALREADY EXISTS https://www.postgresql.org/docs/8.2/errcodes-appendix.html

@@ -232,7 +232,6 @@ class ModelUser {
     }
 }
 
-
 class ModelShare {
     constructor() {
         this.api = new ShareAPI()
@@ -249,5 +248,32 @@ class ModelShare {
     }
     update(listId, userId,state) {
         return this.api.update(listId, userId,state).then(res => res.status)
+    }
+}
+
+class ModelNotification {
+    constructor() {
+        this.api = new NotificationAPI()
+    }
+
+
+    async getById(notificationId){
+        return await this.api.getById(notificationId)
+    }
+
+    async getNotification(userId){
+        let notifications = []
+
+        for (let notification of await this.api.getNotificationByUser(userId)) {
+            notifications.push(Object.assign(new Notif(), notification))
+        }
+        return notifications
+    }
+
+    // insert(listId, userId,state) {
+    //     return this.api.insert(listId, userId,state).then(res => res.status)
+    // }
+    update(notification) {
+        return this.api.update(notification).then(res => res.status)
     }
 }

@@ -12,6 +12,7 @@ const ItemService = require("./services/item")
 const UserAccountService = require("./services/useraccount")
 const ShareService = require("./services/share")
 const RoleService = require("./services/role")
+const NotificationService = require("./services/notification")
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false })) // URLEncoded form data
@@ -45,12 +46,14 @@ const itemService = new ItemService(db)
 const userAccountService = new UserAccountService(db)
 const shareService = new ShareService(db)
 const roleService = new RoleService(db)
+const notificationService = new NotificationService(db)
 const jwt = require('./jwt')(userAccountService)
 require('./api/list')(app, listService, jwt)
 require('./api/item')(app, itemService, jwt)
 require('./api/useraccount')(app, userAccountService, jwt, transporter)
 require('./api/share')(app, shareService, jwt)
-require('./datamodel/seeder')(userAccountService,listService,itemService,shareService,roleService)
+require('./api/notification')(app, notificationService, jwt)
+require('./datamodel/seeder')(userAccountService,listService,itemService,shareService,roleService,notificationService)
     .then(app.listen(3333))
 
 

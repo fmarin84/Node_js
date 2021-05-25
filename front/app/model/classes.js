@@ -58,3 +58,15 @@ class Role {
         return `${this.label} ${this.level} `
     }
 }
+
+class Notif {
+    constructor(titre, text, islue, useraccount_id) {
+        this.titre = titre
+        this.text = text
+        this.islue = islue
+        this.useraccount_id = useraccount_id
+    }
+    toString() {
+        return `${this.titre} ${this.text} `
+    }
+}
