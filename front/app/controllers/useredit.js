@@ -5,6 +5,31 @@ class UserEditController extends BaseFormController {
         this.svc = new UserAccountAPI()
         const id = window.idEntity
         this.edit(id)
+        this.displayAllNotif(id)
+    }
+
+    async displayAllNotif(userId) {
+        $('#btNotifications').innerHTML = `  
+         <button class="waves-effect waveclassNameht btn" onclick="notificationController.add(${userId}); userEditController.displayAllNotif(${userId})">Envoyer</button> `
+        let content = ''
+        try {
+            const notifications = await this.modelNotification.getAll(userId)
+
+            for(let notification of notifications) {
+                let date = new Date(notification.created_at)
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                date= date.toLocaleDateString('fr-FR', options)
+                content += `<tr>
+                        <td>${notification.titre}</td>
+                        <td>${notification.text}</td>
+                        <td>${notification.islue}</td>
+                        </tr>`
+            }
+            $('#tableBodyAllNotifications').innerHTML = content
+        } catch (err) {
+            console.log(err)
+            this.displayServiceError()
+        }
     }
 
 

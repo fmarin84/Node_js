@@ -7,6 +7,12 @@ module.exports = (app, serviceNotification, jwt) => {
         } catch (e) { res.status(400).end() }
     })
 
+    app.get("/notification/user/all/:userId", jwt.validateJWT, async (req, res) => {
+        try {
+            const notifications = await serviceNotification.dao.getAllNotifications(req.params.userId)
+            return res.json(notifications)
+        } catch (e) { res.status(400).end() }
+    })
 
     app.get("/notification/user/:userId", jwt.validateJWT, async (req, res) => {
         try {
@@ -37,5 +43,20 @@ module.exports = (app, serviceNotification, jwt) => {
                 console.log(e)
                 res.status(500).end()
             })
+    })
+
+    app.post("/notification", jwt.validateJWT, async (req, res) => {
+        const notification = req.body
+        // if (!serviceNotification.isValid(notification))  {
+        //     return res.status(400).end()
+        // }
+        notification.useraccount_id = req.user.id
+        serviceNotification.dao.insert(notification)
+            .then(res.status(200).end())
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+
     })
 }

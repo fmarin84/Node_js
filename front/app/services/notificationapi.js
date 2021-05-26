@@ -3,6 +3,10 @@ class NotificationAPI extends BaseAPIService {
         super("notification")
     }
 
+    getAll(userId){
+        return fetchJSON(`${this.url}/user/all/${userId}`, this.token)
+    }
+
     getNotificationByUser(userId){
         return fetchJSON(`${this.url}/user/${userId}`, this.token)
     }
@@ -15,11 +19,15 @@ class NotificationAPI extends BaseAPIService {
         return fetchJSON(`${this.url}/count/${userId}`, this.token)
     }
 
+    insert(notification) {
+        this.headers.set( 'Content-Type', 'application/json' )
+        return fetch(this.url, {
+            method: 'POST',
+            headers: this.headers,
+            body: JSON.stringify(notification)
+        })
+    }
 
-    // insert(listId, userId,state) {
-    //     this.headers.set( 'Content-Type', 'application/json' )
-    //     return fetch(`${this.url}/${listId}/${userId}/${state}`, { method: 'POST', headers: this.headers })
-    // }
     update(notification) {
         this.headers.set( 'Content-Type', 'application/json' )
         return fetch(this.url, {

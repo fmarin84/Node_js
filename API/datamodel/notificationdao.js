@@ -7,12 +7,12 @@ module.exports = class notificationdao extends BaseDAO {
 
     insert(notification) {
         return this.db.query("INSERT INTO notification(titre,text,islue,fk_useraccount_id) VALUES ($1,$2,$3,$4)",
-            [notification.titre,notification.text, false,notification.fk_useraccount_id])
+            [notification.titre,notification.text, false, notification.fk_useraccount_id])
     }
 
-    getAll() {
+    getAllNotifications(userId) {
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT * FROM notification where islue=false ORDER BY titre")
+            this.db.query("SELECT * FROM notification WHERE fk_useraccount_id=$1 ORDER BY created_at desc", [userId])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }

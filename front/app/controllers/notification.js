@@ -1,7 +1,26 @@
-class NotificationController extends BaseController {
+class NotificationController extends BaseFormController {
 
     constructor() {
         super()
+    }
+
+    async add(userId) {
+        let title = this.validateRequiredField("#fieldTitle", 'Titre')
+        let text = this.validateRequiredField("#fieldText", 'Texte')
+
+        console.log(userId)
+        if ( (title != null) && (text != null)) {
+            try {
+                if (await this.modelNotification.insert(new Notif(title, text, false, userId)) === 200) {
+                    this.toast("Le role a bien été ajouté")
+                } else {
+                    this.displayServiceError()
+                }
+            } catch (err) {
+                console.log(err)
+                this.displayServiceError()
+            }
+        }
     }
 
     async displayNotif() {

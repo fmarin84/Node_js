@@ -264,6 +264,16 @@ class ModelNotification {
         return await this.api.countNotification(userId)
     }
 
+
+    async getAll(userId){
+        let notifications = []
+
+        for (let notification of await this.api.getAll(userId)) {
+            notifications.push(Object.assign(new Notif(), notification))
+        }
+        return notifications
+    }
+
     async getNotification(userId){
         let notifications = []
 
@@ -273,9 +283,10 @@ class ModelNotification {
         return notifications
     }
 
-    // insert(listId, userId,state) {
-    //     return this.api.insert(listId, userId,state).then(res => res.status)
-    // }
+    insert(notification) {
+        return this.api.insert(notification).then(res => res.status)
+    }
+
     update(notification) {
         return this.api.update(notification).then(res => res.status)
     }
