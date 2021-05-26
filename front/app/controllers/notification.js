@@ -16,22 +16,14 @@ class NotificationController extends BaseController {
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 date= date.toLocaleDateString('fr-FR', options)
 
-                if(notification.islue === true) {
-                    content += ` <li>
-                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>${notification.titre} - ${date}
-                                        <a onclick="notificationController.updateIsLue(${notification.id}, true)"><i class="material-icons right">drafts</i></a>
-                                    </div>
-                                    <div class="collapsible-body"><span>${notification.text}</span></div>
-                                </li>`
-                } else {
-                    content += ` <li>
-                                    <div class="collapsible-header"><i class="material-icons">filter_drama</i>${notification.titre} - ${date}
-                                        <a onclick="notificationController.updateIsLue(${notification.id}, false)"><i class="material-icons right">emails</i></a>
-                                    </div>
-                                    <div class="collapsible-body"><span>${notification.text}</span></div>
-                                </li>`
+                content += ` <li>
+                                <div class="collapsible-header"><i class="material-icons">filter_drama</i>${notification.titre} - ${date}
+                                    <a onclick="notificationController.updateIsLue(${notification.id}, true)"><i class="material-icons right">emails</i></a>
+                                </div>
+                                <div class="collapsible-body"><span>${notification.text}</span></div>
+                            </li>`
                 }
-            }
+
             $('.collapsible').innerHTML = content
 
         } catch (err) {
@@ -47,9 +39,9 @@ class NotificationController extends BaseController {
         try {
             if (await this.modelNotification.update(notification) === 200) {
                 if(islue){
-                    this.toast("Notification marquer comme non lue.")
-                } else{
                     this.toast("Notification marquer comme lue.")
+                } else{
+                    this.toast("Notification marquer comme non lue.")
                 }
                 this.displayNotif();
 

@@ -12,21 +12,21 @@ module.exports = class notificationdao extends BaseDAO {
 
     getAll() {
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT * FROM notification ORDER BY titre")
+            this.db.query("SELECT * FROM notification where islue=false ORDER BY titre")
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }
 
     getNotificationByUser(userId){
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT * FROM notification WHERE fk_useraccount_id=$1 ORDER BY created_at desc", [userId])
+            this.db.query("SELECT * FROM notification WHERE fk_useraccount_id=$1 and islue=false ORDER BY created_at desc", [userId])
                 .then(res => resolve(res.rows))
                 .catch(e => reject(e)))
     }
 
     countNotifications(userId){
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT count(*) FROM notification WHERE fk_useraccount_id=$1 ", [userId])
+            this.db.query("SELECT count(*) FROM notification WHERE fk_useraccount_id=$1 and islue=false ", [userId])
                 .then(res => resolve(res.rows[0]['count']))
                 .catch(e => reject(e)))
     }
