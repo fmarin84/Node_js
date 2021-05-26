@@ -27,20 +27,26 @@ class ListEditController extends BaseFormController {
                     self.list.shop = shop
                     self.list.date = date
 
-                    //Notification
-                    /*
-                    Une liste partagée a été modifiée par un autre utilisateur (ne pas générer de notifications supplémentaires sur cette modification
-                    de liste pour cet utilisateur tant que l'utilisateur propriétaire de la liste n'aura pas lu la notification)
-
-                    if(la list est partager)
-                        if(le proprietaire a lue la notif ou s'il n'en a pas ) Ajout de l'id de la liste dans la table des notifs
-                             On envoie une notif a tout les utilisateurs de la liste
-                     */
-
                     if (await this.model.update(self.list) === 200) {
                         this.toast("La liste a bien été modifé")
+
+                        const list = await this.model.getListsShareByList(self.list.id)
+                        const currentUser = await this.modelUser.getThisUser()
+                        const notification = await this.modelNotification.getNotificationByListShareId(list[0].id)
+
+                        if (list.length !== 0) {
+
+                            if((notification.length === 0) || (notification.islue  === false))
+                            {
+                                for (let user of await this.model.getUsersList(list[0].id)) {
+                                    await this.modelNotification.insert(new Notif("Modification liste paratager", "La liste  + ${list.toString()} + a été modifié par  ${currentUser.displayName}", false, user.id, list[0].id) )
+                                }
+                                await this.modelNotification.insert(new Notif("Modification liste paratager", "La liste + ${list.toString()} + a été modifié par  ${currentUser.displayName}", false, list.useraccount_id, list[0].id))
+                            }
+                        }
+
                         if(self.list.archived === false){
-                            navigate('index')
+                        navigate('index')
                         } else {
                             navigate('archive')
                         }

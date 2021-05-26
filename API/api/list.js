@@ -7,6 +7,10 @@ module.exports = (app, serviceList, jwt) => {
         res.json(await serviceList.dao.getAchived(req.user))
     })
 
+    app.get("/list/share/:listId", jwt.validateJWT, async (req, res) => {
+        res.json(await serviceList.dao.getListsShareByList(req.params.listId))
+    })
+
     app.get("/list/share", jwt.validateJWT, async (req, res) => {
         res.json(await serviceList.dao.getListsShareByUser(req.user))
     })
@@ -56,6 +60,7 @@ module.exports = (app, serviceList, jwt) => {
             })
 
     })
+
     app.delete("/list/:id", jwt.validateJWT, async (req, res) => {
         const list = await serviceList.dao.getById(req.params.id)
         if (list === undefined) {
@@ -71,6 +76,7 @@ module.exports = (app, serviceList, jwt) => {
                 res.status(500).end()
             })
     })
+
     app.put("/list", jwt.validateJWT, async (req, res) => {
         const list = req.body
         if ((list.id === undefined) || (list.id == null) || (!serviceList.isValid(list))) {
@@ -81,8 +87,11 @@ module.exports = (app, serviceList, jwt) => {
         if (prevList  === undefined) {
             return res.status(404).end()
         }
+
         if (prevList.useraccount_id !== req.user.id) {
-            return res.status(403).end()
+            if (await serviceList.dao.getListsShareByList(req.params.listId) === []) {
+                return res.status(403).end()
+            }
         }
         serviceList.dao.update(list)
             .then(res.status(200).end())

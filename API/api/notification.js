@@ -7,6 +7,14 @@ module.exports = (app, serviceNotification, jwt) => {
         } catch (e) { res.status(400).end() }
     })
 
+    app.get("/notification/list/:id", jwt.validateJWT, async (req, res) => {
+        try {
+            const notification = await serviceNotification.dao.getNotificationByListShareId(req.params.id)
+            console.log(notification)
+            return res.json(notification)
+        } catch (e) { res.status(400).end() }
+    })
+
     app.get("/notification/user/all/:userId", jwt.validateJWT, async (req, res) => {
         try {
             const notifications = await serviceNotification.dao.getAllNotifications(req.params.userId)

@@ -15,6 +15,10 @@ class NotificationAPI extends BaseAPIService {
         return fetchJSON(`${this.url}/${notificationId}`, this.token)
     }
 
+    getNotificationByListShareId(listId){
+        return fetchJSON(`${this.url}/list/${listId}`, this.token)
+    }
+
     countNotification(userId){
         return fetchJSON(`${this.url}/count/${userId}`, this.token)
     }

@@ -8,7 +8,6 @@ class NotificationController extends BaseFormController {
         let title = this.validateRequiredField("#fieldTitle", 'Titre')
         let text = this.validateRequiredField("#fieldText", 'Texte')
 
-        console.log(userId)
         if ( (title != null) && (text != null)) {
             try {
                 if (await this.modelNotification.insert(new Notif(title, text, false, userId)) === 200) {

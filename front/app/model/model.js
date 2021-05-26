@@ -38,6 +38,17 @@ class Model {
         return lists
     }
 
+    async getListsShareByList(listId) {
+        let lists = []
+
+        for (let list of await this.api.getListsShareByList(listId)) {
+            list.date = new Date(list.date)
+            lists.push(Object.assign(new List(), list))
+
+        }
+        return lists
+    }
+
     async getListsShareByUser() {
         let lists = []
 
@@ -264,6 +275,10 @@ class ModelNotification {
         return await this.api.countNotification(userId)
     }
 
+
+    async getNotificationByListShareId(listId){
+        return await this.api.getNotificationByListShareId(listId)
+    }
 
     async getAll(userId){
         let notifications = []

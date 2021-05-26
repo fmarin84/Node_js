@@ -57,10 +57,21 @@ class IndexController extends BaseController {
                     </tr>`
                 }
 
-                //Notification
-                /*
-                une liste dont la date est > 1 semaine générera une notification « liste périmée » avec rappel à l’utilisateur qu’il peut archiver ou supprimer sa liste
-                 */
+                let date1 = new Date();
+                let date2 = new Date();
+
+                date1 = list.date.getTime() / 86400000;
+                date2 = date2.getTime() / 86400000;
+                date2 = date2 + 7;
+                let diff = new Number(date2 - date1).toFixed(0)
+
+                const notification = await this.modelNotification.getNotificationByListShareId(list.id)
+
+                if (diff > 7) {
+                    if ((notification.length === 0) || (notification.islue === false)){
+                        await this.modelNotification.insert(new Notif("« liste périmée »", "Votre liste est peut-être périmée, vous pouvez archiver ou supprimer votre liste", false, list.useraccount_id, list.id))
+                    }
+                }
             }
 
             this.tableBodyListsShare.innerHTML = content
