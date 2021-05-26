@@ -11,6 +11,11 @@ class NotificationAPI extends BaseAPIService {
         return fetchJSON(`${this.url}/${notificationId}`, this.token)
     }
 
+    countNotification(userId){
+        return fetchJSON(`${this.url}/count/${userId}`, this.token)
+    }
+
+
     // insert(listId, userId,state) {
     //     this.headers.set( 'Content-Type', 'application/json' )
     //     return fetch(`${this.url}/${listId}/${userId}/${state}`, { method: 'POST', headers: this.headers })

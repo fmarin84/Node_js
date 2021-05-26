@@ -6,8 +6,8 @@ module.exports = class notificationdao extends BaseDAO {
     }
 
     insert(notification) {
-        return this.db.query("INSERT INTO notification(titre,text,islue,useraccount_id) VALUES ($1,$2,$3,$4)",
-            [notification.titre,notification.text, false,notification.useraccount_id])
+        return this.db.query("INSERT INTO notification(titre,text,islue,fk_useraccount_id) VALUES ($1,$2,$3,$4)",
+            [notification.titre,notification.text, false,notification.fk_useraccount_id])
     }
 
     getAll() {
@@ -17,11 +17,17 @@ module.exports = class notificationdao extends BaseDAO {
                 .catch(e => reject(e)))
     }
 
-    //Mettre une date de création pour order by
     getNotificationByUser(userId){
         return new Promise((resolve, reject) =>
-            this.db.query("SELECT * FROM notification WHERE fk_useraccount_id=$1 ORDER BY titre", [userId])
+            this.db.query("SELECT * FROM notification WHERE fk_useraccount_id=$1 ORDER BY created_at desc", [userId])
                 .then(res => resolve(res.rows))
+                .catch(e => reject(e)))
+    }
+
+    countNotifications(userId){
+        return new Promise((resolve, reject) =>
+            this.db.query("SELECT count(*) FROM notification WHERE fk_useraccount_id=$1 ", [userId])
+                .then(res => resolve(res.rows[0]['count']))
                 .catch(e => reject(e)))
     }
 
@@ -29,10 +35,4 @@ module.exports = class notificationdao extends BaseDAO {
         return this.db.query("UPDATE notification SET titre=$2, text=$3, islue=$4 WHERE id=$1",
             [notification.id, notification.titre, notification.text, notification.islue ])
     }
-
-    // addNoticationUser(userId, notificationId) {
-    //     return this.db.query("INSERT INTO user_notification(fk_user_id, fk_notification_id) VALUES ($1,$2)",
-    //         [userId, notificationId])
-    // }
-
 }

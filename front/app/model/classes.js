@@ -60,11 +60,12 @@ class Role {
 }
 
 class Notif {
-    constructor(titre, text, islue, useraccount_id) {
+    constructor(titre, text, islue, useraccount_id,created_at) {
         this.titre = titre
         this.text = text
         this.islue = islue
         this.useraccount_id = useraccount_id
+        this.created_at = created_at
     }
     toString() {
         return `${this.titre} ${this.text} `

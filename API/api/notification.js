@@ -1,7 +1,4 @@
 module.exports = (app, serviceNotification, jwt) => {
-    // app.get("/notification/", jwt.validateJWT, async (req, res) => {
-    //     res.json(await serviceNotification.dao.getAll())
-    // })
 
     app.get("/notification/:id", jwt.validateJWT, async (req, res) => {
         try {
@@ -18,19 +15,13 @@ module.exports = (app, serviceNotification, jwt) => {
         } catch (e) { res.status(400).end() }
     })
 
-    // app.post("/notification", jwt.validateJWT, (req, res) => {
-    //     const notification = req.body
-    //     // if (!serviceNotification.isValid(item))  {
-    //     //     return res.status(400).end()
-    //     // }
-    //     serviceNotification.dao.insert(notification)
-    //         .then(res.status(200).end())
-    //         .catch(e => {
-    //             console.log(e)
-    //             res.status(500).end()
-    //         })
-    // })
-    //
+    app.get("/notification/count/:userId", jwt.validateJWT, async (req, res) => {
+        try {
+            const nb = await serviceNotification.dao.countNotifications(req.params.userId)
+            return res.json(nb)
+        } catch (e) { res.status(400).end() }
+    })
+
     app.put("/notification", jwt.validateJWT, async (req, res) => {
         const notification = req.body
         //|| (!serviceNotification.isValid(item))

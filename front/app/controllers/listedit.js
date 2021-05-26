@@ -26,6 +26,17 @@ class ListEditController extends BaseFormController {
                 if (self.list) {
                     self.list.shop = shop
                     self.list.date = date
+
+                    //Notification
+                    /*
+                    Une liste partagée a été modifiée par un autre utilisateur (ne pas générer de notifications supplémentaires sur cette modification
+                    de liste pour cet utilisateur tant que l'utilisateur propriétaire de la liste n'aura pas lu la notification)
+
+                    if(la list est partager)
+                        if(le proprietaire a lue la notif ou s'il n'en a pas ) Ajout de l'id de la liste dans la table des notifs
+                             On envoie une notif a tout les utilisateurs de la liste
+                     */
+
                     if (await this.model.update(self.list) === 200) {
                         this.toast("La liste a bien été modifé")
                         if(self.list.archived === false){

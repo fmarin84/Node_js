@@ -2,6 +2,7 @@ class IndexController extends BaseController {
     constructor() {
         super()
         this.displayAdmin()
+        this.displayNotif()
         this.tableAllLists = $('#tableAllLists')
         this.tableBodyAllLists = $('#tableBodyAllLists')
         this.tableListsShare = $('#tableListsShare')
@@ -10,6 +11,13 @@ class IndexController extends BaseController {
         this.displayAllLists()
         this.displayListsShare()
     }
+
+    async displayNotif() {
+        const currentUser = await this.modelUser.getThisUser()
+        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
+        $('#notification').innerText = nbNotifs
+    }
+
 
     async displayAdmin() {
         const currentUser = await this.modelUser.getThisUser()
@@ -21,7 +29,7 @@ class IndexController extends BaseController {
         }
     }
 
-        async displayListsShare() {
+    async displayListsShare() {
         let content = ''
         try {
 
@@ -49,6 +57,10 @@ class IndexController extends BaseController {
                     </tr>`
                 }
 
+                //Notification
+                /*
+                une liste dont la date est > 1 semaine générera une notification « liste périmée » avec rappel à l’utilisateur qu’il peut archiver ou supprimer sa liste
+                 */
             }
 
             this.tableBodyListsShare.innerHTML = content

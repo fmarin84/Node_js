@@ -256,9 +256,12 @@ class ModelNotification {
         this.api = new NotificationAPI()
     }
 
-
     async getById(notificationId){
         return await this.api.getById(notificationId)
+    }
+
+    async countNotification(userId){
+        return await this.api.countNotification(userId)
     }
 
     async getNotification(userId){

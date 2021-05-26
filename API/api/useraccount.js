@@ -1,4 +1,6 @@
-module.exports = (app, svc, jwt, transporter) => {
+const Notification = require('../datamodel/notification')
+
+module.exports = (app, svc, svcNotification, jwt, transporter) => {
     app.post('/useraccount/authenticate', (req, res) => {
         const { login, password } = req.body
         if ((login === undefined) || (password === undefined)) {
@@ -213,8 +215,8 @@ module.exports = (app, svc, jwt, transporter) => {
                 }
 
                 if (!isRegister) {
-                    svc.insert(pseudo, login, password, false, jwt)
-                        .then(res.status(200).end())
+                  svc.insert(pseudo, login, password, false, jwt)
+                        .then(res.status(200).end() )
                         .catch(e=>{
                             console.log(e)
                             res.status(400).end()
@@ -247,6 +249,9 @@ module.exports = (app, svc, jwt, transporter) => {
                 req.user.isactived=true
                 if(await svc.dao.update(req.user)){
                     if(await svc.isValide(req.user.login)){
+
+                        // add notif
+                        await svcNotification.dao.insert(new Notification('Bienvenue', 'Bienvenue sur le site liste de course', false, req.user.id))
 
                         res.json({'login': jwt.generateJWT(req.user.login)})
                         res.status(200).end()
