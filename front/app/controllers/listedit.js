@@ -33,7 +33,6 @@ class ListEditController extends BaseFormController {
                         const list = await this.model.getListsShareByList(self.list.id)
                         const currentUser = await this.modelUser.getThisUser()
                         const notifications = await this.modelNotification.getNotificationByListShareId(list[0].id)
-                        console.log(notifications)
 
                         let notif = null
                         for (let notification of notifications) {
