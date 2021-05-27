@@ -69,7 +69,7 @@ class IndexController extends BaseController {
 
                 if (diff > 7) {
                     if ((notification.length === 0) || (notification.islue === false)){
-                        await this.modelNotification.insert(new Notif("« liste périmée »", "Votre liste est peut-être périmée, vous pouvez archiver ou supprimer votre liste", false, list.useraccount_id, list.id))
+                        await this.modelNotification.insert(new Notif("« liste périmée »", `Votre liste ${list.toString()} est peut-être périmée, vous pouvez archiver ou supprimer votre liste` , false, list.useraccount_id, list.id))
                     }
                 }
             }
