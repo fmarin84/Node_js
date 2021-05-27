@@ -91,8 +91,12 @@ class AdminController extends BaseFormController {
                     content += `<tr>
                     <td>${user.login}</td>
                     <td>${user.displayname}</td>
-                    <td>Role</td>
-                    <td> <input type="checkbox" checked="checked" />  ${user.isactived}</td>`
+                    <td>Role</td>`
+                    if(user.isactived === false){
+                        content += `<td><p><label><input type="checkbox"  onclick='adminController.Check(${user.id})' /><span></span></label></p></td>`
+                    } else {
+                        content += `<td><p><label><input type="checkbox" checked="checked"  onclick='adminController.Check(${user.id})' /><span></span></label></p></td>`
+                    }
 
                     content +=
                         `<td class="icon">
@@ -123,10 +127,7 @@ class AdminController extends BaseFormController {
                 return
             }
             this.users = object
-            const user = await this.modelUser.getThisUser()
-            if(login === user.login){
-                this.toast("Impossible de partager une liste à vous-même")
-            } else if(this.users.length === 0){
+            if(this.users.length === 0){
                 this.toast("Login incorrect ")
             }
             this.displayUsers()
