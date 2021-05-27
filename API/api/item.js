@@ -4,7 +4,6 @@ module.exports = (app, serviceItem, jwt) => {
     })
 
     app.get("/item/share/:listId", jwt.validateJWT, async (req, res) => {
-        //res.json(await serviceItem.dao.getShare(req.user))
         try {
             const items = await serviceItem.dao.getShare(req.params.listId,req.user )
             if (items === undefined) {
@@ -50,7 +49,7 @@ module.exports = (app, serviceItem, jwt) => {
     })
     app.put("/item", jwt.validateJWT, async (req, res) => {
         const item = req.body
-        if ((item.id === undefined) || (item.id == null) || (!serviceItem.isValid(item))) {
+        if ((item.id === undefined) || (item.id === null) || (serviceItem.isValid(item) === false)) {
             return res.status(400).end()
         }
         if (await serviceItem.dao.getById(item.id) === undefined) {

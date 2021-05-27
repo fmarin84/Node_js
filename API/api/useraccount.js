@@ -111,7 +111,6 @@ module.exports = (app, svc, svcNotification, jwt, transporter) => {
 
     app.put("/useraccount", jwt.validateJWT, async (req, res) => {
         const user = req.body
-        //|| (!user.isValid(user))
         if ((user.id === undefined) || (user.id == null) ) {
             return res.status(400).end()
         }
@@ -157,7 +156,6 @@ module.exports = (app, svc, svcNotification, jwt, transporter) => {
 
     app.put("/useraccount/password", async (req, res) => {
         const oldUser = req.body
-        //|| (!user.isValid(user))
         if ((oldUser.id === undefined) || (oldUser.id == null) ) {
             return res.status(400).end()
         }
@@ -250,9 +248,7 @@ module.exports = (app, svc, svcNotification, jwt, transporter) => {
                 if(await svc.dao.update(req.user)){
                     if(await svc.isValide(req.user.login)){
 
-                        // add notif
                         await svcNotification.dao.insert(new Notification('Bienvenue', 'Bienvenue sur le site liste de course', false, req.user.id))
-
                         res.json({'login': jwt.generateJWT(req.user.login)})
                         res.status(200).end()
                     }

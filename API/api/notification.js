@@ -37,7 +37,6 @@ module.exports = (app, serviceNotification, jwt) => {
 
     app.put("/notification", jwt.validateJWT, async (req, res) => {
         const notification = req.body
-        //|| (!serviceNotification.isValid(item))
         if ((notification.id === undefined) || (notification.id == null) ) {
             return res.status(400).end()
         }
@@ -54,9 +53,9 @@ module.exports = (app, serviceNotification, jwt) => {
 
     app.post("/notification", jwt.validateJWT, async (req, res) => {
         const notification = req.body
-        // if (!serviceNotification.isValid(notification))  {
-        //     return res.status(400).end()
-        // }
+        if (!serviceNotification.isValid(notification))  {
+            return res.status(400).end()
+        }
         notification.useraccount_id = req.user.id
         serviceNotification.dao.insert(notification)
             .then(res.status(200).end())

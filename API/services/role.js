@@ -5,5 +5,12 @@ module.exports = class Roleservice {
         this.dao = new Roledao(db)
     }
 
+    isValid(role) {
+        if (role.label === "") return false
+        if (role.level === null) return false
+
+        return true
+    }
+
 }
 
