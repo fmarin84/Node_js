@@ -39,10 +39,9 @@ let mailOptions = {
     subject: 'Testing and testing',
     text:'It works'
 };
-// test bash
 
 // const connectionString = "postgres://user:root@localhost/base"
-const connectionString = "postgres://user1:default1@base1.cz3tecgklrx1.us-east-1.rds.amazonaws.com"
+const connectionString = "postgres://user1:default1@base1.cz3tecgklrx1.us-east-1.rds.amazonaws.com/base1"
 const db = new pg.Pool({ connectionString: connectionString })
 const listService = new ListService(db)
 const itemService = new ItemService(db)
