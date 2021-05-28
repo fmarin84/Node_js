@@ -62,6 +62,21 @@ class UserAccountAPI extends BaseAPIService {
         }).catch(err => reject(err)))
     }
 
+    sendEmailSubscrib(login){
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        return new Promise((resolve, reject) => fetch(`${this.url}/sendEmailSubscrib`, {
+            method: "POST",
+            headers: this.headers,
+            body: `login=${login}`
+        }).then(res => {
+            if (res.status === 200) {
+                resolve(res.json())
+            } else {
+                reject(res.status)
+            }
+        }).catch(err => reject(err)))
+    }
+
     sendEmailForgetPwd(login){
         this.headers.set('Content-Type', 'application/x-www-form-urlencoded')
         return new Promise((resolve, reject) => fetch(`${this.url}/sendEmailForgetPwd`, {
@@ -79,6 +94,10 @@ class UserAccountAPI extends BaseAPIService {
 
     getByLogin(login) {
         return fetchJSON(`${this.url}/search/${login}`, this.token)
+    }
+
+    getByLoginAbonne(login, isAbonne) {
+        return fetchJSON(`${this.url}/search/${login}/${isAbonne}`, this.token)
     }
 
     getRoleToUser(userId) {

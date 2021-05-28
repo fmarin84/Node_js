@@ -115,9 +115,12 @@ class AdminController extends BaseFormController {
 
     async search() {
         try {
-            //let login = this.validateRequiredField('#fieldLogin', 'Login')
             let login = $('#fieldLogin').value
-            const object = await this.modelUser.getByLogin(login)
+            let isAbonne = $('#fieldAbonne').checked
+            if(login === ""){
+                login = "azeorihalkzedniuazgduhfrebejhzrfgzyedziuefjbnozisdjsqokdj"
+            }
+            const object = await this.modelUser.getByLoginAbonne(login, isAbonne)
             if (object === undefined) {
                 this.displayServiceError()
                 return

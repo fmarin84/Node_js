@@ -6,6 +6,7 @@
         <ul class="right hide-on-med-and-down">
             <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notification"  class="new badge">0</span></a></li>
             <li id="navigAdmin"></li>
+            <li><a onclick="navigate('subscribe')">Abonnement</a></li>
             <li><a onclick="navigate('compte')">Mon compte</a></li>
             <li><a onclick="navigate('archive')">Historique</a></li>
             <li><a onclick="logout()">Déconnexion</a></li>
@@ -56,7 +57,7 @@
             <tbody id="tableBodyAllLists">
             </tbody>
         </table>
-        <a class="waves-effect waves-light btn" style="float: right; margin: 3%;" onclick="navigate('listedit')"><i class="material-icons right">add</i>Ajouter</a>
+        <a class="waves-effect waves-light btn" style="float: right; margin: 3%;" onclick="indexController.navigateRole('listedit')"><i class="material-icons right">add</i>Ajouter</a>
 
     </div>
 

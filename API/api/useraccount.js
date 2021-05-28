@@ -1,6 +1,6 @@
 const Notification = require('../datamodel/notification')
 
-module.exports = (app, svc, svcNotification, jwt, transporter) => {
+module.exports = (app, svc, svcNotification,svcPayment, jwt, transporter) => {
     app.post('/useraccount/authenticate', (req, res) => {
         const { login, password } = req.body
         if ((login === undefined) || (password === undefined)) {
@@ -32,6 +32,49 @@ module.exports = (app, svc, svcNotification, jwt, transporter) => {
                 console.log(e)
                 res.status(500).end()
             })
+    })
+
+    app.post('/useraccount/sendEmailSubscrib', async (req, res) => {
+        const login = req.body.login
+
+        const user = await svc.dao.getByLogin(login)
+            .then()
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+
+        if(user !== undefined){
+
+            const payement = await svcPayment.dao.getByUserId(user.id)
+                .then()
+                .catch(e => {
+                    console.log(e)
+                    res.status(500).end()
+                })
+
+            const html = `Bonjour,<br> Félicitation vous etes inscrit sur notre site listedecousre.fr <br>Commande effectuer le ${payement.created_at} au nom de : ${payement.nom}${payement.prenom} pour le compte de ${user.displayname}`
+
+            let mailOptions = {
+                from: 'fabien.esimed@gmail.com',
+                to: login,
+                subject: "Abonnement",
+                html: html
+
+            };
+
+            transporter.sendMail(mailOptions, function(err, data) {
+                if(err){
+                    console.log('Error Occurs')
+                } else {
+                    console.log(login)
+                    console.log(lien)
+                    console.log('Email sent !!')
+                }
+            });
+
+        }
+
     })
 
     app.post('/useraccount/sendEmailForgetPwd', async (req, res) => {
@@ -72,6 +115,16 @@ module.exports = (app, svc, svcNotification, jwt, transporter) => {
 
     app.get("/useraccount/search/:login", jwt.validateJWT, async (req, res) => {
         res.json(await svc.dao.getUserByLogin(req.params.login, req.user.id))
+    })
+
+    app.get("/useraccount/search/:login/:isAbonne", jwt.validateJWT, async (req, res) => {
+        if((req.params.login === "azeorihalkzedniuazgduhfrebejhzrfgzyedziuefjbnozisdjsqokdj") && (req.params.isAbonne === "true")){
+            res.json(await svc.dao.getUsersByAbonne())
+        }else if (req.params.isAbonne === "true"){
+            res.json(await svc.dao.getUserByLoginAbonne(req.params.login, req.user.id))
+        } else {
+            res.json(await svc.dao.getUserByLogin(req.params.login, req.user.id))
+        }
     })
 
     app.get("/useraccount", jwt.validateJWT, async (req, res) => {

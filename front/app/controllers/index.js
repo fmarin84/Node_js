@@ -12,6 +12,24 @@ class IndexController extends BaseController {
         this.displayListsShare()
     }
 
+    async navigateRole(navigation){
+        const currentUser = await this.modelUser.getThisUser()
+        const isAbonne = await this.modelUser.getThisUserIsAbonne(currentUser.id)
+        const isAdmin = await this.modelUser.getThisUserIsAdmin(currentUser.id)
+        const lists = await this.model.getListsByUser()
+
+        if(lists.length >= 1){
+            if(isAbonne || isAdmin){
+                navigate(navigation)
+            } else {
+                // affiche modal user pas abonne
+                confirm('Vous n\'avez pas accès à cette fonctionnalité car vous n\'etes pas abonné')
+            }
+        } else if(lists.length === 0){
+            navigate(navigation)
+        }
+    }
+
     async displayNotif() {
         const currentUser = await this.modelUser.getThisUser()
         const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
@@ -137,7 +155,7 @@ class IndexController extends BaseController {
                 return
             }
             this.selectedList = object
-            navigate('listshare')
+            this.navigateRole('listshare')
         } catch (err) {
             console.log(err)
             this.displayServiceError()

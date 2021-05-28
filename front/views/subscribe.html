@@ -1,0 +1,51 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">Courses</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a onclick="navigate('index')">Accueil</a></li>
+            <li><a onclick="navigate('compte')">Mon compte</a></li>
+            <li><a onclick="navigate('archive')">Historique</a></li>
+            <li><a onclick="logout()">Déconnexion</a></li>
+
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+    <li><a onclick="navigate('index')">Accueil</a></li>
+    <li><a onclick="logout()">Déconnexion</a></li>
+
+</ul>
+<div class="container">
+    <h3 id="editTitleCompte">Formulaire de paiement</h3>
+    <div id="formEditCompteAdresse">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="first_name" type="text" class="validate">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="last_name" type="text" class="validate">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="fieldCB" type="text" class="validate">
+                        <label for="fieldCB" class="active">Numero carte bleu</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input id="fieldCVV" type="text" class="validate">
+                        <label for="fieldCVV" class="active">Numero CVV</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row">
+            <button class="waves-effect waves-light btn" onclick="subscribeController.add()">Payer</button>
+        </div>
+    </div>

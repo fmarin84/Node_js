@@ -3,7 +3,7 @@ const Item = require('./item')
 const Share = require('./share')
 const Role = require('./role')
 
-module.exports = (userAccountService, listService, itemService, shareService, roleService, notificationService) => {
+module.exports = (userAccountService, listService, itemService, shareService, roleService, notificationService,paymentService) => {
     return new Promise(async (resolve, reject) => {
         try {
             await userAccountService.dao.db.query("CREATE TABLE useraccount(id SERIAL PRIMARY KEY, displayname TEXT NOT NULL, login TEXT NOT NULL, challenge TEXT NOT NULL, isactived BOOLEAN DEFAULT false)")
@@ -13,6 +13,7 @@ module.exports = (userAccountService, listService, itemService, shareService, ro
             await roleService.dao.db.query("CREATE TABLE role(id SERIAL PRIMARY KEY, label TEXT NOT NULL, level INTEGER)")
             await roleService.dao.db.query("CREATE TABLE user_role(fk_user_id INTEGER, fk_role_id INTEGER, PRIMARY KEY (fk_user_id, fk_role_id), FOREIGN KEY (fk_user_id) REFERENCES useraccount(id), FOREIGN KEY (fk_role_id) REFERENCES role(id) )")
             await notificationService.dao.db.query("CREATE TABLE notification(id SERIAL PRIMARY KEY, titre TEXT NOT NULL, text TEXT NOT NULL, islue BOOLEAN DEFAULT false, created_at DATE DEFAULT NOW(), listshareid INTEGER, fk_useraccount_id INTEGER, FOREIGN KEY (fk_useraccount_id) REFERENCES useraccount(id))")
+            await paymentService.dao.db.query("CREATE TABLE payment(id SERIAL PRIMARY KEY, nom TEXT NOT NULL, prenom TEXT NOT NULL, fk_useraccount_id INTEGER, created_at DATE DEFAULT NOW(), FOREIGN KEY (fk_useraccount_id) REFERENCES useraccount(id))")
 
             // INSERTs
         } catch (e) {
@@ -41,6 +42,7 @@ module.exports = (userAccountService, listService, itemService, shareService, ro
 
                 await roleService.dao.insert(new Role("Administrateur" , 100))
                 await roleService.dao.insert(new Role("Utilisateur " , 10))
+                await roleService.dao.insert(new Role("Abonne " , 20))
                 await roleService.dao.addRoleUser(1,1)
 
             })

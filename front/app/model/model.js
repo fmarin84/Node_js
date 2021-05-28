@@ -60,6 +60,17 @@ class Model {
         return lists
     }
 
+    async getListsByUser() {
+        let lists = []
+
+        for (let list of await this.api.getListsByUser()) {
+            list.date = new Date(list.date)
+            lists.push(Object.assign(new List(), list))
+
+        }
+        return lists
+    }
+
     async getList(id) {
         try {
             const list = Object.assign(new List(), await this.api.get(id))
@@ -163,6 +174,22 @@ class ModelUser {
         return roles
     }
 
+
+    async getThisUserIsAbonne(userId) {
+        try {
+            for (let role of await this.api.getRoleToUser(userId)) {
+                if(role.level === 20){
+                    return true
+                }
+            }
+
+            return false
+        } catch (e) {
+            if (e === 404) return null
+            return undefined
+        }
+    }
+
     async getThisUserIsAdmin(userId) {
         try {
             for (let role of await this.api.getRoleToUser(userId)) {
@@ -229,6 +256,17 @@ class ModelUser {
         return users
     }
 
+    async getByLoginAbonne(login, isAbonne) {
+
+        let users = []
+
+        for (let user of await this.api.getByLoginAbonne(login, isAbonne)) {
+            users.push(Object.assign(new User(), user))
+        }
+        return users
+    }
+
+
     delete(id) {
         return this.api.delete(id).then(res => res.status)
     }
@@ -259,6 +297,20 @@ class ModelShare {
     }
     update(listId, userId,state) {
         return this.api.update(listId, userId,state).then(res => res.status)
+    }
+}
+
+class ModelPayment {
+    constructor() {
+        this.api = new PaymentAPI()
+    }
+
+    async getByUserId(userId) {
+        return await this.api.getByUserId(userId)
+    }
+
+    insert(payment) {
+        return this.api.insert(payment).then(res => res.status)
     }
 }
 

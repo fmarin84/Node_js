@@ -72,3 +72,15 @@ class Notif {
         return `${this.titre} ${this.text} `
     }
 }
+class Payment {
+
+    constructor(nom, prenom, fk_fk_useraccount_id) {
+        this.nom = nom
+        this.prenom = prenom
+        this.fk_useraccount_id = fk_fk_useraccount_id
+    }
+
+    toString() {
+        return `${this.nom} ${this.prenom} `
+    }
+}

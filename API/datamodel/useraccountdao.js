@@ -45,6 +45,20 @@ module.exports = class UserAccountDAO extends BaseDAO {
                 .catch(e => reject(e)))
     }
 
+    getUserByLoginAbonne(login, userId) {
+        return new Promise((resolve, reject) =>
+            this.db.query("SELECT id,displayname,login FROM useraccount, user_role WHERE login LIKE $1 and id != $3 and user_role.fk_user_id=useraccount.id and user_role.fk_role_id=3", [ '%'+login+ '%', userId])
+                .then(res => resolve(res.rows) )
+                .catch(e => reject(e)))
+    }
+
+    getUsersByAbonne() {
+        return new Promise((resolve, reject) =>
+            this.db.query("SELECT id,displayname,login FROM useraccount, user_role WHERE user_role.fk_user_id=useraccount.id and user_role.fk_role_id=3")
+                .then(res => resolve(res.rows) )
+                .catch(e => reject(e)))
+    }
+
     update(useraccount){
         return this.db.query("UPDATE useraccount SET displayname=$1,login=$2,challenge=$3,isactived=$4 where id=$5",
             [useraccount.displayname, useraccount.login, useraccount.challenge,useraccount.isactived,useraccount.id])

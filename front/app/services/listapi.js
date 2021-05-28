@@ -6,9 +6,7 @@ class ListAPI extends BaseAPIService{
     }
 
     getAchived() {
-        //return fetchJSON(`${serviceBaseUrl}/archive`)
         return fetchJSON(`${this.url}/archive`, this.token)
-
     }
 
     getListsShareByList(listId) {
@@ -16,8 +14,11 @@ class ListAPI extends BaseAPIService{
     }
 
     getListsShareByUser() {
-        //return fetchJSON(serviceBaseUrl)
         return fetchJSON(`${this.url}/share`, this.token)
+    }
+
+    getListsByUser() {
+        return fetchJSON(`${this.url}/user`, this.token)
     }
 
     getUserShare(listId){
@@ -28,16 +29,13 @@ class ListAPI extends BaseAPIService{
         return fetchJSON(`${this.url}/share/users/${listId}`, this.token)
     }
     getAll() {
-        //return fetchJSON(serviceBaseUrl)
         return fetchJSON(this.url, this.token)
     }
     get(id) {
-        //return fetchJSON(`${serviceBaseUrl}/${id}`)
         return fetchJSON(`${this.url}/${id}`, this.token)
     }
     delete(id) {
         this.headers.delete('Content-Type')
-        //return fetch(`${serviceBaseUrl}/${id}`, { method: 'DELETE' })
         return fetch(`${this.url}/${id}`, { method: 'DELETE', headers: this.headers })
     }
     insert(list) {

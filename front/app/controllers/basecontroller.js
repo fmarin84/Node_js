@@ -8,6 +8,7 @@ class BaseController {
         this.modelUser = new ModelUser()
         this.modelShare = new ModelShare()
         this.modelNotification = new ModelNotification()
+        this.modelPayment = new ModelPayment()
     }
     checkAuthentication() {
         if (localStorage.getItem("token") === null) {
