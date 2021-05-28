@@ -39,6 +39,7 @@ let mailOptions = {
     subject: 'Testing and testing',
     text:'It works'
 };
+// test bash
 
 // const connectionString = "postgres://user:root@localhost/base"
 const connectionString = "postgres://user1:default1@base1.cz3tecgklrx1.us-east-1.rds.amazonaws.com"
@@ -59,5 +60,3 @@ require('./api/notification')(app, notificationService, jwt)
 require('./api/payment')(app, paymentService, jwt)
 require('./datamodel/seeder')(userAccountService,listService,itemService,shareService,roleService,notificationService,paymentService)
     .then(app.listen(3333))
-
-
