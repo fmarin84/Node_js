@@ -211,8 +211,6 @@ class ModelUser {
             const user = Object.assign(new User(), await this.api.getThisUser())
             return user
         } catch (e) {
-            console.log("kzejrgbkzjerbzekjrbzekrjb")
-            console.log(e)
             if (e === 404) return null
             return undefined
         }
