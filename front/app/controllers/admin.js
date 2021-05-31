@@ -49,9 +49,9 @@ class AdminController extends BaseFormController {
 
         if ( await this.modelUser.update(user) === 200) {
             if(user.isactived === false){
-                this.toast("L'utilisateur a bien été activé")
-            } else {
                 this.toast("L'utilisateur a bien été désactivé")
+            } else {
+                this.toast("L'utilisateur a bien été activé")
             }
         } else {
             this.displayServiceError()

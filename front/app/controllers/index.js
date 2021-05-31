@@ -3,9 +3,7 @@ class IndexController extends BaseController {
         super()
         this.displayAdmin()
         this.displayNotif()
-        this.tableAllLists = $('#tableAllLists')
         this.tableBodyAllLists = $('#tableBodyAllLists')
-        this.tableListsShare = $('#tableListsShare')
         this.tableBodyListsShare = $('#tableBodyListsShare')
         this.navigAdmin = $('#navigAdmin')
         this.displayAllLists()
@@ -95,7 +93,7 @@ class IndexController extends BaseController {
             this.tableBodyListsShare.innerHTML = content
         } catch (err) {
             console.log(err)
-            if(err == 401){
+            if(err === 401){
                 logout()
             }
             this.displayServiceError()
@@ -136,7 +134,7 @@ class IndexController extends BaseController {
             this.tableBodyAllLists.innerHTML = content
         } catch (err) {
             console.log(err)
-            if(err == 401){
+            if(err === 401){
                 logout()
             }
             this.displayServiceError()
