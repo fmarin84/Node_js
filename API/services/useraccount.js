@@ -9,7 +9,7 @@ module.exports = class UserAccountService {
     }
 
     async isValide(login){
-        const user = await this.dao.getByLogin(login)
+        const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login))
         return user.isactived
     }
 
@@ -56,7 +56,7 @@ module.exports = class UserAccountService {
     }
 
     async validateLogin(login) {
-        const user = await this.dao.getByLogin(login.trim())
+        const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login.trim()))
 
         if(user === undefined){
             return false
@@ -64,7 +64,8 @@ module.exports = class UserAccountService {
         return true
     }
     async validatePassword(login, password) {
-        const user = await this.dao.getByLogin(login.trim())
+        const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login.trim()))
+
         if(user.isactived === false ){
             return false
         }
