@@ -109,7 +109,7 @@ class ModelItem {
 
     async getListItems(idList) {
         let Items = []
-        for (let item of await this.api.getAll(idList)) {
+        for (let item of await this.api.getAllByList(idList)) {
              if(item.fk_id_list === idList){
                 Items.push(Object.assign(new Item(), item))
              }

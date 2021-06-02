@@ -9,6 +9,14 @@ module.exports = class itemdao extends BaseDAO {
             [item.label, item.quantity, item.checked, item.idList])
     }
 
+    getAllToList(listId, user) {
+        return new Promise((resolve, reject) =>
+            this.db.query("SELECT * FROM item WHERE fk_id_list in (SELECT id FROM list WHERE useraccount_id=$2) and fk_id_list=$1 ORDER BY label", [listId, user.id])
+
+                .then(res => resolve(res.rows))
+                .catch(e => reject(e)))
+    }
+
     getAll(user) {
         return new Promise((resolve, reject) =>
             this.db.query("SELECT * FROM item WHERE fk_id_list in (SELECT id FROM list WHERE useraccount_id=$1) ORDER BY label", [user.id])

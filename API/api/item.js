@@ -3,6 +3,16 @@ module.exports = (app, serviceItem, jwt) => {
         res.json(await serviceItem.dao.getAll(req.user))
     })
 
+    app.get("/item/list/:listId", jwt.validateJWT, async (req, res) => {
+        try {
+            const items = await serviceItem.dao.getAllToList(req.params.listId,req.user )
+            if (items === undefined) {
+                return res.status(404).end()
+            }
+            return res.json(items)
+        } catch (e) { res.status(400).end() }
+    })
+
     app.get("/item/share/:listId", jwt.validateJWT, async (req, res) => {
         try {
             const items = await serviceItem.dao.getShare(req.params.listId,req.user )
