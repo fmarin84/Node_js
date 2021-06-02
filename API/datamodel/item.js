@@ -3,6 +3,6 @@ module.exports = class Item {
         this.label = label
         this.quantity = quantity
         this.checked = checked
-        this.idList = idList
+        this.fk_id_list = idList
     }
 }

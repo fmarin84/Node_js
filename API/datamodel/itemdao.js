@@ -6,7 +6,7 @@ module.exports = class itemdao extends BaseDAO {
     }
     insert(item) {
         return this.db.query("INSERT INTO item(label,quantity,checked, fk_id_list) VALUES ($1,$2,$3,$4)",
-            [item.label, item.quantity, item.checked, item.idList])
+            [item.label, item.quantity, item.checked, item.fk_id_list])
     }
 
     getAllToList(listId, user) {
@@ -36,7 +36,7 @@ module.exports = class itemdao extends BaseDAO {
 
     update(item) {
         return this.db.query("UPDATE item SET label=$2, quantity=$3, checked=$4, fk_id_list=$5 WHERE id=$1",
-            [item.id, item.label, item.quantity, item.checked, item.idList ])
+            [item.id, item.label, item.quantity, item.checked, item.fk_id_list ])
     }
 
 }
