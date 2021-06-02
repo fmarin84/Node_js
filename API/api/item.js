@@ -58,7 +58,11 @@ module.exports = (app, serviceItem, jwt) => {
             })
     })
     app.put("/item", jwt.validateJWT, async (req, res) => {
-        const item = req.body
+        let item = req.body
+        if(req.body.item !== undefined){
+            item = req.body.item
+        }
+
         if ((item.id === undefined) || (item.id === null) || (serviceItem.isValid(item) === false)) {
             return res.status(400).end()
         }
