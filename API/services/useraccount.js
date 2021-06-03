@@ -9,7 +9,8 @@ module.exports = class UserAccountService {
     }
 
     async isValide(login){
-        const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login))
+        //const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login))
+        const user = await this.dao.getByLogin(login)
         return user.isactived
     }
 
