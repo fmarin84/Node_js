@@ -1,7 +1,7 @@
 class ListCurentController extends BaseController {
     constructor() {
         super()
-        this.idList = window.idEntity
+        this.fk_id_list = window.idEntity
         this.isShare = window.isShare
         this.displayList()
     }
@@ -42,7 +42,7 @@ class ListCurentController extends BaseController {
 
             let items = null
 
-            const list = await this.model.getList(this.idList)
+            const list = await this.model.getList(this.fk_id_list)
 
             if(this.isShare){
                 items = await this.modelItem.getListItemsShare(list.id)
@@ -124,7 +124,7 @@ class ListCurentController extends BaseController {
         } else {
             item.checked = false
         }
-        item.idList = item.fk_id_list
+        item.fk_id_list = item.fk_id_list
         this.modelItem.update(item)
         this.displayList()
     }
@@ -150,7 +150,7 @@ class ListCurentController extends BaseController {
 
     undoDelete() {
         if (this.deletedItem) {
-            this.deletedItem.idList = this.deletedItem.fk_id_list
+            this.deletedItem.fk_id_list = this.deletedItem.fk_id_list
             this.modelItem.insert(this.deletedItem).then(status => {
                 if (status == 200) {
                     this.deletedItem = null
