@@ -1,3 +1,5 @@
+const Item = require('../datamodel/item')
+
 module.exports = (app, serviceItem, jwt) => {
     app.get("/item", jwt.validateJWT, async (req, res) => {
         res.json(await serviceItem.dao.getAll(req.user))
@@ -34,7 +36,11 @@ module.exports = (app, serviceItem, jwt) => {
     })
 
     app.post("/item", jwt.validateJWT, (req, res) => {
-        const item = req.body
+        let item = req.body
+        if(req.body.item !== undefined){
+            item = req.body.item
+        }
+
         if (!serviceItem.isValid(item))  {
             return res.status(400).end()
         }
