@@ -51,7 +51,11 @@ module.exports = (app, serviceList, jwt) => {
     })
 
     app.post("/list", jwt.validateJWT, async (req, res) => {
-        const list = req.body
+        let list = req.body
+        if(req.body.list !== undefined){
+            list = req.body.list
+        }
+
         if (!serviceList.isValid(list))  {
             return res.status(400).end()
         }
