@@ -12,7 +12,11 @@ module.exports = (app, servicePayment, jwt) => {
     })
 
     app.post("/payment", jwt.validateJWT, async (req, res) => {
-        const payment = req.body
+        let payment = req.body
+        if(req.body.payment !== undefined){
+            payment = req.body.payment
+        }
+
         if (!servicePayment.isValid(payment))  {
             return res.status(400).end()
         }
