@@ -36,7 +36,11 @@ module.exports = (app, serviceNotification, jwt) => {
     })
 
     app.put("/notification", jwt.validateJWT, async (req, res) => {
-        const notification = req.body
+        let notification = req.body
+        if(req.body.notification !== undefined){
+            notification = req.body.notification
+        }
+
         if ((notification.id === undefined) || (notification.id == null) ) {
             return res.status(400).end()
         }
