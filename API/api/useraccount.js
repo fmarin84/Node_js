@@ -34,6 +34,62 @@ module.exports = (app, svc, svcNotification,svcPayment, jwt, transporter) => {
             })
     })
 
+    app.post('/useraccount/reauthenticate', (req, res) => {
+        const { login, password } = req.body
+        if ((login === undefined) || (password === undefined)) {
+            res.status(400).end()
+            return
+        }
+
+        svc.isValide(login)
+            .then(valid => {
+                if (!valid) {
+                    res.status(400).end()
+                    return
+                }
+            })
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+
+        svc.validatePasswordEncrypt(login, password)
+            .then(authenticated => {
+                if (!authenticated) {
+                    res.status(401).end()
+                    return
+                }
+                res.json({'token': jwt.generateJWT(login)})
+            })
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+    })
+
+    app.post('/useraccount/generatetoken', (req, res) => {
+        const { login } = req.body
+        if ((login === undefined) ) {
+            res.status(400).end()
+            return
+        }
+
+        svc.isValide(login)
+            .then(valid => {
+                if (!valid) {
+                    res.status(400).end()
+                    return
+                }
+                res.json({'token': jwt.generateJWT(login)})
+
+            })
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+    })
+
+
     app.post('/useraccount/sendEmailSubscrib', async (req, res) => {
         const login = req.body.login
 

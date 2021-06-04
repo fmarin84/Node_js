@@ -1,6 +1,9 @@
 class IndexController extends BaseController {
     constructor() {
         super()
+        this.svc = new UserAccountAPI()
+        this.reauthenticate()
+
         this.displayAdmin()
         this.displayNotif()
         this.tableBodyAllLists = $('#tableBodyAllLists')
@@ -8,6 +11,35 @@ class IndexController extends BaseController {
         this.navigAdmin = $('#navigAdmin')
         this.displayAllLists()
         this.displayListsShare()
+
+
+    }
+
+    async reauthenticate() {
+        const currentUser = Object.assign(new User(),await this.modelUser.getThisUser())
+        let login = currentUser.login
+        let password = currentUser.challenge
+        if ((login != null) && (password != null)) {
+
+            this.svc.reauthenticate(login, password)
+                .then(res => {
+                    console.log(res.token)
+
+                    localStorage.setItem("token", res.token)
+                    //window.location.replace("index.html")
+                })
+                .catch(err => {
+                    console.log(err)
+                    if (err == 401) {
+                        logout()
+                    } if (err == 400) {
+                        logout()
+                    } else {
+                        this.displayServiceError()
+                        logout()
+                    }
+                })
+        }
     }
 
     async navigateRole(navigation){

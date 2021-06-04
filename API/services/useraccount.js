@@ -78,4 +78,12 @@ module.exports = class UserAccountService {
     hashPassword(password) {
         return bcrypt.hashSync(password, 10)  // 10 : cost factor -> + élevé = hash + sûr
     }
+    async validatePasswordEncrypt(login, password) {
+        const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login.trim()))
+
+        if(password === user.challenge ){
+            return true
+        }
+        return false
+    }
 }

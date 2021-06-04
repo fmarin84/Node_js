@@ -17,6 +17,22 @@ class UserAccountAPI extends BaseAPIService {
         }).catch(err => reject(err)))
     }
 
+    reauthenticate(login, password) {
+        this.headers.set('Content-Type', 'application/x-www-form-urlencoded')
+        return new Promise((resolve, reject) => fetch(`${this.url}/reauthenticate`, {
+            method: "POST",
+            headers: this.headers,
+            body: `login=${login}&password=${password}`
+        }).then(res => {
+            if (res.status === 200) {
+                resolve(res.json())
+            } else {
+                reject(res.status)
+            }
+        }).catch(err => reject(err)))
+    }
+
+
     register(name, login, password){
         this.headers.set('Content-Type', 'application/x-www-form-urlencoded')
         return new Promise((resolve, reject) => fetch(`${this.url}/inscription`, {

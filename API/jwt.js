@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const jwtKey = 'exemple_cours_secret_key'
 const jwtExpirySeconds = 3600
 const jwtExpiry1Day = 86400
+const jwtExpiry4H = 14400
 const jwtExpiry30m = 1800
 
 module.exports = (userAccountService) => {
@@ -52,7 +53,7 @@ module.exports = (userAccountService) => {
         generateLienValidation(id) {
             return jwt.sign({id}, jwtKey, {
                 algorithm: 'HS256',
-                expiresIn: jwtExpiry1Day
+                expiresIn: jwtExpiry4H
             })
         },
 
