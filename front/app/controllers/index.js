@@ -5,13 +5,11 @@ class IndexController extends BaseController {
         this.reauthenticate()
 
         this.displayAdmin()
-        this.displayNotif()
         this.tableBodyAllLists = $('#tableBodyAllLists')
         this.tableBodyListsShare = $('#tableBodyListsShare')
         this.navigAdmin = $('#navigAdmin')
         this.displayAllLists()
         this.displayListsShare()
-
 
     }
 
@@ -23,8 +21,6 @@ class IndexController extends BaseController {
 
             this.svc.reauthenticate(login, password)
                 .then(res => {
-                    console.log(res.token)
-
                     localStorage.setItem("token", res.token)
                     //window.location.replace("index.html")
                 })
@@ -60,11 +56,7 @@ class IndexController extends BaseController {
         }
     }
 
-    async displayNotif() {
-        const currentUser = await this.modelUser.getThisUser()
-        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
-        $('#notification').innerText = nbNotifs
-    }
+
 
 
     async displayAdmin() {

@@ -3,19 +3,20 @@
         <a href="#!" class="brand-logo">ListOfCourse</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a onclick="navigate('index')">Accueil</a></li>
             <li><a onclick="navigate('compte')">Mon compte</a></li>
             <li><a onclick="navigate('archive')">Historique</a></li>
             <li><a onclick="logout()">Déconnexion</a></li>
-
+            <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notification"  class="new badge">0</span></a></li>
         </ul>
     </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
+    <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notificationMenu"  class="new badge">0</span></a></li>
     <li><a onclick="navigate('index')">Accueil</a></li>
+    <li><a onclick="navigate('compte')">Mon compte</a></li>
+    <li><a onclick="navigate('archive')">Historique</a></li>
     <li><a onclick="logout()">Déconnexion</a></li>
-
 </ul>
 
 

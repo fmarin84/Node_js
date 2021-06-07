@@ -4,21 +4,21 @@
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
         <ul class="right hide-on-med-and-down">
-            <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notification"  class="new badge">0</span></a></li>
             <li id="navigAdmin"></li>
-            <li><a onclick="navigate('subscribe')">Abonnement</a></li>
             <li><a onclick="navigate('compte')">Mon compte</a></li>
             <li><a onclick="navigate('archive')">Historique</a></li>
             <li><a onclick="logout()">Déconnexion</a></li>
+            <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notification"  class="new badge">0</span></a></li>
         </ul>
     </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
+    <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notificationMenu"  class="new badge">0</span></a></li>
+    <li><a onclick="navigate('index')">Accueil</a></li>
     <li><a onclick="navigate('compte')">Mon compte</a></li>
     <li><a onclick="navigate('archive')">Historique</a></li>
     <li><a onclick="logout()">Déconnexion</a></li>
-
 </ul>
 
 <!-- Modal Structure -->
@@ -89,3 +89,11 @@
     </div>
 </div>
 
+
+<div class="row">
+    <div class="col s11"></div>
+    <div class="col s1">
+
+        <a class="btn-floating btn-large waves-effect waves-light" data-position="top" data-tooltip="Abonnée vous !" onclick="navigate('subscribe')"><i class="material-icons">credit_card</i></a>
+    </div>
+</div>

@@ -3,20 +3,23 @@
         <a href="#!" class="brand-logo">ListOfCourse</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a onclick="navigate('index')">Accueil</a></li>
             <li><a onclick="navigate('compte')">Mon compte</a></li>
             <li><a onclick="navigate('archive')">Historique</a></li>
             <li><a onclick="logout()">Déconnexion</a></li>
+            <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notification"  class="new badge">0</span></a></li>
 
         </ul>
     </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
+    <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notificationMenu"  class="new badge">0</span></a></li>
     <li><a onclick="navigate('index')">Accueil</a></li>
+    <li><a onclick="navigate('compte')">Mon compte</a></li>
+    <li><a onclick="navigate('archive')">Historique</a></li>
     <li><a onclick="logout()">Déconnexion</a></li>
-
 </ul>
+
 <div class="container">
     <h3 id="editTitleCompte">Formulaire de paiement</h3>
     <div id="formEditCompteAdresse">
@@ -24,6 +27,7 @@
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s6">
+                        <i class="material-icons prefix">account_circle</i>
                         <input id="first_name" type="text" class="validate">
                         <label for="first_name">First Name</label>
                     </div>
@@ -34,10 +38,14 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
+                        <i class="material-icons prefix">credit_card</i>
                         <input id="fieldCB" type="text" class="validate">
                         <label for="fieldCB" class="active">Numero carte bleu</label>
                     </div>
+
                     <div class="input-field col s3">
+                        <i class="material-icons prefix">call_to_action</i>
+
                         <input id="fieldCVV" type="text" class="validate">
                         <label for="fieldCVV" class="active">Numero CVV</label>
                     </div>
