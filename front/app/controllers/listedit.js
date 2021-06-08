@@ -15,6 +15,14 @@ class ListEditController extends BaseFormController {
         }
 
         $('#editTitleList').innerHTML = title
+        this.displayNotif()
+
+    }
+    async displayNotif() {
+        const currentUser = await this.modelUser.getThisUser()
+        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
+        $('#notification').innerText = nbNotifs
+        $('#notificationMenu').innerText = nbNotifs
     }
 
     async save() {

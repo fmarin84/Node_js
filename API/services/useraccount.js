@@ -58,8 +58,8 @@ module.exports = class UserAccountService {
 
     async validateLogin(login) {
         const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login.trim()))
-
-        if(user === undefined){
+        console.log(user)
+        if((user.login === login) || (user.login === undefined)){
             return false
         }
         return true

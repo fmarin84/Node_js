@@ -4,9 +4,15 @@ class CompteController extends BaseFormController {
         super()
         this.edit()
         this.svc = new UserAccountAPI()
+        this.displayNotif()
 
     }
-
+    async displayNotif() {
+        const currentUser = await this.modelUser.getThisUser()
+        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
+        $('#notification').innerText = nbNotifs
+        $('#notificationMenu').innerText = nbNotifs
+    }
 
     async edit() {
         try {

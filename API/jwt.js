@@ -46,14 +46,14 @@ module.exports = (userAccountService) => {
         generateJWT(login) {
             return jwt.sign({login}, jwtKey, {
                 algorithm: 'HS256',
-                expiresIn: jwtExpirySeconds
+                expiresIn: jwtExpiry4H
             })
         },
 
         generateLienValidation(id) {
             return jwt.sign({id}, jwtKey, {
                 algorithm: 'HS256',
-                expiresIn: jwtExpiry4H
+                expiresIn: jwtExpirySeconds
             })
         },
 

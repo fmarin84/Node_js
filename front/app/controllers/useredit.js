@@ -6,6 +6,14 @@ class UserEditController extends BaseFormController {
         const id = window.idEntity
         this.edit(id)
         this.displayAllNotif(id)
+        this.displayNotif()
+
+    }
+    async displayNotif() {
+        const currentUser = await this.modelUser.getThisUser()
+        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
+        $('#notification').innerText = nbNotifs
+        $('#notificationMenu').innerText = nbNotifs
     }
 
     async displayAllNotif(userId) {
@@ -31,7 +39,6 @@ class UserEditController extends BaseFormController {
             this.displayServiceError()
         }
     }
-
 
     async edit(userId) {
         try {

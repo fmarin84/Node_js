@@ -9,9 +9,9 @@ class BaseController {
         this.modelShare = new ModelShare()
         this.modelNotification = new ModelNotification()
         this.modelPayment = new ModelPayment()
-        this.displayNotif()
 
     }
+
     checkAuthentication() {
         if (localStorage.getItem("token") === null) {
             window.location.replace("login.html")
@@ -55,10 +55,5 @@ class BaseController {
         }; history.pushState({}, '');
     }
 
-    async displayNotif() {
-        const currentUser = await this.modelUser.getThisUser()
-        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
-        $('#notification').innerText = nbNotifs
-        $('#notificationMenu').innerText = nbNotifs
-    }
+
 }

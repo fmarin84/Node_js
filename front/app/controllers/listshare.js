@@ -3,6 +3,14 @@ class ListShareController extends BaseFormController {
         super()
         this.idList = window.idEntity
         this.displayUsers()
+        this.displayNotif()
+
+    }
+    async displayNotif() {
+        const currentUser = await this.modelUser.getThisUser()
+        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
+        $('#notification').innerText = nbNotifs
+        $('#notificationMenu').innerText = nbNotifs
     }
 
     async displayUsers() {

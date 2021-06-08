@@ -4,8 +4,15 @@ class ListCurentController extends BaseController {
         this.fk_id_list = window.idEntity
         this.isShare = window.isShare
         this.displayList()
-    }
+        this.displayNotif()
 
+    }
+    async displayNotif() {
+        const currentUser = await this.modelUser.getThisUser()
+        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
+        $('#notification').innerText = nbNotifs
+        $('#notificationMenu').innerText = nbNotifs
+    }
     async displayListsShare() {
         let content = ''
         try {

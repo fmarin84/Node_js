@@ -3,8 +3,15 @@ class SubscribeController extends BaseFormController {
     constructor() {
         super()
         this.svc = new UserAccountAPI()
-    }
+        this.displayNotif()
 
+    }
+    async displayNotif() {
+        const currentUser = await this.modelUser.getThisUser()
+        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
+        $('#notification').innerText = nbNotifs
+        $('#notificationMenu').innerText = nbNotifs
+    }
     async subscribSendEmail(){
 
         const currentUser = await this.modelUser.getThisUser()

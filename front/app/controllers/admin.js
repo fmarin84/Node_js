@@ -3,6 +3,14 @@ class AdminController extends BaseFormController {
         super()
         this.tableBodyAllUsers = $('#tableBodyAllUsers')
         this.displayAllUsers()
+        this.displayNotif()
+
+    }
+    async displayNotif() {
+        const currentUser = await this.modelUser.getThisUser()
+        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
+        $('#notification').innerText = nbNotifs
+        $('#notificationMenu').innerText = nbNotifs
     }
 
     async displayAllUsers() {

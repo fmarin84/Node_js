@@ -4,6 +4,14 @@ class ArchiveController extends BaseController {
         this.tableAllLists = $('#tableAllLists')
         this.tableBodyAllLists = $('#tableBodyAllLists')
         this.displayAllListsArchive()
+        this.displayNotif()
+
+    }
+    async displayNotif() {
+        const currentUser = await this.modelUser.getThisUser()
+        const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
+        $('#notification').innerText = nbNotifs
+        $('#notificationMenu').innerText = nbNotifs
     }
 
     async displayAllListsArchive() {
