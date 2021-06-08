@@ -205,6 +205,21 @@ class ModelUser {
         }
     }
 
+    async getThisUserIsAbonne(userId) {
+        try {
+            for (let role of await this.api.getRoleToUser(userId)) {
+                if(role.level === 20){
+                    return true
+                }
+            }
+
+            return false
+        } catch (e) {
+            if (e === 404) return null
+            return undefined
+        }
+    }
+
 
     async getThisUser() {
         try {

@@ -2,20 +2,22 @@
     <div class="nav-wrapper">
         <a href="#" class="brand-logo">ListOfCourse</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="left hide-on-med-and-down" style="    margin-left: 200px;">
+            <li id="navigAdmin"></li>
+        </ul>
 
         <ul class="right hide-on-med-and-down">
-            <li id="navigAdmin"></li>
+            <li><a class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span><span id="notifiaction"></span></a></li>
             <li><a onclick="navigate('index')">Accueil</a></li>
             <li><a onclick="navigate('compte')">Mon compte</a></li>
             <li><a onclick="navigate('archive')">Historique</a></li>
             <li><a onclick="logout()">Déconnexion</a></li>
-            <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notification"  class="new badge">0</span></a></li>
         </ul>
     </div>
 </nav>
 
 <ul class="sidenav" id="mobile-demo">
-    <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span> <span id="notificationMenu"  class="new badge">0</span></a></li>
+    <li><a  class="modal-trigger" href="#modal1" onclick="notificationController.displayNotif()" ><span class="material-icons">notifications</span><span id="notificationMenu"></span> </a></li>
     <li><a onclick="navigate('index')">Accueil</a></li>
     <li><a onclick="navigate('compte')">Mon compte</a></li>
     <li><a onclick="navigate('archive')">Historique</a></li>
@@ -94,8 +96,7 @@
 <div class="row">
     <div class="col s11"></div>
     <div class="col s1">
-
-        <a class="btn-floating btn-large waves-effect waves-light" data-position="top" data-tooltip="Abonnée vous !" onclick="navigate('subscribe')"><i class="material-icons">credit_card</i></a>
+        <a id="btSubscrib" class="btn-floating btn-large waves-effect waves-light hidden" data-position="top" data-tooltip="Abonnée vous !" onclick="navigate('subscribe')"><i class="material-icons">credit_card</i></a>
     </div>
 </div>
 

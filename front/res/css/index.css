@@ -1,3 +1,22 @@
 body {
-    margin: 10px;
+}
+
+.brand-logo{
+    margin-left: 15px;
+}
+
+.modal-trigger .material-icons{
+    line-height: unset;
+}
+
+.hidden{
+    visibility: hidden
+}
+
+table.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    /* display: block; */
+    position: relative;
 }

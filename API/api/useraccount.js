@@ -116,15 +116,12 @@ module.exports = (app, svc, svcNotification,svcPayment, jwt, transporter) => {
                 to: login,
                 subject: "Abonnement",
                 html: html
-
             };
 
             transporter.sendMail(mailOptions, function(err, data) {
                 if(err){
                     console.log('Error Occurs')
                 } else {
-                    console.log(login)
-                    console.log(lien)
                     console.log('Email sent !!')
                 }
             });
@@ -145,7 +142,7 @@ module.exports = (app, svc, svcNotification,svcPayment, jwt, transporter) => {
 
         if(user !== undefined){
 
-            let lien="http://localhost:63342/Node_js/front/forgetpassword.html?token="+jwt.generateLinkForgetPwd(login)
+            let lien="http://ec2-23-20-194-1.compute-1.amazonaws.com/forgetpassword.html?token="+jwt.generateLinkForgetPwd(login)
 
             let mailOptions = {
                 from: 'fabien.esimed@gmail.com',

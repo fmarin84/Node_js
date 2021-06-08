@@ -39,7 +39,7 @@ module.exports = class UserAccountService {
             tls: { rejectUnauthorized: false }
         });
 
-        let lien="http://localhost:63342/Node_js/front/authentication.html?token="+jwt.generateLienValidation(login)
+        let lien="http://ec2-23-20-194-1.compute-1.amazonaws.com/authentication.html?token="+jwt.generateLienValidation(login)
 
         let info = await transporter.sendMail({
             to: login,

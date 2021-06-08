@@ -3,21 +3,23 @@ class IndexController extends BaseController {
         super()
         this.svc = new UserAccountAPI()
         this.reauthenticate()
-
         this.displayAdmin()
         this.tableBodyAllLists = $('#tableBodyAllLists')
         this.tableBodyListsShare = $('#tableBodyListsShare')
         this.navigAdmin = $('#navigAdmin')
         this.displayAllLists()
         this.displayListsShare()
+        this.displayBtSubscrib()
         this.displayNotif()
-
     }
     async displayNotif() {
         const currentUser = await this.modelUser.getThisUser()
         const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
-        $('#notification').innerText = nbNotifs
-        $('#notificationMenu').innerText = nbNotifs
+console.log(nbNotifs)
+        if(nbNotifs > 0){
+            $('#notifiaction').inneText = nbNotifs
+            $('#notificationMenu').innerText = nbNotifs
+        }
     }
 
     async reauthenticate() {
@@ -63,8 +65,14 @@ class IndexController extends BaseController {
         }
     }
 
+    async displayBtSubscrib() {
+        const currentUser = await this.modelUser.getThisUser()
+        const isAbonne = await this.modelUser.getThisUserIsAbonne(currentUser.id)
+        if(!isAbonne){
+            $('#btSubscrib').classList.remove("hidden")
 
-
+        }
+    }
 
     async displayAdmin() {
         const currentUser = await this.modelUser.getThisUser()
