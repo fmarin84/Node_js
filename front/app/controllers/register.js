@@ -5,7 +5,6 @@ class RegisterController extends BaseFormController {
     }
 
     register(){
-
         let name = this.validateRequiredField('#fieldName', 'Nom')
         let login = this.validateRequiredField('#fieldLogin', 'Adresse e-mail')
         let password = this.validateRequiredField('#fieldPassword', 'Mot de passe')

@@ -35,9 +35,10 @@ module.exports = class UserAccountService {
             auth: {
                 user: 'fabien.esimed@gmail.com',
                 pass: 'Esimed123*'
-            },
-            tls: { rejectUnauthorized: false }
+            }
         });
+
+        // tls: { rejectUnauthorized: false }
 
         let lien="http://ec2-23-20-194-1.compute-1.amazonaws.com/authentication.html?token="+jwt.generateLienValidation(login)
 
@@ -47,8 +48,8 @@ module.exports = class UserAccountService {
             html: "Bonjour,<br>Pour confirmer votre inscription<br>Cliquez ici : <a href='"+lien+"'>"+lien+"</a>",
         });
 
-        console.log("Message sent: %s", info.messageId);
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        // console.log("Message sent: %s", info.messageId);
+        // console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     }
 
     updatePwd(user) {

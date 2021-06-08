@@ -1,4 +1,3 @@
-//const serviceBaseUrlItem = "http://localhost:3333/item"
 
 class ItemAPI extends BaseAPIService{
 
