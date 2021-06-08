@@ -15,9 +15,8 @@ class IndexController extends BaseController {
     async displayNotif() {
         const currentUser = await this.modelUser.getThisUser()
         const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
-console.log(nbNotifs)
         if(nbNotifs > 0){
-            $('#notifiaction').inneText = nbNotifs
+            $('#notifiaction').innerText = nbNotifs
             $('#notificationMenu').innerText = nbNotifs
         }
     }
