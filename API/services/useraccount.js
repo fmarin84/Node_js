@@ -29,9 +29,9 @@ module.exports = class UserAccountService {
 
     async sendMail(login,jwt){
         let transporter = nodemailer.createTransport({
-            service: 'gmail',
-            port: 587,
-            secure: false,
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
                 user: 'fabien.esimed@gmail.com',
                 pass: 'Esimed123*'
@@ -58,7 +58,6 @@ module.exports = class UserAccountService {
 
     async validateLogin(login) {
         const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login.trim()))
-        console.log(user)
         if((user.login === login) || (user.login === undefined)){
             return false
         }
