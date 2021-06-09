@@ -20,6 +20,14 @@ class AuthenticationController extends BaseController {
     async veriftoken(token){
         let result = await this.svc.getValidation(token)
         if(result.login!==undefined) {
+
+            // const currentUser = await this.svc.getThisUser()
+            // console.log(currentUser)
+            // if (await this.modelUser.addRoleUser(currentUser.id, 3) === 200) {
+            //     console.log("ok")
+            // }
+
+
             localStorage.setItem("token", result.login)
             window.location.replace("index.html")
         }

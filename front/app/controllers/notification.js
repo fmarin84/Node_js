@@ -11,7 +11,8 @@ class NotificationController extends BaseFormController {
         if ( (title != null) && (text != null)) {
             try {
                 if (await this.modelNotification.insert(new Notif(title, text, false, userId)) === 200) {
-                    this.toast("Le role a bien été ajouté")
+                    this.toast("La notification a bien été envoyée")
+                    userEditController.displayAllNotif(userId)
                 } else {
                     this.displayServiceError()
                 }
@@ -57,9 +58,9 @@ class NotificationController extends BaseFormController {
         try {
             if (await this.modelNotification.update(notification) === 200) {
                 if(islue){
-                    this.toast("Notification marquer comme lue.")
+                    this.toast("Notification marquée comme lue.")
                 } else{
-                    this.toast("Notification marquer comme non lue.")
+                    this.toast("Notification marquée comme non lue.")
                 }
                 this.displayNotif();
 

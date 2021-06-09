@@ -20,7 +20,8 @@ class UserEditController extends BaseFormController {
 
     async displayAllNotif(userId) {
         $('#btNotifications').innerHTML = `  
-         <button class="waves-effect waveclassNameht btn" onclick="notificationController.add(${userId}); userEditController.displayAllNotif(${userId})">Envoyer</button> `
+         <button class="waves-effect waveclassNameht btn" onclick="notificationController.add(${userId});">Envoyer</button> `
+
         let content = ''
         try {
             const notifications = await this.modelNotification.getAll(userId)

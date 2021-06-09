@@ -42,16 +42,16 @@ class ListEditController extends BaseFormController {
 
                         const list = await this.model.getListsShareByList(self.list.id)
                         const currentUser = await this.modelUser.getThisUser()
-                        const notifications = await this.modelNotification.getNotificationByListShareId(list[0].id)
-
-                        let notif = null
-                        for (let notification of notifications) {
-                            if( (notification.titre === "Modification liste paratager") && (notification.listshareid === self.list.id) && (list[0].useraccount_id === notification.fk_useraccount_id)) {
-                                notif = notification
-                            }
-                        }
 
                         if (list.length !== 0 ) {
+                            const notifications = await this.modelNotification.getNotificationByListShareId(list[0].id)
+
+                            let notif = null
+                            for (let notification of notifications) {
+                                if( (notification.titre === "Modification liste paratager") && (notification.listshareid === self.list.id) && (list[0].useraccount_id === notification.fk_useraccount_id)) {
+                                    notif = notification
+                                }
+                            }
 
                             if( (notif === null) || (notif.islue  === true) ) {
                                 for (let user of await this.model.getUsersList(list[0].id)) {

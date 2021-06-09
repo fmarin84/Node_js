@@ -366,6 +366,7 @@ module.exports = (app, svc, svcNotification,svcPayment, jwt, transporter) => {
                 if(await svc.dao.update(req.user)){
                     if(await svc.isValide(req.user.login)){
 
+                        await svc.dao.addRoleUser(req.user.id, 2)
                         await svcNotification.dao.insert(new Notification('Bienvenue', 'Bienvenue sur le site liste de course', false, req.user.id))
                         res.json({'login': jwt.generateJWT(req.user.login)})
                         res.status(200).end()

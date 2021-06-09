@@ -35,6 +35,10 @@ class RegisterController extends BaseFormController {
         }
     }
 
+    async addRoleUser(){
+
+    }
+
     resendMe() {
         let login = this.validateRequiredField('#fieldLogin', 'Adresse e-mail')
         this.svc.reSendMailValidation(login).then(r => this.toast("Mail envoyer"))

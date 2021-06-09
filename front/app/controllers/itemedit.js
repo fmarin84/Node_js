@@ -35,7 +35,7 @@ class ItemEditController extends BaseFormController {
                     self.item.quantity = qte
                     self.item.label = label
                     if (await this.modelItem.update(self.item) === 200) {
-                        this.toast("La marchandise a bien été modifé")
+                        this.toast("L'article a bien été modifé")
                         self.item = null
                         navigate('listcurent')
 
@@ -44,7 +44,7 @@ class ItemEditController extends BaseFormController {
                     }
                 } else {
                     if (await this.modelItem.insert(new Item(label, qte, false, window.idEntity)) === 200) {
-                        this.toast("La marchandise a bien été inséré")
+                        this.toast("L'article a bien été inséré")
                         navigate('listcurent')
                     } else {
                         this.displayServiceError()
