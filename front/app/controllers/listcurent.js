@@ -130,8 +130,12 @@ class ListCurentController extends BaseController {
         const item = await this.modelItem.getItem(idIngredient)
         if(item.checked === false){
             item.checked = true
+            this.toast("Article acheté.")
+
         } else {
             item.checked = false
+            this.toast("L'article n'est pas été acheté. ")
+
         }
         item.fk_id_list = item.fk_id_list
         this.modelItem.update(item)

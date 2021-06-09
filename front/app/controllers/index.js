@@ -62,7 +62,7 @@ class IndexController extends BaseController {
                 navigate(navigation)
             } else {
                 // affiche modal user pas abonne
-                confirm('Vous n\'avez pas accès à cette fonctionnalité car vous n\'etes pas abonné')
+                confirm('Vous n\'avez pas accès à cette fonctionnalité car vous n\'êtes pas abonné')
             }
         } else if(lists.length === 0){
             navigate(navigation)
