@@ -58,6 +58,8 @@ class BaseController {
 
     async getUserIsActive(){
         const queryString = window.location.pathname
+        console.log(queryString)
+        console.log(queryString === "/Node_js/front/login.html" || queryString === "/Node_js/front/register.html" || queryString === "/Node_js/front/forgetpassword.html" || queryString === "/Node_js/front/authentication.html")
         if(queryString === "/Node_js/front/login.html" || queryString === "/Node_js/front/register.html" || queryString === "/Node_js/front/forgetpassword.html" || queryString === "/Node_js/front/authentication.html"){
         } else {
             try {
