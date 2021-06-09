@@ -14,10 +14,10 @@ class LoginController extends BaseFormController {
                 })
                 .catch(err => {
                     console.log(err)
-                    if (err == 401) {
+                    if (err === 401) {
                         this.toast("Adresse e-mail ou mot de passe incorrect")
-                    } if (err == 400) {
-                        this.toast("Votre compte n'est pas activé")
+                    } else if (err === 400) {
+                        this.toast("Votre est compte désactivé")
                     } else {
                         this.displayServiceError()
                     }

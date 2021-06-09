@@ -23,8 +23,12 @@ class AdminController extends BaseFormController {
 
                 content += `<tr>
                     <td>${user.login}</td>
-                    <td>${user.displayname}</td>
-                    <td>Role</td>`
+                    <td>${user.displayname}</td>`
+                content +=  `<td>`
+                for (let role of await this.modelUser.getRolesToUser(user.id)) {
+                    content += `[${role.label}]`
+                }
+                content +=`</td>`
 
                 if(user.isactived === false){
                     content += `<td><p><label><input type="checkbox"  onclick='adminController.Check(${user.id})' /><span></span></label></p></td>`
@@ -100,8 +104,13 @@ class AdminController extends BaseFormController {
                 for(let user of users) {
                     content += `<tr>
                     <td>${user.login}</td>
-                    <td>${user.displayname}</td>
-                    <td>Role</td>`
+                    <td>${user.displayname}</td>`
+                    content +=  `<td>`
+                    for (let role of await this.modelUser.getRolesToUser(user.id)) {
+                        content += `[${role.label}]`
+                    }
+                    content +=`</td>`
+
                     if(user.isactived === false){
                         content += `<td><p><label><input type="checkbox"  onclick='adminController.Check(${user.id})' /><span></span></label></p></td>`
                     } else {

@@ -11,6 +11,18 @@ module.exports = (app, svc, svcNotification,svcPayment, jwt, transporter) => {
         svc.isValide(login)
             .then(valid => {
                 if (!valid) {
+                    res.status(401).end()
+                    return
+                }
+            })
+            .catch(e => {
+                console.log(e)
+                res.status(500).end()
+            })
+
+        svc.isActive(login)
+            .then(valid => {
+                if (!valid) {
                     res.status(400).end()
                     return
                 }

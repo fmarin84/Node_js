@@ -19,9 +19,15 @@ class ArchiveController extends BaseController {
     async displayAllListsArchive() {
         let content = ''
         try {
-            for (const list of await this.model.getAchived()) {
-                const date = list.date.toLocaleDateString()
-                content += `<tr>
+
+            const lists = await this.model.getAchived()
+
+            if(lists.length === 0){
+                $("#listarchivetitle").innerHTML = `<h4 style="color: tomato;"> Vous n'avez pas de liste partager</h4>`
+            } else {
+                for (const list of lists) {
+                    const date = list.date.toLocaleDateString()
+                    content += `<tr>
                     <td>
                     <a  onclick="navigateParams('listcurent',${list.id})">${list.shop}</a>
                     </td>
@@ -29,6 +35,8 @@ class ArchiveController extends BaseController {
                     <td class="icon">
                     <button class="btn" onclick="archiveController.displayConfirmDelete(${list.id})"><i class="material-icons">delete</i></button>                   
                     </td></tr>`
+                }
+
             }
 
             this.tableBodyAllLists.innerHTML = content

@@ -31,7 +31,7 @@ class CompteController extends BaseFormController {
             this.selectedUser = object
 
             if($("#editTitleCompte")){
-                $("#editTitleCompte").innerHTML = `<h3> Bonjour ${object.displayname}</h3>`
+                $("#editTitleCompte").innerHTML = `<h4> Bonjour ${object.displayname}</h4>`
                 $("#fieldNom").value = object.displayname
                 $("#fieldAdresse").value = object.login
             }
@@ -43,9 +43,11 @@ class CompteController extends BaseFormController {
     }
 
     async save() {
-
+        const currentUser = Object.assign(new User(), await this.modelUser.getThisUser())
         let nom = this.validateRequiredField('#fieldNom', 'Name')
         let login = this.validateRequiredField("#fieldAdresse", 'Address')
+        let password = currentUser.challenge
+
         if ((nom != null) && (login != null)) {
             try {
                 if (this.selectedUser) {
@@ -56,7 +58,7 @@ class CompteController extends BaseFormController {
                         this.toast("Votre compte a bien été modifé")
                         this.selectedUser = null
                         if(loginOld !== login){
-                            logout()
+                            await indexController.reauthenticate(login, password)
                         }else {
                             this.edit()
                         }

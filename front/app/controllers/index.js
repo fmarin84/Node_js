@@ -12,6 +12,7 @@ class IndexController extends BaseController {
         this.displayBtSubscrib()
         this.displayNotif()
     }
+
     async displayNotif() {
         const currentUser = await this.modelUser.getThisUser()
         const nbNotifs = await this.modelNotification.countNotification(currentUser.id)
@@ -21,10 +22,16 @@ class IndexController extends BaseController {
         }
     }
 
-    async reauthenticate() {
+    async reauthenticate(email = null, challenge = null) {
         const currentUser = Object.assign(new User(),await this.modelUser.getThisUser())
+
         let login = currentUser.login
         let password = currentUser.challenge
+        if(email !== null){
+            login = email
+            password = challenge
+        }
+
         if ((login != null) && (password != null)) {
 
             this.svc.reauthenticate(login, password)
@@ -34,14 +41,12 @@ class IndexController extends BaseController {
                 })
                 .catch(err => {
                     console.log(err)
-                    if (err == 401) {
-                        logout()
-                    } if (err == 400) {
-                        logout()
+                    if (err === 401) {
+                    } if (err === 400) {
                     } else {
                         this.displayServiceError()
-                        logout()
                     }
+                    logout()
                 })
         }
     }
@@ -79,7 +84,7 @@ class IndexController extends BaseController {
         const isAdmin = await this.modelUser.getThisUserIsAdmin(currentUser.id)
 
         if(isAdmin){
-            this.navigAdmin.innerHTML = "<a onClick=\"navigate('admin')\">Administration</a>"
+            this.navigAdmin.innerHTML = "<a onClick=\"navigate('admin')\" style='font-weight: 700;'>Administration</a>"
         }
     }
 

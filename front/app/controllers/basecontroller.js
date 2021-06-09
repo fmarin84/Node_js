@@ -3,13 +3,13 @@ class BaseController {
         if (secured) { this.checkAuthentication() }
         M.AutoInit();
         this.setBackButtonView('index')
+        this.getUserIsActive()
         this.model = new Model()
         this.modelItem = new ModelItem()
         this.modelUser = new ModelUser()
         this.modelShare = new ModelShare()
         this.modelNotification = new ModelNotification()
         this.modelPayment = new ModelPayment()
-
     }
 
     checkAuthentication() {
@@ -55,5 +55,19 @@ class BaseController {
         }; history.pushState({}, '');
     }
 
+    async getUserIsActive(){
+        const queryString = window.location.pathname
+        if(queryString === "/Node_js/front/login.html" || queryString === "/Node_js/front/register.html" || queryString === "/Node_js/front/forgetpassword.html" || queryString === "/Node_js/front/authentication.html"){
+        } else {
+            try {
+              const currentUser = await this.modelUser.getThisUser()
+              if(currentUser.isactived === false){
+                  logout()
+              }
+          } catch (err) {
+
+          }
+      }
+    }
 
 }

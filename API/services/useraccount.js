@@ -9,9 +9,19 @@ module.exports = class UserAccountService {
     }
 
     async isValide(login){
-        //const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login))
         const user = await this.dao.getByLogin(login)
-        return user.isactived
+        if(user === undefined){
+            return false
+        }
+        return true
+    }
+
+    async isActive(login){
+        const user = await this.dao.getByLogin(login)
+        if(user !== undefined){
+            return user.isactived
+        }
+        return false
     }
 
     async insert(displayname,login,password,isactived,jwt=null){
@@ -66,8 +76,7 @@ module.exports = class UserAccountService {
     }
     async validatePassword(login, password) {
         const user =  Object.assign(new UserAccount(), await this.dao.getByLogin(login.trim()))
-
-        if(user.isactived === false ){
+        if(user.isactived === undefined || user.isactived === false ){
             return false
         }
         return this.comparePassword(password, user.challenge)
