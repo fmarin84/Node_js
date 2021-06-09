@@ -3,13 +3,14 @@ class BaseController {
         if (secured) { this.checkAuthentication() }
         M.AutoInit();
         this.setBackButtonView('index')
-        this.getUserIsActive()
         this.model = new Model()
         this.modelItem = new ModelItem()
         this.modelUser = new ModelUser()
         this.modelShare = new ModelShare()
         this.modelNotification = new ModelNotification()
         this.modelPayment = new ModelPayment()
+        this.getUserIsActive()
+
     }
 
     checkAuthentication() {
