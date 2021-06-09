@@ -20,3 +20,9 @@ table.responsive-table {
     /* display: block; */
     position: relative;
 }
+
+.page-footer{
+    padding-top: 20px;
+    color: #fff;
+    background-color: #006c00;
+}
