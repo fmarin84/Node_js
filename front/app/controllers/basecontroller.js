@@ -59,8 +59,8 @@ class BaseController {
     async getUserIsActive(){
         const queryString = window.location.pathname
         console.log(queryString)
-        console.log(queryString === "/Node_js/front/index.html" || queryString === "index.html")
-        if(queryString === "/Node_js/front/index.html" || queryString === "index.html"){
+        console.log(queryString === "/Node_js/front/index.html" || queryString === "/index.html")
+        if(queryString === "/Node_js/front/index.html" || queryString === "/index.html"){
             try {
                 const currentUser = await this.modelUser.getThisUser()
                 if(currentUser.isactived === false){
