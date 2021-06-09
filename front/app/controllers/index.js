@@ -73,8 +73,9 @@ class IndexController extends BaseController {
         const currentUser = await this.modelUser.getThisUser()
         const isAbonne = await this.modelUser.getThisUserIsAbonne(currentUser.id)
         if(!isAbonne){
-            $('#btSubscrib').classList.remove("hidden")
-
+            if (typeof $('#btSubscrib') !== 'undefined') {
+                $('#btSubscrib').classList.remove("hidden")
+            }
         }
     }
 
