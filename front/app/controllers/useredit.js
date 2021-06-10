@@ -61,7 +61,7 @@ class UserEditController extends BaseFormController {
 
                 if ($("#editTitleCompte")) {
                     $("#editTitleCompte").innerHTML = `<h4> Modification de ${user.displayname}</h4>`
-                    $("#fieldAdresse").value = user.login
+                    $("#fieldLogin").value = user.login
 
                     for (let role of await this.modelUser.getRolesToUser(user.id)) {
                         content += `<tr>
@@ -128,7 +128,7 @@ class UserEditController extends BaseFormController {
 
 
     async save() {
-        let login = this.validateRequiredField("#fieldAdresse", 'Address')
+        let login = this.validateRequiredField("#fieldLogin", 'Address')
         if (login != null) {
             try {
                 if (this.selectedUser) {
@@ -159,45 +159,26 @@ class UserEditController extends BaseFormController {
                 this.displayServiceError()
             }
         }
-
     }
 
+    async resetPwdSendEmail(){
+        let login = this.validateRequiredField('#fieldLogin', 'Adresse e-mail')
 
-    async resetPwd() {
-
-        let oldPassword = this.validateRequiredField('#fieldOldMdp', 'old')
-        let password = this.validateRequiredField('#fieldMdp', 'Mot de passe')
-        let confpassword = this.validateRequiredField('#fieldconfMdp', 'Conf mot de passe')
-
-        if ((oldPassword != null) && (password != null) &&  (confpassword != null)) {
-
-            if(password !== confpassword){
-                this.toast("Les mots de passe ne sont pas identiques")
-                return false
-            }
-
-            try {
-                if (this.selectedUser) {
-                    this.selectedUser.challenge = password
-                    this.selectedUser.old = oldPassword
-                    if ( await this.modelUser.updatePwd(this.selectedUser) === 200) {
-                        this.toast("Votre mot de passe a bien été modifé")
+        if ((login != null)) {
+            this.svc.sendEmailForgetPwd(login)
+                .then(res => {
+                })
+                .catch(err => {
+                    console.log(err)
+                    if (err === 401) {
+                        this.toast("Adresse email invalide")
                     } else {
-                        if (await this.modelUser.updatePwd(this.selectedUser) === 401) {
-                            this.toast("Mot de passe incorrect")
-
-                        } else {
-                            this.displayServiceError()
-                        }
+                        this.displayServiceError()
                     }
-                }
-            } catch (err) {
-                console.log(err)
-            }
-
+                })
+            this.toast("Email envoyé")
         }
     }
-
 
 }
 
