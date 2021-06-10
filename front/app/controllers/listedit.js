@@ -48,16 +48,16 @@ class ListEditController extends BaseFormController {
 
                             let notif = null
                             for (let notification of notifications) {
-                                if( (notification.titre === "Modification liste paratager") && (notification.listshareid === self.list.id) && (list[0].useraccount_id === notification.fk_useraccount_id)) {
+                                if( (notification.titre === "Modification liste partager") && (notification.listshareid === self.list.id) && (list[0].useraccount_id === notification.fk_useraccount_id)) {
                                     notif = notification
                                 }
                             }
 
                             if( (notif === null) || (notif.islue  === true) ) {
                                 for (let user of await this.model.getUsersList(list[0].id)) {
-                                    await this.modelNotification.insert(new Notif("Modification liste paratager", `La liste ${list.toString()} a été modifié par  ${currentUser.displayname}`, false, user.id, list[0].id))
+                                    await this.modelNotification.insert(new Notif("Modification liste partager", `La liste ${list.toString()} a été modifié par  ${currentUser.displayname}`, false, user.id, list[0].id))
                                 }
-                                await this.modelNotification.insert(new Notif("Modification liste paratager", `La liste ${list.toString()}  a été modifié par  ${currentUser.displayname}`, false, list[0].useraccount_id, list[0].id))
+                                await this.modelNotification.insert(new Notif("Modification liste partager", `La liste ${list.toString()}  a été modifié par  ${currentUser.displayname}`, false, list[0].useraccount_id, list[0].id))
                             }
                         }
 
