@@ -41,7 +41,7 @@ class ListEditController extends BaseFormController {
                         this.toast("La liste a bien été modifé")
 
                         const list = await this.model.getListsShareByList(self.list.id)
-                        const currentUser = await this.modelUser.getThisUser()
+                        const currentUser = Object.assign(new User(), await this.modelUser.getThisUser())
 
                         if (list.length !== 0 ) {
                             const notifications = await this.modelNotification.getNotificationByListShareId(list[0].id)
@@ -55,9 +55,9 @@ class ListEditController extends BaseFormController {
 
                             if( (notif === null) || (notif.islue  === true) ) {
                                 for (let user of await this.model.getUsersList(list[0].id)) {
-                                    await this.modelNotification.insert(new Notif("Modification liste paratager", `La liste ${list.toString()} a été modifié par  ${currentUser.displayName}`, false, user.id, list[0].id))
+                                    await this.modelNotification.insert(new Notif("Modification liste paratager", `La liste ${list.toString()} a été modifié par  ${currentUser.displayname}`, false, user.id, list[0].id))
                                 }
-                                await this.modelNotification.insert(new Notif("Modification liste paratager", `La liste ${list.toString()} + a été modifié par  ${currentUser.displayName}`, false, list[0].useraccount_id, list[0].id))
+                                await this.modelNotification.insert(new Notif("Modification liste paratager", `La liste ${list.toString()}  a été modifié par  ${currentUser.displayname}`, false, list[0].useraccount_id, list[0].id))
                             }
                         }
 
