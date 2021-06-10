@@ -55,7 +55,7 @@ module.exports = class UserAccountService {
         let info = await transporter.sendMail({
             to: login,
             subject: "Inscription [ESIMED NODEJS]",
-            html: "Bonjour,<br>Pour confirmer votre inscription<br>Cliquez ici : <a href='"+lien+"'>"+lien+"</a>",
+            html: "Bonjour,<br>pour confirmer votre inscription<br>Cliquez ici : <a href='"+lien+"'>"+lien+"</a>",
         });
 
         console.log("Message sent: %s", info.messageId);

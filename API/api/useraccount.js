@@ -121,7 +121,7 @@ module.exports = (app, svc, svcNotification,svcPayment, jwt, transporter) => {
                     res.status(500).end()
                 })
 
-            const html = `Bonjour,<br> Félicitation vous etes inscrit sur notre site listedecousre.fr <br>Commande effectuer le ${payement.created_at} au nom de : ${payement.nom}${payement.prenom} pour le compte de ${user.displayname}`
+            const html = `Félicitation vous êtes abonnée à notre site listedecousre.fr <br>Commande effectuez-le ${payement.created_at} au nom de : ${payement.nom}${payement.prenom} pour le compte de ${user.displayname}`
 
             let mailOptions = {
                 from: 'fabien.esimed@gmail.com',
